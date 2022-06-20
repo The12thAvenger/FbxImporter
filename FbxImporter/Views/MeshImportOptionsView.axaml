@@ -1,0 +1,37 @@
+﻿<rxui:ReactiveWindow xmlns="https://github.com/avaloniaui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:rxui="http://reactiveui.net"
+                     xmlns:vm="clr-namespace:FbxImporter.ViewModels"
+                     xmlns:m="clr-namespace:FbxImporter.Models"
+                     mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="300"
+                     x:TypeArguments="vm:MeshImportOptionsViewModel" 
+                     x:Class="FbxImporter.Views.MeshImportOptionsView"
+                     WindowStartupLocation="CenterOwner"
+                     Height="300"
+                     Width="200">
+    <!-- <Design.DataContext> -->
+    <!--     <vm:MeshImportOptionsViewModel/> -->
+    <!-- </Design.DataContext> -->
+
+    <ScrollViewer>
+        <Grid RowDefinitions="40, Auto, *, 40" Margin="5">
+            <ComboBox Items="{Binding Materials}" SelectedItem="{Binding SelectedMaterial}" Grid.Row="0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="m:MaterialInfo">
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <StackPanel Grid.Row="2" Margin="0, 10">
+                <CheckBox Content="Create Default Bone" IsChecked="{Binding CreateDefaultBone}"/>
+                <CheckBox Content="Mirror" IsChecked="{Binding MirrorX}"/>
+                <CheckBox Content="Cloth Mesh" IsChecked="{Binding IsCloth}" IsVisible="False"/>
+            </StackPanel>
+            <Grid ColumnDefinitions="*, *" Grid.Row="3">
+                <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="0, 0, 2, 0" Grid.Column="0" />
+                <Button Content="Ok" Command="{Binding ConfirmCommand}" Margin="2, 0, 0, 0" Grid.Column="1" />
+            </Grid>
+        </Grid></ScrollViewer>
+</rxui:ReactiveWindow>

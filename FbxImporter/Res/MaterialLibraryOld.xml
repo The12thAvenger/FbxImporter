@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MaterialLibrary>
+    <Material Name="C[ARSN]_e_Cloth" MtdPath="N:\FDP\data\Material\mtd\character\C[ARSN]_e_Cloth.mtd">
+        <Textures>
+            <Texture Type="g_DiffuseTexture"/>
+            <Texture Type="g_SpecularTexture"/>
+            <Texture Type="g_ShininessTexture"/>
+            <Texture Type="g_BumpmapTexture"/>
+            <Texture Type="g_DetailBumpmapTexture"/>
+            <Texture Type="g_BloodMaskTexture"/>
+            <Texture Type="g_DisplacementTexture"/>
+        </Textures>
+    </Material>
+</MaterialLibrary>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="FbxImporter/App.axaml" value="FbxImporter/FbxImporter.csproj" />
+        <entry key="FbxImporter/Themes/DarkTheme.axaml" value="FbxImporter/FbxImporter.csproj" />
+        <entry key="FbxImporter/Views/ClothDataSelector.axaml" value="FbxImporter/FbxImporter.csproj" />
+        <entry key="FbxImporter/Views/ClothDataSelectorView.axaml" value="FbxImporter/FbxImporter.csproj" />
+        <entry key="FbxImporter/Views/FbxSceneDataView.axaml" value="FbxImporter/FbxImporter.csproj" />
+        <entry key="FbxImporter/Views/FlverView.axaml" value="FbxImporter/FbxImporter.csproj" />
+        <entry key="FbxImporter/Views/MainWindow.axaml" value="FbxImporter/FbxImporter.csproj" />
+        <entry key="FbxImporter/Views/MeshImportOptionsView.axaml" value="FbxImporter/FbxImporter.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

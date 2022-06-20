@@ -1,0 +1,111 @@
+<rxui:ReactiveWindow xmlns="https://github.com/avaloniaui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:vm="using:FbxImporter.ViewModels"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:rxui="http://reactiveui.net"
+                     mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
+                     x:Class="FbxImporter.Views.MainWindow"
+                     x:TypeArguments="vm:MainWindowViewModel" 
+                     Icon="/Assets/avalonia-logo.ico"
+                     Title="FbxImporter"
+                     Width="600"
+                     Height="500"
+                     WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Window.Styles>
+        <Style Selector="TextBlock.header">
+            <Setter Property="FontSize" Value="{DynamicResource FontSizeLarge}"/>
+        </Style>
+        <Style Selector="Border.inner">
+            <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderLowBrush}"/>
+            <Setter Property="BorderThickness" Value="{DynamicResource ThemeBorderThickness}"/>
+        </Style>
+        <Style Selector="Menu">
+            <Setter Property="Background" Value="{DynamicResource ThemeControlMidColor}"></Setter>
+        </Style>
+        <Style Selector="Menu > MenuItem">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Width" Value="40"/>
+        </Style>
+        <Style Selector="Menu > MenuItem /template/ ContentPresenter#PART_HeaderPresenter">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </Window.Styles>
+    
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Height="30">
+            <MenuItem Header="_File">
+                <MenuItem.Items>
+                    <MenuItem Header="_Open" HotKey="Ctrl+O" Command="{Binding OpenFlverCommand}"/>
+                    <MenuItem Header="_Save" HotKey="Ctrl+S" Command="{Binding SaveFlverCommand}" IsEnabled="{Binding Flver, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                    <MenuItem Header="Save As..." HotKey="Ctrl+Shift+S" Command="{Binding SaveFlverAsCommand}" IsEnabled="{Binding Flver, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                    <MenuItem Header="_Import Fbx" HotKey="Ctrl+I" Command="{Binding ImportFbxCommand}" IsEnabled="{Binding !IsImporting}"/>
+                </MenuItem.Items>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo" HotKey="Ctrl+Z" Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}"/>
+                <MenuItem Header="_Redo" HotKey="Ctrl+Shift+Z" Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}"/>
+            </MenuItem>
+        </Menu>
+        <Border DockPanel.Dock="Bottom" 
+                Margin="10, 10"
+                Classes="inner">
+            <ScrollViewer Height="100" ScrollChanged="Log_OnScrollChanged" VerticalContentAlignment="Top">
+                <TextBlock Text="{Binding Log}"
+                         Classes="inner"
+                         Margin="5"
+                         VerticalAlignment="Top"/>
+            </ScrollViewer>
+        </Border>
+        <Grid ColumnDefinitions="*, *">
+            <Border Margin="10, 10, 10, 0" Classes="inner" Grid.Column="0">
+                <Grid RowDefinitions="*, 6*, *" Margin="15, 0, 15, 10" >
+                    <TextBlock Text="Flver Meshes" Classes="header" VerticalAlignment="Center"
+                               HorizontalAlignment="Center" Grid.Row="0"/>
+                    <ContentControl Content="{Binding Flver}" 
+                                    BorderBrush="{DynamicResource ThemeBorderLowBrush}" 
+                                    BorderThickness="{DynamicResource ThemeBorderThickness}"
+                                    Grid.Row="1"/>
+                    <Grid ColumnDefinitions="*, *, *" Grid.Row="2" Grid.Column="0">
+                        <Button Content="Delete Mesh" ToolTip.Tip="Delete the selected mesh" HotKey="Delete"
+                                Command="{Binding Flver.DeleteMeshCommand}"
+                                Grid.Column="0"
+                                Margin="0, 5,2, 0"/>
+                        <Button Content="Reorder Vertices"
+                                ToolTip.Tip="Reorder the vertices and faceset indices of the selected mesh based on a cloth pose"
+                                Command="{Binding Flver.ReorderVerticesCommand}"
+                                Grid.Column="1"
+                                Margin="2, 5,2, 0"/>
+                        <Button Content="Save Material Info"
+                                ToolTip.Tip="Save the material info of the selected mesh."
+                                Command="{Binding SaveMaterialInfoCommand}"
+                                Grid.Column="2"
+                                Margin="2, 5,0, 0"/>
+                    </Grid>
+                </Grid>
+            </Border>
+            <Border Margin="10, 10, 10, 0" Classes="inner" Grid.Column="1">
+                <Grid RowDefinitions="*, 6*, *" Margin="10, 0, 10, 10">
+                    <TextBlock Text="Fbx Meshes" Classes="header" VerticalAlignment="Center"
+                               HorizontalAlignment="Center" Grid.Row="0" />
+                    <ContentControl Content="{Binding Fbx}"
+                                    BorderBrush="{DynamicResource ThemeBorderLowBrush}" 
+                                    BorderThickness="{DynamicResource ThemeBorderThickness}"
+                                    Grid.Row="1" />
+                    <Button Content="Add To Flver"
+                            ToolTip.Tip="Add the selected fbx mesh to the current flver file."
+                            Command="{Binding AddToFlverCommand}"
+                            IsEnabled="{Binding CanAddToFlver}"
+                            Grid.Row="2"
+                            Margin="0, 5, 0, 0"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </DockPanel>
+</rxui:ReactiveWindow>
