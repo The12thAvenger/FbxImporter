@@ -1,0 +1,1239 @@
+{
+    "Version": "Dark Souls 3",
+    "Materials": [
+        {
+            "Name": "C[ARSN]_e_Cloth",
+            "MtdPath": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_e_Cloth.mtd",
+            "Material": {
+                "Name": "#00#cape_cloth",
+                "MTD": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_e_Cloth.mtd",
+                "Flags": 1188,
+                "Textures": [
+                    {
+                        "Type": "g_DiffuseTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Cape_a.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_SpecularTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Cape_r.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_ShininessTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyShininess.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BumpmapTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Cape_n.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DetailBumpmapTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyNormal.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BloodMaskTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DisplacementTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    }
+                ],
+                "GXIndex": 0,
+                "Unk18": 0
+            },
+            "BufferLayouts": [
+                [
+                    {
+                        "Unk00": 0,
+                        "Type": 2,
+                        "Semantic": 0,
+                        "Index": 0,
+                        "Size": 12
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 3,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 0,
+                        "Size": 4
+                    }
+                ],
+                [
+                    {
+                        "Unk00": 1,
+                        "Type": 17,
+                        "Semantic": 7,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 17,
+                        "Semantic": 2,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 19,
+                        "Semantic": 1,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 19,
+                        "Semantic": 10,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 22,
+                        "Semantic": 5,
+                        "Index": 0,
+                        "Size": 8
+                    }
+                ]
+            ],
+            "GXList": [
+                {
+                    "ID": "GX00",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                {
+                    "ID": "GX04",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAKBAAACAPwAAAD8AAAAAAACgQAAAAD8AAIA/AAAAAAAAAAAAAAAAAAAAAA=="
+                },
+                {
+                    "ID": "GX20",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX22",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX24",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX26",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX30",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                }
+            ]
+        },
+        {
+            "Name": "C[ARSN]_e",
+            "MtdPath": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_e.mtd",
+            "Material": {
+                "Name": "#04# c6200_Cape",
+                "MTD": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_e.mtd",
+                "Flags": 1178,
+                "Textures": [
+                    {
+                        "Type": "g_DiffuseTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Cape_a.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_SpecularTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Cape_r.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_ShininessTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyShininess.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BumpmapTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Cape_n.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DetailBumpmapTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyNormal.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BloodMaskTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DisplacementTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    }
+                ],
+                "GXIndex": 0,
+                "Unk18": 0
+            },
+            "BufferLayouts": [
+                [
+                    {
+                        "Unk00": 0,
+                        "Type": 2,
+                        "Semantic": 0,
+                        "Index": 0,
+                        "Size": 12
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 3,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 2,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 19,
+                        "Semantic": 1,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 19,
+                        "Semantic": 10,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 22,
+                        "Semantic": 5,
+                        "Index": 0,
+                        "Size": 8
+                    }
+                ]
+            ],
+            "GXList": [
+                {
+                    "ID": "GX00",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                {
+                    "ID": "GX04",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAKBAAACAPwAAAD8AAAAAAACgQAAAAD8AAIA/AAAAAAAAAAAAAAAAAAAAAA=="
+                },
+                {
+                    "ID": "GX20",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX22",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX24",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX26",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX30",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                }
+            ]
+        },
+        {
+            "Name": "C[ARSN]_em_e_Glow",
+            "MtdPath": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_em_e_Glow.mtd",
+            "Material": {
+                "Name": "#04# c6200_Body",
+                "MTD": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_em_e_Glow.mtd",
+                "Flags": 1330,
+                "Textures": [
+                    {
+                        "Type": "g_DiffuseTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Body_a.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_SpecularTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Body_r.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_ShininessTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyShininess.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BumpmapTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Body_n.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DetailBumpmapTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyNormal.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_EmissiveTexture",
+                        "Path": "N:\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Body_em.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BloodMaskTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DisplacementTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    }
+                ],
+                "GXIndex": 1,
+                "Unk18": 0
+            },
+            "BufferLayouts": [
+                [
+                    {
+                        "Unk00": 0,
+                        "Type": 2,
+                        "Semantic": 0,
+                        "Index": 0,
+                        "Size": 12
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 3,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 2,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 19,
+                        "Semantic": 1,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 19,
+                        "Semantic": 10,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 22,
+                        "Semantic": 5,
+                        "Index": 0,
+                        "Size": 8
+                    }
+                ]
+            ],
+            "GXList": [
+                {
+                    "ID": "GX00",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                {
+                    "ID": "GX03",
+                    "Unk04": 100,
+                    "Data": "AAAAPwAAAAAAAAAAAAAAAA=="
+                },
+                {
+                    "ID": "GX04",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAKBAAACAPwAAAD8AAAAAAACgQAAAAD8AAIA/AAAAAAAAAAAAAAAAAAAAAA=="
+                },
+                {
+                    "ID": "GX20",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX22",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX24",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX26",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX32",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX30",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                }
+            ]
+        },
+        {
+            "Name": "P[ARSN]_SSS",
+            "MtdPath": "N:\\FDP\\data\\Material\\mtd\\parts\\P[ARSN]_SSS.mtd",
+            "Material": {
+                "Name": "c6200_Face",
+                "MTD": "N:\\FDP\\data\\Material\\mtd\\parts\\P[ARSN]_SSS.mtd",
+                "Flags": 1040,
+                "Textures": [
+                    {
+                        "Type": "g_DiffuseTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Face_a.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_SpecularTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Face_r.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_ShininessTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyShininess.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BumpmapTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Face_n.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_ScatteringMaskTexture",
+                        "Path": "N:\\FDP\\data\\Other\\SysTex\\SYSTEX_DummyScatteringMask.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BloodMaskTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    }
+                ],
+                "GXIndex": 2,
+                "Unk18": 0
+            },
+            "BufferLayouts": [
+                [
+                    {
+                        "Unk00": 0,
+                        "Type": 2,
+                        "Semantic": 0,
+                        "Index": 0,
+                        "Size": 12
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 3,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 2,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 19,
+                        "Semantic": 1,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 19,
+                        "Semantic": 10,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 22,
+                        "Semantic": 5,
+                        "Index": 0,
+                        "Size": 8
+                    }
+                ]
+            ],
+            "GXList": [
+                {
+                    "ID": "GX00",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                {
+                    "ID": "GX05",
+                    "Unk04": 100,
+                    "Data": "AACAPwAAAAAAAAAAAAAAAA=="
+                },
+                {
+                    "ID": "GX20",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX22",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX24",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX26",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX15",
+                    "Unk04": 100,
+                    "Data": "zcxMPs3MTD7NzEw+AAAAAAAAAAAAAAAA"
+                }
+            ]
+        },
+        {
+            "Name": "C[ARSN]_e_Decal",
+            "MtdPath": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_e_Decal.mtd",
+            "Material": {
+                "Name": "c6200_Hair",
+                "MTD": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_e_Decal.mtd",
+                "Flags": 1180,
+                "Textures": [
+                    {
+                        "Type": "g_DiffuseTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Hair_a.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_SpecularTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Hair_r.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_ShininessTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyShininess.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BumpmapTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Hair_n.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DetailBumpmapTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyNormal.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BloodMaskTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DisplacementTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    }
+                ],
+                "GXIndex": 0,
+                "Unk18": 0
+            },
+            "BufferLayouts": [
+                [
+                    {
+                        "Unk00": 0,
+                        "Type": 2,
+                        "Semantic": 0,
+                        "Index": 0,
+                        "Size": 12
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 3,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 2,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 19,
+                        "Semantic": 1,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 19,
+                        "Semantic": 10,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 22,
+                        "Semantic": 5,
+                        "Index": 0,
+                        "Size": 8
+                    }
+                ]
+            ],
+            "GXList": [
+                {
+                    "ID": "GX00",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                {
+                    "ID": "GX04",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAKBAAACAPwAAAD8AAAAAAACgQAAAAD8AAIA/AAAAAAAAAAAAAAAAAAAAAA=="
+                },
+                {
+                    "ID": "GX20",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX22",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX24",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX26",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX30",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                }
+            ]
+        },
+        {
+            "Name": "C[ARSN]_e_Cloth_Decal",
+            "MtdPath": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_e_Cloth_Decal.mtd",
+            "Material": {
+                "Name": "Beard_cloth",
+                "MTD": "N:\\FDP\\data\\Material\\mtd\\character\\C[ARSN]_e_Cloth_Decal.mtd",
+                "Flags": 1194,
+                "Textures": [
+                    {
+                        "Type": "g_DiffuseTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Hair_a.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_SpecularTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Hair_r.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_ShininessTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyShininess.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BumpmapTexture",
+                        "Path": "D:\\alienbrainWork\\FDP\\data\\Model\\chr\\c6200\\tex\\c6200_Hair_n.tif",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 1,
+                        "Unk11": true,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DetailBumpmapTexture",
+                        "Path": "N:\\SPRJ\\data\\Other\\SysTex\\SYSTEX_DummyNormal.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_BloodMaskTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    },
+                    {
+                        "Type": "g_DisplacementTexture",
+                        "Path": "N:\\LiveTokyo\\data\\model\\common\\tex\\dummy128.tga",
+                        "Scale": {
+                            "X": 1.0,
+                            "Y": 1.0
+                        },
+                        "Unk10": 0,
+                        "Unk11": false,
+                        "Unk14": 0.0,
+                        "Unk18": 0.0,
+                        "Unk1C": 0.0
+                    }
+                ],
+                "GXIndex": 0,
+                "Unk18": 0
+            },
+            "BufferLayouts": [
+                [
+                    {
+                        "Unk00": 0,
+                        "Type": 2,
+                        "Semantic": 0,
+                        "Index": 0,
+                        "Size": 12
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 3,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 0,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 0,
+                        "Size": 4
+                    }
+                ],
+                [
+                    {
+                        "Unk00": 1,
+                        "Type": 17,
+                        "Semantic": 7,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 17,
+                        "Semantic": 6,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 17,
+                        "Semantic": 2,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 19,
+                        "Semantic": 1,
+                        "Index": 0,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 19,
+                        "Semantic": 10,
+                        "Index": 1,
+                        "Size": 4
+                    },
+                    {
+                        "Unk00": 1,
+                        "Type": 22,
+                        "Semantic": 5,
+                        "Index": 0,
+                        "Size": 8
+                    }
+                ]
+            ],
+            "GXList": [
+                {
+                    "ID": "GX00",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                {
+                    "ID": "GX04",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAKBAAACAPwAAAD8AAAAAAACgQAAAAD8AAIA/AAAAAAAAAAAAAAAAAAAAAA=="
+                },
+                {
+                    "ID": "GX20",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX22",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX24",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX26",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                },
+                {
+                    "ID": "GX30",
+                    "Unk04": 100,
+                    "Data": "AAAAAAAAAAAAAAAA"
+                }
+            ]
+        }
+    ]
+}
