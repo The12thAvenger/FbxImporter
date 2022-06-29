@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.ReactiveUI;
-using FbxImporter.Models;
 using FbxImporter.ViewModels;
 using ReactiveUI;
 

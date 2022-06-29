@@ -1,21 +1,26 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
-using System.Reactive.Linq;
-using FbxImporter.Models;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using SoulsFormats;
+using SoulsAssetPipeline.FLVERImporting;
 
 namespace FbxImporter.ViewModels;
 
 public class MeshImportOptionsViewModel : ViewModelBase
 {
-    public MeshImportOptionsViewModel(MaterialLibrary materialLibrary)
+    private readonly FLVER2MaterialInfoBank _materialInfoBank;
+
+    public MeshImportOptionsViewModel(string meshName, FLVER2MaterialInfoBank materialInfoBank)
     {
-        Materials = new ObservableCollection<MaterialInfo>(materialLibrary.Materials);
-        SelectedMaterial = Materials[0];
-        
-        this.WhenAnyValue(x => x.SelectedMaterial).Select(x => new ObservableCollection<FLVER2.Texture>(x.Material.Textures)).ToPropertyEx(this, x => x.Textures);
+        _materialInfoBank = materialInfoBank;
+        Materials = new ObservableCollection<string>(materialInfoBank.MaterialDefs.Keys.Where(x => x != string.Empty).OrderBy(x => x));
+
+        string[] meshNameParts = meshName.Split('|', StringSplitOptions.TrimEntries);
+        SelectedMaterial = meshNameParts.Length > 1
+            ? Materials.FirstOrDefault(x => string.Equals(x.Replace(".mtd", ""), meshNameParts[1].Replace(".mtd", ""), StringComparison.CurrentCultureIgnoreCase)) ?? Materials[0]
+            : Materials[0];
 
         CancelCommand = ReactiveCommand.Create(Cancel);
 
@@ -28,11 +33,9 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
     [Reactive] public bool MirrorX { get; set; }  = true;
 
-    public ObservableCollection<MaterialInfo> Materials { get; }
+    public ObservableCollection<string> Materials { get; }
 
-    [Reactive] public MaterialInfo SelectedMaterial { get; set; }
-
-    [ObservableAsProperty] public extern ObservableCollection<FLVER2.Texture> Textures { get; }
+    [Reactive] public string SelectedMaterial { get; set; }
 
     public ReactiveCommand<Unit, MeshImportOptions> ConfirmCommand { get; }
     
@@ -50,7 +53,8 @@ public class MeshImportOptionsViewModel : ViewModelBase
             CreateDefaultBone = CreateDefaultBone,
             MirrorX = MirrorX,
             IsCloth = IsCloth,
-            MaterialInfo = SelectedMaterial
+            MTD = SelectedMaterial,
+            MaterialInfoBank = _materialInfoBank
         };
     }
 }

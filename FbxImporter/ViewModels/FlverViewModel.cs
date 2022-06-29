@@ -12,6 +12,7 @@ using FbxImporter.Util;
 using ReactiveHistory;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using SoulsAssetPipeline.FLVERImporting;
 using SoulsFormats;
 using ReactiveCommand = ReactiveUI.ReactiveCommand;
 
@@ -22,7 +23,11 @@ public class FlverViewModel : ViewModelBase
     public FlverViewModel(FLVER2 flver, IHistory history)
     {
         Flver = flver;
-        History = history;
+        _history = history;
+
+        string xmlPath = GetMaterialInfoBankPath(flver.Header.Version);
+        MaterialInfoBank = FLVER2MaterialInfoBank.ReadFromXML(xmlPath);
+        
         Meshes = new ObservableCollection<FlverMeshViewModel>(flver.Meshes.Select(x => new FlverMeshViewModel(flver, x)));
         
         IObservable<bool> isMeshSelected = this.WhenAnyValue(x => x.SelectedMesh).Select(x => x is not null);
@@ -31,9 +36,22 @@ public class FlverViewModel : ViewModelBase
         ReorderVerticesCommand.ThrownExceptions.Subscribe(Logger.Log);
     }
 
-    public FLVER2 Flver { get; set; }
+    private static string GetMaterialInfoBankPath(int headerVersion)
+    {
+        string basePath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "SapResources", "FLVER2MaterialInfoBank");
+        return headerVersion switch
+        {
+            131092 => Path.Join(basePath, "BankDS3.xml"),
+            _ => throw new ArgumentOutOfRangeException(nameof(headerVersion),
+                                                       "Failed to load flver. Unsupported flver version.")
+        };
+    }
 
-    private IHistory History { get; }
+    public FLVER2 Flver { get; }
+
+    private readonly IHistory _history;
+
+    public FLVER2MaterialInfoBank MaterialInfoBank { get; set; }
 
     public ObservableCollection<FlverMeshViewModel> Meshes { get; set; }
 
@@ -54,7 +72,7 @@ public class FlverViewModel : ViewModelBase
         List<List<int>> facesetIndices = mesh.FaceSets.Select(x => x.Indices.ToList()).ToList();
         List<FLVER.Vertex> vertices = mesh.Vertices.Select(x => new FLVER.Vertex(x)).ToList();
 
-        History.Snapshot(Undo, Redo);
+        _history.Snapshot(Undo, Redo);
         Redo();
         Logger.Log("Successfully reordered vertices.");
 
@@ -76,7 +94,7 @@ public class FlverViewModel : ViewModelBase
     private void DeleteMeshWithHistory()
     {
         int index = Meshes.IndexOf(SelectedMesh!);
-        Meshes.RemoveWithHistory(SelectedMesh!, History);
+        Meshes.RemoveWithHistory(SelectedMesh!, _history);
         if (Meshes.Any())
         {
             SelectedMesh = Meshes.Count > index ? Meshes[index] : Meshes[index - 1];

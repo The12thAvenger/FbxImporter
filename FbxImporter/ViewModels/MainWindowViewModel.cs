@@ -4,13 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using FbxImporter.Models;
-using FbxImporter.Util;
 using Newtonsoft.Json;
-using Reactive.Bindings.Extensions;
 using ReactiveHistory;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -18,25 +14,11 @@ using SoulsFormats;
 
 namespace FbxImporter.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase, ILoggable, IDisposable
+    public class MainWindowViewModel : ViewModelBase, ILoggable
     {
         public MainWindowViewModel()
         {
-            Disposable = new CompositeDisposable();
-            History = new StackHistory();
-            
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            MaterialLibraryPath = Path.Join(baseDirectory, "Res", "MaterialLibrary.json");
-            if (File.Exists(MaterialLibraryPath))
-            {
-                string materialLibrary = File.ReadAllText(MaterialLibraryPath);
-                MaterialLibrary = JsonConvert.DeserializeObject<MaterialLibrary>(materialLibrary) ??
-                                  throw new InvalidDataException("MaterialLibrary could not be read.");
-            }
-            else
-            {
-                MaterialLibrary = new MaterialLibrary("Dark Souls 3");
-            }
+            _history = new StackHistory();
 
             IObservable<bool> isFlverMeshSelected = this.WhenAnyValue(x => x.Flver!.SelectedMesh).Select(x => x is { });
             SaveFlverCommand = ReactiveCommand.Create(SaveFlver);
@@ -44,32 +26,24 @@ namespace FbxImporter.ViewModels
             SaveFlverAsCommand = ReactiveCommand.CreateFromTask(SaveFlverAsAsync);
             ImportFbxCommand = ReactiveCommand.CreateFromTask(ImportFbxAsync);
             AddToFlverCommand = ReactiveCommand.CreateFromTask(AddToFlverAsync);
-            SaveMaterialInfoCommand = ReactiveCommand.CreateFromTask(SaveMaterialInfoAsync, isFlverMeshSelected);
 
-            UndoCommand = ReactiveCommand.Create(History.Undo);
-            RedoCommand = ReactiveCommand.Create(History.Redo);
+            UndoCommand = ReactiveCommand.Create(_history.Undo);
+            RedoCommand = ReactiveCommand.Create(_history.Redo);
 
             this.WhenAnyValue(x => x.Flver,
-                    y => y.Fbx!.SelectedMesh,
-                    (x, y) => x is not null && y is not null)
-                .ToPropertyEx(this, x => x.CanAddToFlver, initialValue: false)
-                .AddTo(Disposable);
+                              y => y.Fbx!.SelectedMesh,
+                              (x, y) => x is not null && y is not null)
+               .ToPropertyEx(this, x => x.CanAddToFlver, initialValue: false);
 
-            History.CanUndo.ToPropertyEx(this, x => x.CanUndo).AddTo(Disposable);
-            History.CanRedo.ToPropertyEx(this, x => x.CanRedo).AddTo(Disposable);
+            _history.CanUndo.ToPropertyEx(this, x => x.CanUndo);
+            _history.CanRedo.ToPropertyEx(this, x => x.CanRedo);
 
             IsImporting = false;
             
             Logger.CurrentLoggable = this;
         }
 
-        private CompositeDisposable Disposable { get; }
-
-        private IHistory History { get; }
-        
-        private MaterialLibrary MaterialLibrary { get; set; }
-
-        private string MaterialLibraryPath { get; set; }
+        private readonly IHistory _history;
 
         [Reactive] public FlverViewModel? Flver { get; set; }
 
@@ -99,19 +73,15 @@ namespace FbxImporter.ViewModels
 
         public ReactiveCommand<Unit, Unit> AddToFlverCommand { get; }
         
-        public ReactiveCommand<Unit, Unit> SaveMaterialInfoCommand { get; }
-        
         public ReactiveCommand<Unit,bool> RedoCommand { get; }
 
         public ReactiveCommand<Unit,bool> UndoCommand { get; }
-
-        public void Dispose() => Disposable.Dispose();
 
         [Reactive] public string Log { get; set; } = "";
 
         private async Task AddToFlverAsync()
         {
-            MeshImportOptionsViewModel optionsViewModel = new(MaterialLibrary);
+            MeshImportOptionsViewModel optionsViewModel = new(Fbx!.SelectedMesh!.Name, Flver!.MaterialInfoBank);
             MeshImportOptions? options = await GetMeshImportOptions.Handle(optionsViewModel);
             if (options is null) return;
             
@@ -124,7 +94,7 @@ namespace FbxImporter.ViewModels
             int boneIndex = Flver.Flver.Bones.Count;
             bool addedBone = Flver.Flver.Bones.All(x => x.Name != Fbx!.SelectedMesh!.Name) && options.CreateDefaultBone;
 
-            History.Snapshot(Undo, Redo);
+            _history.Snapshot(Undo, Redo);
             Redo();
 
             void Undo()
@@ -223,8 +193,8 @@ namespace FbxImporter.ViewModels
             GetFilePathArgs args = new("Open Flver", filters, GetPathMode.Open);
             string? flverPath = await GetFilePath.Handle(args);
             if (flverPath is null) return;
-            History.Clear();
-            Flver = new FlverViewModel(FLVER2.Read(flverPath), History);
+            _history.Clear();
+            Flver = new FlverViewModel(FLVER2.Read(flverPath), _history);
             FlverPath = flverPath;
         }
 
@@ -240,36 +210,6 @@ namespace FbxImporter.ViewModels
             if (flverPath is null) return;
             Flver!.Write(flverPath);
             FlverPath = flverPath;
-        }
-        
-        private async Task SaveMaterialInfoAsync()
-        {
-            FlverMeshViewModel selectedMesh = Flver!.SelectedMesh!;
-            if (MaterialLibrary.Materials.Any(x => x.MtdPath == selectedMesh.Material.MTD))
-            {
-                Logger.Log($"The material library already contains {selectedMesh.Material.Name}");
-                return;
-            }
-
-            List<FLVER2.BufferLayout> bufferLayouts = selectedMesh.Mesh.VertexBuffers
-                .Select(vertexBuffer => Flver.Flver.BufferLayouts[vertexBuffer.LayoutIndex])
-                .Select(FlverUtils.Clone)
-                .ToList();
-
-            MaterialLibrary.Materials.Add(new MaterialInfo(selectedMesh.Material.Clone(), bufferLayouts, selectedMesh.GxList.Clone()));
-
-            JsonSerializerSettings settings = new()
-            {
-                Formatting = Formatting.Indented
-            };
-            JsonSerializer serializer = JsonSerializer.Create(settings);
-            await using StreamWriter sw = new(MaterialLibraryPath);
-            using JsonWriter writer = new JsonTextWriter(sw)
-            {
-                Indentation = 4
-            };
-            serializer.Serialize(writer, MaterialLibrary);
-            Logger.Log($"Successfully added material {selectedMesh.Material.Name} to the material library.");
         }
 
         public enum GetPathMode
