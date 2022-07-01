@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using SoulsAssetPipeline.FLVERImporting;
 using SoulsFormats;
 
 namespace FbxImporter.Util;
@@ -59,12 +60,54 @@ public static class FlverUtils
             faceSet.Flip();
         }
     }
-    
+
     public static void Flip(this FLVER2.FaceSet faceSet)
     {
         for (int i = 0; i < faceSet.Indices.Count; i += 3)
         {
             (faceSet.Indices[i + 1], faceSet.Indices[i + 2]) = (faceSet.Indices[i + 2], faceSet.Indices[i + 1]);
+        }
+    }
+
+    public static void FixAllBoundingBoxes(this FLVER2 flver)
+    {
+        flver.Header.BoundingBoxMin = new System.Numerics.Vector3();
+        flver.Header.BoundingBoxMax = new System.Numerics.Vector3();
+        foreach (FLVER.Bone bone in flver.Bones)
+        {
+            bone.BoundingBoxMin = new System.Numerics.Vector3();
+            bone.BoundingBoxMax = new System.Numerics.Vector3();
+        }
+
+        foreach (FLVER2.Mesh mesh in flver.Meshes)
+        {
+            mesh.BoundingBox = new FLVER2.Mesh.BoundingBoxes();
+
+            foreach (FLVER.Vertex vertex in mesh.Vertices)
+            {
+                flver.Header.UpdateBoundingBox(vertex.Position);
+                if (mesh.BoundingBox != null)
+                    mesh.UpdateBoundingBox(vertex.Position);
+
+                for (int j = 0; j < vertex.BoneIndices.Length; j++)
+                {
+                    int boneIndex = vertex.BoneIndices[j];
+                    bool boneDoesNotExist = false;
+
+                    // Mark bone as not-dummied-out since there is geometry skinned to it.
+                    if (boneIndex >= 0 && boneIndex < flver.Bones.Count)
+                    {
+                        flver.Bones[boneIndex].Unk3C = 0;
+                    }
+                    else
+                    {
+                        boneDoesNotExist = true;
+                    }
+
+                    if (!boneDoesNotExist)
+                        flver.Bones[boneIndex].UpdateBoundingBox(flver.Bones, vertex.Position);
+                }
+            }
         }
     }
 }

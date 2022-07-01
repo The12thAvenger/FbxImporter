@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.ReactiveUI;
-using FbxImporter.Models;
 using FbxImporter.ViewModels;
 using ReactiveUI;
 
@@ -22,7 +21,6 @@ namespace FbxImporter.Views
                 d(ViewModel!.GetFilePath.RegisterHandler(GetFilePathAsync));
                 d(ViewModel!.GetMeshImportOptions.RegisterHandler(GetMeshImportOptionsAsync));
             });
-            Application.Current!.Resources["OverlayCornerRadius"] = new CornerRadius(0);
         }
 
         private async Task GetFilePathAsync(InteractionContext<MainWindowViewModel.GetFilePathArgs, string?> interaction)

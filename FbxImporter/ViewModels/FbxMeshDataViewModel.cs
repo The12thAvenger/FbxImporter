@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using FbxImporter.Models;
-using FbxImporter.Util;
 using Newtonsoft.Json;
 using SoulsFormats;
 
@@ -21,22 +20,26 @@ public class FbxMeshDataViewModel
     // ReSharper disable once CollectionNeverUpdated.Local
     [JsonProperty]
     private List<FbxVertexData> VertexData { get; set; } = new();
-        
+
     [JsonProperty]
     private List<int> VertexIndices { get; set; } = new();
 
     public FlverMeshViewModel ToFlverMesh(FLVER2 flver, MeshImportOptions options)
     {
-        FLVER2.Material newMaterial = options.MaterialInfo.Material.Clone();
-        newMaterial.Name = Name;
-        foreach (FLVER2.Texture texture in newMaterial.Textures)
+        string[] nameParts = Name.Split('|', StringSplitOptions.TrimEntries);
+        string name = nameParts.Length > 1 ? nameParts[0] : Name;
+        FLVER2.Material newMaterial = new()
         {
-            texture.Path = "";
-        }
+            Name = name,
+            MTD = options.MTD,
+            Textures = new List<FLVER2.Texture>(options.MaterialInfoBank.MaterialDefs[options.MTD].TextureChannels.Values.Select(x => new FLVER2.Texture { Type = x }))
+        };
         
-        FLVER2.GXList gxList = options.MaterialInfo.GXList.Clone();
+        FLVER2.GXList gxList = new();
+        gxList.AddRange(options.MaterialInfoBank.GetDefaultGXItemsForMTD(options.MTD));
+
         List<FLVER2.BufferLayout> bufferLayouts =
-            options.MaterialInfo.BufferLayouts.Select(FlverUtils.Clone).ToList();
+            options.MaterialInfoBank.MaterialDefs[options.MTD].AcceptableVertexBufferDeclarations[0].Buffers;
 
         List<int> layoutIndices = GetLayoutIndices(flver, bufferLayouts);
 
@@ -87,7 +90,7 @@ public class FbxMeshDataViewModel
                 BoneWeights = boneWeights
             };
 
-            PadVertex(newVertex, options.MaterialInfo.BufferLayouts);
+            PadVertex(newVertex, bufferLayouts);
 
             newMesh.Vertices.Add(newVertex);
         }
@@ -225,7 +228,3 @@ public class FbxMeshDataViewModel
 
     }
 }
-    
-// ReSharper disable once ClassNeverInstantiated.Global
-// Is instantiated through Json deserialization.
-public record FbxVertexData(float[] Position, float[] Normal, List<float[]> Tangents, List<float[]> UVs, string[] BoneNames, float[] BoneWeights);

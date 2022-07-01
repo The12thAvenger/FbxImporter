@@ -4,26 +4,15 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:rxui="http://reactiveui.net"
                      xmlns:vm="clr-namespace:FbxImporter.ViewModels"
-                     xmlns:m="clr-namespace:FbxImporter.Models"
                      mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="300"
                      x:TypeArguments="vm:MeshImportOptionsViewModel" 
                      x:Class="FbxImporter.Views.MeshImportOptionsView"
                      WindowStartupLocation="CenterOwner"
                      Height="300"
                      Width="200">
-    <!-- <Design.DataContext> -->
-    <!--     <vm:MeshImportOptionsViewModel/> -->
-    <!-- </Design.DataContext> -->
-
     <ScrollViewer>
         <Grid RowDefinitions="40, Auto, *, 40" Margin="5">
-            <ComboBox Items="{Binding Materials}" SelectedItem="{Binding SelectedMaterial}" Grid.Row="0">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate DataType="m:MaterialInfo">
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <ComboBox Items="{Binding Materials}" SelectedItem="{Binding SelectedMaterial}" VirtualizationMode="Simple" IsTextSearchEnabled="True" Grid.Row="0"/>
             <StackPanel Grid.Row="2" Margin="0, 10">
                 <CheckBox Content="Create Default Bone" IsChecked="{Binding CreateDefaultBone}"/>
                 <CheckBox Content="Mirror" IsChecked="{Binding MirrorX}"/>

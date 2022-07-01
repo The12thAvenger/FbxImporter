@@ -1,4 +1,6 @@
-﻿namespace FbxImporter.Models;
+﻿using SoulsAssetPipeline.FLVERImporting;
+
+namespace FbxImporter.ViewModels;
 
 public record MeshImportOptions
 {
@@ -8,5 +10,7 @@ public record MeshImportOptions
 
     public bool IsCloth { get; init; } = true;
 
-    public MaterialInfo MaterialInfo { get; init; }
+    public string MTD { get; init; } = null!;
+
+    public FLVER2MaterialInfoBank MaterialInfoBank { get; init; } = null!;
 }
