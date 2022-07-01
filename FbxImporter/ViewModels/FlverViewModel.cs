@@ -123,7 +123,11 @@ public class FlverViewModel : ViewModelBase
         {
             Flver.Materials.Add(Meshes[i].Material);
             Meshes[i].Mesh.MaterialIndex = i;
-            
+
+            if (Flver.Header.Version == 131098)
+            {
+                Meshes[i].Material.Unk18 = i;
+            }
             Flver.GXLists.Add(Meshes[i].GxList);
             Meshes[i].Material.GXIndex = i;
         }
