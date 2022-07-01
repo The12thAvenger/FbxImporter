@@ -10,16 +10,9 @@
                      WindowStartupLocation="CenterOwner"
                      Height="300"
                      Width="200">
-
     <ScrollViewer>
         <Grid RowDefinitions="40, Auto, *, 40" Margin="5">
-            <ComboBox Items="{Binding Materials}" SelectedItem="{Binding SelectedMaterial}" Grid.Row="0">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate DataType="vm:MaterialEntry">
-                        <TextBlock Text="{Binding MTD}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <ComboBox Items="{Binding Materials}" SelectedItem="{Binding SelectedMaterial}" VirtualizationMode="Simple" IsTextSearchEnabled="True" Grid.Row="0"/>
             <StackPanel Grid.Row="2" Margin="0, 10">
                 <CheckBox Content="Create Default Bone" IsChecked="{Binding CreateDefaultBone}"/>
                 <CheckBox Content="Mirror" IsChecked="{Binding MirrorX}"/>

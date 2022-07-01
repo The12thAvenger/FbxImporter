@@ -53,7 +53,7 @@ public class ClothDataSelectorViewModel : ViewModelBase
     public ObservableCollection<ClothData> ClothData { get; } = new();
 
     [Reactive] public bool MirrorX { get; set; } = true;
-    
+
     [Reactive] public ClothData? SelectedClothData { get; set; }
 
     public ReactiveCommand<Unit, ClothReorderOptions?> SelectClothDataCommand { get; }

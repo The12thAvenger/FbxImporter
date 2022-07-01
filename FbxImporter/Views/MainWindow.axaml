@@ -82,11 +82,6 @@
                                 Command="{Binding Flver.ReorderVerticesCommand}"
                                 Grid.Column="1"
                                 Margin="2, 5,2, 0"/>
-                        <!-- <Button Content="Save Material Info" -->
-                        <!--         ToolTip.Tip="Save the material info of the selected mesh." -->
-                        <!--         Command="{Binding SaveMaterialInfoCommand}" -->
-                        <!--         Grid.Column="2" -->
-                        <!--         Margin="2, 5,0, 0"/> -->
                     </Grid>
                 </Grid>
             </Border>

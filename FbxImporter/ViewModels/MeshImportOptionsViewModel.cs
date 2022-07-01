@@ -15,7 +15,8 @@ public class MeshImportOptionsViewModel : ViewModelBase
     public MeshImportOptionsViewModel(string meshName, FLVER2MaterialInfoBank materialInfoBank)
     {
         _materialInfoBank = materialInfoBank;
-        Materials = new ObservableCollection<string>(materialInfoBank.MaterialDefs.Keys.Where(x => x != string.Empty).OrderBy(x => x));
+        bool isErBank = materialInfoBank.MaterialDefs.Keys.Any(x => x.ToLower().StartsWith("aeg"));
+        Materials = new ObservableCollection<string>(materialInfoBank.MaterialDefs.Keys.Where(x => IsDisplayedMaterial(x, isErBank)).OrderBy(x => x));
 
         string[] meshNameParts = meshName.Split('|', StringSplitOptions.TrimEntries);
         SelectedMaterial = meshNameParts.Length > 1
@@ -26,7 +27,22 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
         ConfirmCommand = ReactiveCommand.Create(Confirm);
     }
-    
+
+    private static bool IsDisplayedMaterial(string materialName, bool isErBank)
+    {
+        if (string.IsNullOrEmpty(materialName))
+        {
+            return false;
+        }
+
+        if (isErBank && !materialName.ToLower().StartsWith("p[") && !materialName.ToLower().StartsWith("c["))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     [Reactive] public bool IsCloth { get; set; } = true;
 
     [Reactive] public bool CreateDefaultBone { get; set; } = true;
@@ -38,7 +54,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
     [Reactive] public string SelectedMaterial { get; set; }
 
     public ReactiveCommand<Unit, MeshImportOptions> ConfirmCommand { get; }
-    
+
     public ReactiveCommand<Unit, MeshImportOptions?> CancelCommand { get; }
 
     public MeshImportOptions? Cancel()

@@ -9,6 +9,6 @@ public class FbxSceneDataViewModel : ViewModelBase
 {
     [JsonProperty]
     [Reactive] public ObservableCollection<FbxMeshDataViewModel> MeshData { get; set; } = new();
-    
+
     [Reactive] public FbxMeshDataViewModel? SelectedMesh { get; set; }
 }

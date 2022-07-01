@@ -20,12 +20,14 @@ namespace FbxImporter.ViewModels;
 
 public class FlverViewModel : ViewModelBase
 {
+    private readonly IHistory _history;
+
     public FlverViewModel(FLVER2 flver, IHistory history)
     {
         Flver = flver;
         _history = history;
 
-        string xmlPath = GetMaterialInfoBankPath(flver.Header.Version);
+        string xmlPath = GetMaterialInfoBankPath(flver);
         MaterialInfoBank = FLVER2MaterialInfoBank.ReadFromXML(xmlPath);
         
         Meshes = new ObservableCollection<FlverMeshViewModel>(flver.Meshes.Select(x => new FlverMeshViewModel(flver, x)));
@@ -36,20 +38,7 @@ public class FlverViewModel : ViewModelBase
         ReorderVerticesCommand.ThrownExceptions.Subscribe(Logger.Log);
     }
 
-    private static string GetMaterialInfoBankPath(int headerVersion)
-    {
-        string basePath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "SapResources", "FLVER2MaterialInfoBank");
-        return headerVersion switch
-        {
-            131092 => Path.Join(basePath, "BankDS3.xml"),
-            _ => throw new ArgumentOutOfRangeException(nameof(headerVersion),
-                                                       "Failed to load flver. Unsupported flver version.")
-        };
-    }
-
     public FLVER2 Flver { get; }
-
-    private readonly IHistory _history;
 
     public FLVER2MaterialInfoBank MaterialInfoBank { get; set; }
 
@@ -62,6 +51,19 @@ public class FlverViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> ReorderVerticesCommand { get; }
 
     public Interaction<Unit, ClothReorderOptions?> GetClothPose { get; } = new();
+    
+    public Interaction<(string, string), Unit> ShowMessage { get; } = new();
+
+    private static string GetMaterialInfoBankPath(FLVER2 flver)
+    {
+        string basePath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "SapResources", "FLVER2MaterialInfoBank");
+        return flver.Header.Version switch
+        {
+            131092 => Path.Join(basePath, "BankDS3.xml"),
+            131098 => Path.Join(basePath, Path.GetExtension(flver.Materials[0].MTD) == ".matxml" ? "BankER.xml" : "BankSDT.xml"),
+            _ => throw new ArgumentOutOfRangeException(nameof(flver), "Failed to load flver. Unsupported flver version.")
+        };
+    }
 
     private async Task ReorderVerticesWithHistoryAsync()
     {
@@ -73,8 +75,18 @@ public class FlverViewModel : ViewModelBase
         List<FLVER.Vertex> vertices = mesh.Vertices.Select(x => new FLVER.Vertex(x)).ToList();
 
         _history.Snapshot(Undo, Redo);
-        Redo();
-        Logger.Log("Successfully reordered vertices.");
+
+        try
+        {
+            Redo();
+            Logger.Log("Successfully reordered vertices.");
+        }
+        catch (InvalidDataException e)
+        {
+            await ShowMessage.Handle(("Error Reordering Vertices", e.Message));
+            _history.Undo();
+            _history.Clear();
+        }
 
         void Undo()
         {
@@ -114,6 +126,11 @@ public class FlverViewModel : ViewModelBase
             Flver.GXLists.Add(Meshes[i].GxList);
             Meshes[i].Material.GXIndex = i;
         }
+
+        if (Flver.Header.Version == 131098)
+        {
+            Flver.FixAllBoundingBoxes();
+        }
         Flver.Write(path);
     }
 
@@ -150,7 +167,7 @@ public class FlverViewModel : ViewModelBase
             {
                 return matchingVertices[0];
             }
-            throw new InvalidDataException($"No matching vertex was found for vertex {position}");
+            throw new InvalidDataException($"No matching vertex was found for vertex {position}.\n Make sure to enable \"Do Not Split Vertices\" in the Havok Export Utility.\nIf the issue persists, export a version of the cloth data with \"Collapse Verts\" disabled in your sim mesh.");
     }
 
     private static List<FLVER.Vertex> GetMatchingVertices(Vector3 position, FLVER2.Mesh mesh, bool mirrorX, double accuracy = 0.00001)

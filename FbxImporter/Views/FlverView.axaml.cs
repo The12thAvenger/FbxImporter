@@ -22,7 +22,18 @@ public partial class FlverView : ReactiveUserControl<FlverViewModel>
     public FlverView()
     {
         InitializeComponent();
-        this.WhenActivated(d => d(ViewModel!.GetClothPose.RegisterHandler(GetClothPoseAsync)));
+        this.WhenActivated(d =>
+        {
+            d(ViewModel!.GetClothPose.RegisterHandler(GetClothPoseAsync));
+            d(ViewModel!.ShowMessage.RegisterHandler(HandleShowMessageInteraction));
+        });
+    }
+
+    private async Task HandleShowMessageInteraction(InteractionContext<(string, string), Unit> interaction)
+    {
+        (string title, string text) = interaction.Input;
+        await ShowMessage(title, text);
+        interaction.SetOutput(Unit.Default);
     }
 
     private async Task GetClothPoseAsync(InteractionContext<Unit, ClothReorderOptions?> interaction)
@@ -67,8 +78,8 @@ public partial class FlverView : ReactiveUserControl<FlverViewModel>
             }
             catch (Exception)
             {
-                IMsBoxWindow<ButtonResult>? messageBox = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error: Invalid File", "The selected file is not a valid havok xml packfile or does not contain any cloth data.");
-                await messageBox.Show(mainWindow);
+                await ShowMessage("Error: Invalid File",
+                                  "The selected file is not a valid havok 2014 xml packfile or does not contain any cloth data.");
             }
         }
 
@@ -101,14 +112,20 @@ public partial class FlverView : ReactiveUserControl<FlverViewModel>
                 clothDataSelectorViewModel.SelectedClothData = null;
                 continue;
             }
-            
-            IMsBoxWindow<ButtonResult>? messageBoxError = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error: Vertex Count Mismatch", 
-                $"The vertex count of the selected cloth data ({numPoseVertices}) does not match the vertex count of the selected mesh ({numSelectedVertices}).");
-            await messageBoxError.Show(mainWindow);
+
+            await ShowMessage("Error: Vertex Count Mismatch",
+                        $"The vertex count of the selected cloth data ({numPoseVertices}) does not match the vertex count of the selected mesh ({numSelectedVertices}).");
             
             clothDataSelectorViewModel.SelectedClothData = null;
         }
         interaction.SetOutput(options);
+    }
+
+    private async Task ShowMessage(string title, string text)
+    {
+        Window mainWindow = (Window) this.GetVisualRoot();
+        IMsBoxWindow<ButtonResult>? messageBoxError = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(title, text);
+        await messageBoxError.Show(mainWindow);
     }
 
     private void InitializeComponent()

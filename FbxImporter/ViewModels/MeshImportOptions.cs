@@ -11,6 +11,6 @@ public record MeshImportOptions
     public bool IsCloth { get; init; } = true;
 
     public string MTD { get; init; } = null!;
-    
+
     public FLVER2MaterialInfoBank MaterialInfoBank { get; init; } = null!;
 }

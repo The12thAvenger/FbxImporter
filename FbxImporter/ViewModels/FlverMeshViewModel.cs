@@ -23,7 +23,7 @@ public class FlverMeshViewModel : ViewModelBase
     public FLVER2.Mesh Mesh { get; }
 
     public FLVER2.Material Material { get; }
-    
+
     public FLVER2.GXList GxList { get; }
 
     public string Name { get; set; }

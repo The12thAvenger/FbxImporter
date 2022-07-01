@@ -16,6 +16,14 @@ namespace FbxImporter.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase, ILoggable
     {
+        public enum GetPathMode
+        {
+            Open,
+            Save
+        }
+
+        private readonly IHistory _history;
+
         public MainWindowViewModel()
         {
             _history = new StackHistory();
@@ -43,20 +51,18 @@ namespace FbxImporter.ViewModels
             Logger.CurrentLoggable = this;
         }
 
-        private readonly IHistory _history;
-
         [Reactive] public FlverViewModel? Flver { get; set; }
 
         [Reactive] public FbxSceneDataViewModel? Fbx { get; set; }
 
         private string? FlverPath { get; set; }
-        
+
         [ObservableAsProperty] public extern bool CanAddToFlver { get; }
-        
+
         [ObservableAsProperty] public extern bool CanUndo { get; }
-        
+
         [ObservableAsProperty] public extern bool CanRedo { get; }
-        
+
         [Reactive] public bool IsImporting { get; set; }
 
         public Interaction<GetFilePathArgs, string?> GetFilePath { get; } = new();
@@ -72,7 +78,7 @@ namespace FbxImporter.ViewModels
         public ReactiveCommand<Unit, Unit> ImportFbxCommand { get; }
 
         public ReactiveCommand<Unit, Unit> AddToFlverCommand { get; }
-        
+
         public ReactiveCommand<Unit,bool> RedoCommand { get; }
 
         public ReactiveCommand<Unit,bool> UndoCommand { get; }
@@ -87,7 +93,7 @@ namespace FbxImporter.ViewModels
             
             AddToFlverWithHistory(options);
         }
-        
+
         private void AddToFlverWithHistory(MeshImportOptions options)
         {
             int meshIndex = Flver!.Meshes.Count;
@@ -210,12 +216,6 @@ namespace FbxImporter.ViewModels
             if (flverPath is null) return;
             Flver!.Write(flverPath);
             FlverPath = flverPath;
-        }
-
-        public enum GetPathMode
-        {
-            Open,
-            Save
         }
 
         public record GetFilePathArgs(string Title, List<FileTypeFilter> Filters, GetPathMode Mode);
