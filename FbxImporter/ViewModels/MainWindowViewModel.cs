@@ -135,7 +135,11 @@ namespace FbxImporter.ViewModels
             };
             GetFilePathArgs args = new("Import Fbx", filters, GetPathMode.Open);
             string? fbxPath = await GetFilePath.Handle(args);
-            if (fbxPath is null) return;
+            if (fbxPath is null)
+            {
+                IsImporting = false;
+                return;
+            }
             
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             ProcessStartInfo startInfo = new()

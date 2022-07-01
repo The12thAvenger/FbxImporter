@@ -158,19 +158,28 @@ public class FbxMeshDataViewModel
             }
         }
 
-        for (int i = 0; i < usageCounts[FLVER.LayoutSemantic.Tangent] - vertex.Tangents.Count; i++)
+        if (usageCounts.ContainsKey(FLVER.LayoutSemantic.Tangent))
         {
-            vertex.Tangents.Add(Vector4.Zero);
+            for (int i = 0; i < usageCounts[FLVER.LayoutSemantic.Tangent] - vertex.Tangents.Count; i++)
+            {
+                vertex.Tangents.Add(Vector4.Zero);
+            }
         }
-            
-        for (int i = 0; i < usageCounts[FLVER.LayoutSemantic.UV] - vertex.UVs.Count; i++)
+        
+        if (usageCounts.ContainsKey(FLVER.LayoutSemantic.UV))
         {
-            vertex.UVs.Add(Vector3.Zero);
+            for (int i = 0; i < usageCounts[FLVER.LayoutSemantic.UV] - vertex.UVs.Count; i++)
+            {
+                vertex.UVs.Add(Vector3.Zero);
+            }
         }
-            
-        for (int i = 0; i < usageCounts[FLVER.LayoutSemantic.VertexColor] - vertex.Colors.Count; i++)
+        
+        if (usageCounts.ContainsKey(FLVER.LayoutSemantic.VertexColor))
         {
-            vertex.Colors.Add(new FLVER.VertexColor(255, 255, 0, 255));
+            for (int i = 0; i < usageCounts[FLVER.LayoutSemantic.VertexColor] - vertex.Colors.Count; i++)
+            {
+                vertex.Colors.Add(new FLVER.VertexColor(255, 255, 0, 255));
+            }
         }
     }
 

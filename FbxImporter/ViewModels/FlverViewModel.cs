@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Numerics;
@@ -141,7 +142,7 @@ public class FlverViewModel : ViewModelBase
         List<Vector3> positions = posePositions.Value.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries)
             .Select(position => position.Substring(1, position.Length - 2)
                 .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
-                .Select(float.Parse)
+                .Select(x => float.Parse(x, CultureInfo.InvariantCulture))
                 .ToArray())
             .Select(x => new Vector3(x[0], x[1], x[2]))
             .ToList();
