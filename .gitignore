@@ -4,3 +4,6 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 FbxImporter.sln.DotSettings.user
+.vs/*
+x64/*
+FbxDataExtractor/x64/*
