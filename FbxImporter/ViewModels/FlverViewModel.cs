@@ -75,18 +75,16 @@ public class FlverViewModel : ViewModelBase
         List<List<int>> facesetIndices = mesh.FaceSets.Select(x => x.Indices.ToList()).ToList();
         List<FLVER.Vertex> vertices = mesh.Vertices.Select(x => new FLVER.Vertex(x)).ToList();
 
-        _history.Snapshot(Undo, Redo);
-
         try
         {
             Redo();
+            _history.Snapshot(Undo, Redo);
             Logger.Log("Successfully reordered vertices.");
         }
         catch (InvalidDataException e)
         {
             await ShowMessage.Handle(("Error Reordering Vertices", e.Message));
-            _history.Undo();
-            _history.Clear();
+            Undo();
         }
 
         void Undo()
