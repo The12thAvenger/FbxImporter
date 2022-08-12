@@ -39,7 +39,10 @@ public class FbxMeshDataViewModel
         gxList.AddRange(options.MaterialInfoBank.GetDefaultGXItemsForMTD(options.MTD));
 
         List<FLVER2.BufferLayout> bufferLayouts =
-            options.MaterialInfoBank.MaterialDefs[options.MTD].AcceptableVertexBufferDeclarations[0].Buffers;
+            options.MaterialInfoBank.MaterialDefs[options.MTD].AcceptableVertexBufferDeclarations.FirstOrDefault(x =>
+                x.Buffers.SelectMany(y => y).Count(y => y.Semantic == FLVER.LayoutSemantic.Tangent) >=
+                VertexData[0].Tangents.Count)?.Buffers ?? options.MaterialInfoBank.MaterialDefs[options.MTD]
+                .AcceptableVertexBufferDeclarations[0].Buffers;
 
         List<int> layoutIndices = GetLayoutIndices(flver, bufferLayouts);
 
@@ -160,7 +163,8 @@ public class FbxMeshDataViewModel
 
         if (usageCounts.ContainsKey(FLVER.LayoutSemantic.Tangent))
         {
-            for (int i = 0; i < usageCounts[FLVER.LayoutSemantic.Tangent] - vertex.Tangents.Count; i++)
+            int missingTangentCount = usageCounts[FLVER.LayoutSemantic.Tangent] - vertex.Tangents.Count;
+            for (int i = 0; i < missingTangentCount; i++)
             {
                 vertex.Tangents.Add(Vector4.Zero);
             }
@@ -168,7 +172,8 @@ public class FbxMeshDataViewModel
         
         if (usageCounts.ContainsKey(FLVER.LayoutSemantic.UV))
         {
-            for (int i = 0; i < usageCounts[FLVER.LayoutSemantic.UV] - vertex.UVs.Count; i++)
+            int missingUvCount = usageCounts[FLVER.LayoutSemantic.UV] - vertex.UVs.Count;
+            for (int i = 0; i < missingUvCount; i++)
             {
                 vertex.UVs.Add(Vector3.Zero);
             }
@@ -176,7 +181,8 @@ public class FbxMeshDataViewModel
         
         if (usageCounts.ContainsKey(FLVER.LayoutSemantic.VertexColor))
         {
-            for (int i = 0; i < usageCounts[FLVER.LayoutSemantic.VertexColor] - vertex.Colors.Count; i++)
+            int missingColorCount = usageCounts[FLVER.LayoutSemantic.VertexColor] - vertex.Colors.Count;
+            for (int i = 0; i < missingColorCount; i++)
             {
                 vertex.Colors.Add(new FLVER.VertexColor(255, 255, 0, 255));
             }
