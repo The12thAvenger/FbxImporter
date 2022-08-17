@@ -46,4 +46,7 @@
     <ItemGroup>
       <UpToDateCheckInput Remove="Themes\DarkTheme.axaml" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\FbxDataExtractor\FbxDataExtractor.vcxproj" />
+    </ItemGroup>
 </Project>

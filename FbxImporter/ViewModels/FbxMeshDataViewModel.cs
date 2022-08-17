@@ -3,26 +3,29 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using Newtonsoft.Json;
+using FbxDataExtractor;
 using SoulsFormats;
 
 namespace FbxImporter.ViewModels;
 
 public class FbxMeshDataViewModel
 {
-    public FbxMeshDataViewModel(string name)
+    public FbxMeshDataViewModel(FbxMeshData meshData)
     {
-        Name = name;
+        Name = meshData.Name;
+        VertexData = meshData.VertexData.Select(x =>
+                new FbxVertexData(x.Position, x.Normal, x.Tangents, x.UVs, x.BoneNames.ToArray(),
+                    x.BoneWeights.ToArray()))
+            .ToList();
+        VertexIndices = meshData.VertexIndices;
     }
 
     public string Name { get; set; }
+    
 
-    // ReSharper disable once CollectionNeverUpdated.Local
-    [JsonProperty]
-    private List<FbxVertexData> VertexData { get; set; } = new();
+    private List<FbxVertexData> VertexData { get; set; }
 
-    [JsonProperty]
-    private List<int> VertexIndices { get; set; } = new();
+    private List<int> VertexIndices { get; set; }
 
     public FlverMeshViewModel ToFlverMesh(FLVER2 flver, MeshImportOptions options)
     {

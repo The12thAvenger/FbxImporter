@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,7 @@ using ReactiveHistory;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using SoulsFormats;
+using FbxDataExtractor;
 
 namespace FbxImporter.ViewModels
 {
@@ -140,51 +142,22 @@ namespace FbxImporter.ViewModels
                 IsImporting = false;
                 return;
             }
-            
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            ProcessStartInfo startInfo = new()
-            {
-                WorkingDirectory = Path.Join(baseDirectory, "Dependencies", "FbxMeshDataExtractor"),
-                Arguments = $"\"{fbxPath}\"",
-                FileName = Path.Join(baseDirectory, "Dependencies", "FbxMeshDataExtractor", "FbxMeshDataExtractor.exe"),
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            Process fbxMeshDataExtractor = new()
-            {
-                StartInfo = startInfo
-            };
-            
-            fbxMeshDataExtractor.OutputDataReceived += (_, eventArgs) =>
-            {
-                if (eventArgs.Data is null) return;
-                Logger.Log(eventArgs.Data);
-            };
-            
-            Logger.Log($"Importing {Path.GetFileName(fbxPath)}...");
-            
-            fbxMeshDataExtractor.Start();
-            fbxMeshDataExtractor.BeginOutputReadLine();
-            await fbxMeshDataExtractor.WaitForExitAsync();
-            fbxMeshDataExtractor.Close();
 
-            string meshDataPath = Path.Join(baseDirectory, "Dependencies/FbxMeshDataExtractor/Temp/MeshData.json");
-
-            if (!File.Exists(meshDataPath))
+            List<FbxMeshDataViewModel> meshes = new();
+            try
+            {
+                meshes = FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList();
+            }
+            catch (Exception)
             {
                 Logger.Log("Fbx Import Failed");
-                return;
+                throw;
             }
 
-            FbxSceneDataViewModel? scene = JsonConvert.DeserializeObject<FbxSceneDataViewModel>(await File.ReadAllTextAsync(meshDataPath));
-            if (scene is null)
+            FbxSceneDataViewModel? scene = new FbxSceneDataViewModel()
             {
-                Logger.Log("Fbx Import Failed");
-                return;
-            }
-            
-            Directory.Delete( Path.Join(baseDirectory, "Dependencies/FbxMeshDataExtractor/Temp"), true);
+                MeshData = new ObservableCollection<FbxMeshDataViewModel>(meshes)
+            };
             
             Logger.Log($"Successfully imported {Path.GetFileName(fbxPath)}.");
 
