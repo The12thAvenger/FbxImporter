@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using FbxDataExtractor;
+using SoulsAssetPipeline.FLVERImporting;
 using SoulsFormats;
 
 namespace FbxImporter.ViewModels;
@@ -41,11 +42,21 @@ public class FbxMeshDataViewModel
         FLVER2.GXList gxList = new();
         gxList.AddRange(options.MaterialInfoBank.GetDefaultGXItemsForMTD(options.MTD));
 
-        List<FLVER2.BufferLayout> bufferLayouts =
-            options.MaterialInfoBank.MaterialDefs[options.MTD].AcceptableVertexBufferDeclarations.FirstOrDefault(x =>
+        List<FLVER2MaterialInfoBank.VertexBufferDeclaration> acceptableBufferDeclarations =
+            options.MaterialInfoBank.MaterialDefs[options.MTD].AcceptableVertexBufferDeclarations;
+
+        List<FLVER2.BufferLayout> bufferLayouts = acceptableBufferDeclarations[0].Buffers;
+        if (acceptableBufferDeclarations.Count > 1)
+        {
+            List<FLVER2.BufferLayout>? matchingLayouts = acceptableBufferDeclarations.FirstOrDefault(x =>
                 x.Buffers.SelectMany(y => y).Count(y => y.Semantic == FLVER.LayoutSemantic.Tangent) >=
-                VertexData[0].Tangents.Count)?.Buffers ?? options.MaterialInfoBank.MaterialDefs[options.MTD]
-                .AcceptableVertexBufferDeclarations[0].Buffers;
+                VertexData[0].Tangents.Count)?.Buffers;
+
+            if (matchingLayouts != null)
+            {
+                bufferLayouts = matchingLayouts;
+            }
+        }
 
         List<int> layoutIndices = GetLayoutIndices(flver, bufferLayouts);
 
@@ -76,7 +87,7 @@ public class FbxMeshDataViewModel
         {
             FLVER.VertexBoneIndices boneIndices = new();
             FLVER.VertexBoneWeights boneWeights = new();
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < vertexData.BoneNames.Length; j++)
             {
                 int boneIndex = GetBoneIndexFromName(flver, vertexData.BoneNames[j]);
                 boneIndices[j] = boneIndex;

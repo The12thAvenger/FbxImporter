@@ -36,7 +36,17 @@ public class FlverViewModel : ViewModelBase
         IObservable<bool> isMeshSelected = this.WhenAnyValue(x => x.SelectedMesh).Select(x => x is not null);
         DeleteMeshCommand = ReactiveCommand.Create(DeleteMeshWithHistory, isMeshSelected);
         ReorderVerticesCommand = ReactiveCommand.CreateFromTask(ReorderVerticesWithHistoryAsync, isMeshSelected);
-        ReorderVerticesCommand.ThrownExceptions.Subscribe(Logger.Log);
+        ReorderVerticesCommand.ThrownExceptions.Subscribe(e =>
+        {
+            if (e is InvalidDataException)
+            {
+                Logger.Log(e.Message);
+            }
+            else
+            {
+                Logger.Log(e);
+            }
+        });
     }
 
     public FLVER2 Flver { get; }
@@ -164,22 +174,12 @@ public class FlverViewModel : ViewModelBase
 
     private static FLVER.Vertex GetVertex(Vector3 position, FLVER2.Mesh mesh, bool mirrorX)
     {
-            List<FLVER.Vertex> matchingVertices = GetMatchingVertices(position, mesh, mirrorX);
-            
-            if (matchingVertices.Any())
-            {
-                return matchingVertices[0];
-            }
-            throw new InvalidDataException($"No matching vertex was found for vertex {position}.\n Make sure to enable \"Do Not Split Vertices\" in the Havok Export Utility.\nIf the issue persists, export a version of the cloth data with \"Collapse Verts\" disabled in your sim mesh.");
-    }
-
-    private static List<FLVER.Vertex> GetMatchingVertices(Vector3 position, FLVER2.Mesh mesh, bool mirrorX, double accuracy = 0.00001)
-    {
+        const float accuracy = 0.001f;
         int xSign = mirrorX ? -1 : 1;
-        return mesh.Vertices.Where(x =>
+        return mesh.Vertices.FirstOrDefault(x =>
                 Math.Abs(x.Position.X - xSign * position.X) < accuracy &&
                 Math.Abs(x.Position.Y - position.Y) < accuracy &&
-                Math.Abs(x.Position.Z - position.Z) < accuracy)
-            .ToList();
+                Math.Abs(x.Position.Z - position.Z) < accuracy) 
+            ?? throw new InvalidDataException($"No matching vertex was found for vertex {position}.\nMake sure to enable \"Do Not Split Vertices\" in the Havok Export Utility.\nIf the issue persists, export a version of the cloth data with \"Collapse Verts\" disabled in your sim mesh.");
     }
 }

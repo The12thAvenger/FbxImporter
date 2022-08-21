@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using ReactiveHistory;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -29,13 +27,35 @@ namespace FbxImporter.ViewModels
         public MainWindowViewModel()
         {
             _history = new StackHistory();
-
-            IObservable<bool> isFlverMeshSelected = this.WhenAnyValue(x => x.Flver!.SelectedMesh).Select(x => x is { });
+            
             SaveFlverCommand = ReactiveCommand.Create(SaveFlver);
             OpenFlverCommand = ReactiveCommand.CreateFromTask(OpenFlverAsync);
             SaveFlverAsCommand = ReactiveCommand.CreateFromTask(SaveFlverAsAsync);
             ImportFbxCommand = ReactiveCommand.CreateFromTask(ImportFbxAsync);
             AddToFlverCommand = ReactiveCommand.CreateFromTask(AddToFlverAsync);
+
+            ImportFbxCommand.ThrownExceptions.Subscribe(e =>
+            {
+                if (e is InvalidDataException)
+                {
+                    Logger.Log(e.Message);
+                }
+                else
+                {
+                    Logger.Log(e);
+                }
+            });
+            AddToFlverCommand.ThrownExceptions.Subscribe(e =>
+            {
+                if (e is InvalidDataException)
+                {
+                    Logger.Log(e.Message);
+                }
+                else
+                {
+                    Logger.Log(e);
+                }
+            });
 
             UndoCommand = ReactiveCommand.Create(_history.Undo);
             RedoCommand = ReactiveCommand.Create(_history.Redo);
@@ -143,10 +163,10 @@ namespace FbxImporter.ViewModels
                 return;
             }
 
-            List<FbxMeshDataViewModel> meshes = new();
+            List<FbxMeshDataViewModel> meshes;
             try
             {
-                meshes = FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList();
+                meshes = await Task.Run(() => FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList()) ;
             }
             catch (Exception)
             {
@@ -154,7 +174,7 @@ namespace FbxImporter.ViewModels
                 throw;
             }
 
-            FbxSceneDataViewModel? scene = new FbxSceneDataViewModel()
+            FbxSceneDataViewModel scene = new()
             {
                 MeshData = new ObservableCollection<FbxMeshDataViewModel>(meshes)
             };
