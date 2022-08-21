@@ -1,6 +1,5 @@
 #include "pch.h"
 #include <msclr/marshal.h>
-#include <fbxsdk.h>
 #include <vector>
 
 #include "FbxMeshData.h"
@@ -51,57 +50,39 @@ namespace FbxDataExtractor {
     
     FbxMeshData^ FbxMeshData::Import(FbxMesh* fbxMesh)
     {
-        FbxMeshData^ meshData = gcnew FbxMeshData(fbxMesh->GetName());
+        FbxMeshData^ meshData = gcnew FbxMeshData(fbxMesh->GetNode()->GetName());
 
         if (!fbxMesh->IsTriangleMesh()) {
-            throw gcnew System::IO::InvalidDataException(gcnew String("Mesh named " + meshData->Name + " is not triangulated. Please triangulate all meshes."));
+            throw gcnew IO::InvalidDataException(gcnew String("Fbx mesh \"" + meshData->Name + "\" is not triangulated. Please triangulate all meshes."));
         }
 
         fbxMesh->GenerateNormals();
         fbxMesh->GenerateTangentsDataForAllUVSets();
 
-        FbxGeometryElementNormal* normalElement = fbxMesh->GetElementNormal();
-        MapByPolygonVertex(normalElement);
-        FbxLayerElementArrayTemplate<FbxVector4> normalsPerPoly = normalElement->GetDirectArray();
-
-        const int numLayers = fbxMesh->GetLayerCount();
-        std::vector<FbxLayerElementArrayTemplate<FbxVector4>> tangentLayers{ };
-        std::vector<FbxLayerElementArrayTemplate<FbxVector2>> uvLayers{ };
-        for (int i = 0; i < numLayers; i++)
-        {
-            FbxLayer* layer = fbxMesh->GetLayer(i);
-
-            FbxLayerElementTangent* tangentElement = (FbxLayerElementTangent*)layer->GetLayerElementOfType(FbxLayerElement::EType::eTangent);
-        	MapByPolygonVertex(tangentElement);
-            tangentLayers.push_back(tangentElement->GetDirectArray());
-
-            FbxLayerElementUV* uvElement = (FbxLayerElementUV*)layer->GetLayerElementOfType(FbxLayerElement::EType::eUV);
-            MapByPolygonVertex(uvElement);
-            uvLayers.push_back(uvElement->GetDirectArray());
-        }
-
-        const int numControlPoints = fbxMesh->GetControlPointsCount();
-        std::vector<FbxVector4> normalsPerVertex(numControlPoints);
-        std::vector<std::vector<FbxVector4>> tangentLayersPerVertex(numControlPoints);
-        std::vector<std::vector<FbxVector2>> uvLayersPerVertex(numControlPoints);
-        
         const int* vertexIndices = fbxMesh->GetPolygonVertices();
         for (int i = 0; i < fbxMesh->GetPolygonVertexCount(); i++)
         {
-	        const int vertexIndex = vertexIndices[i];
-
-            meshData->VertexIndices->Add(vertexIndex);
-
-            normalsPerVertex.at(vertexIndex) = normalsPerPoly[i];
-
-            for (int j = 0; j < numLayers; j++)
-            {
-                tangentLayersPerVertex.at(vertexIndex).push_back(tangentLayers.at(j)[i]);
-
-                uvLayersPerVertex.at(vertexIndex).push_back(uvLayers.at(j)[i]);
-            }
+            meshData->VertexIndices->Add(vertexIndices[i]);
         }
 
+        const int numControlPoints = fbxMesh->GetControlPointsCount();
+        const std::vector<FbxVector4> normalsPerVertex = GetElementByVertex(fbxMesh->GetElementNormal(), vertexIndices, numControlPoints);
+
+        std::vector<std::vector<FbxVector4>> tangentPerVertexLayers{ };
+        const int numTangents = fbxMesh->GetElementTangentCount();
+        for (int i = 0; i < numTangents; i++)
+        {
+            tangentPerVertexLayers.push_back(GetElementByVertex(fbxMesh->GetElementTangent(i), vertexIndices, numControlPoints));
+        }
+
+        std::vector<std::vector<FbxVector2>> uvPerVertexLayers{ };
+        const int numUvs = fbxMesh->GetElementUVCount();
+        for (int i = 0; i < numUvs; i++)
+        {
+            uvPerVertexLayers.push_back(GetElementByVertex(fbxMesh->GetElementUV(i), vertexIndices, numControlPoints));
+        }
+        
+        
         for (int i = 0; i < numControlPoints; i++)
         {
             if (!meshData->VertexIndices->Contains(i)) {
@@ -112,33 +93,31 @@ namespace FbxDataExtractor {
             FbxVertexData^ vertexData = gcnew FbxVertexData();
 
             FbxVector4 position = fbxMesh->GetControlPointAt(i);
-            Util::FbxVectorToArray(position, vertexData->Position);
+            vertexData->Position = FbxVectorToArray<3>(position);
 
             FbxVector4 normal = normalsPerVertex.at(i);
-            Util::FbxVectorToArray(normal, vertexData->Normal);
-
-            for (int j = 0; j < numLayers; j++)
+            vertexData->Normal = FbxVectorToArray<3>(normal);
+            
+            for (int j = 0; j < numTangents; j++)
             {
-                vertexData->Tangents->Add(gcnew array<float>(4));
-                vertexData->UVs->Add(gcnew array<float>(3));
+                FbxVector4 tangent = tangentPerVertexLayers[j][i];
+                vertexData->Tangents->Add(FbxVectorToArray<4>(tangent));
+            }
 
-                FbxVector4 tangent = tangentLayersPerVertex[i][j];
-                Util::FbxVectorToArray(tangent, vertexData->Tangents[j]);
-
-            	FbxVector2 uv = uvLayersPerVertex[i][j];
-                array<float>^ uvData = vertexData->UVs[j];
-                uvData[0] = uv.mData[0];
-                uvData[1] = uv.mData[1];
+            for (int j = 0; j < numUvs; j++)
+            {
+                FbxVector2 uv = uvPerVertexLayers[j][i];
+                vertexData->UVs->Add(FbxVectorToArray<3>(uv));
             }
 
             meshData->VertexData->Add(vertexData);
         }
-
+        
         FbxSkin* skin = nullptr;
         for (int i = 0; i < fbxMesh->GetDeformerCount(); i++)
         {
             if (fbxMesh->GetDeformer(i)->GetDeformerType() == FbxDeformer::eSkin) {
-                skin = (FbxSkin*)fbxMesh->GetDeformer(i);
+                skin = static_cast<FbxSkin*>(fbxMesh->GetDeformer(i));
                 break;
             }
         }
@@ -159,7 +138,7 @@ namespace FbxDataExtractor {
                     String^ boneName = gcnew String(cluster->GetLink()->GetName());
                     vertexData->BoneNames->Add(boneName);
 
-                    float boneWeight = controlPointWeights[j];
+                    const float boneWeight = controlPointWeights[j];
                     vertexData->BoneWeights->Add(boneWeight);
                 }
             }
@@ -174,20 +153,6 @@ namespace FbxDataExtractor {
     bool FbxMeshData::VertexDataIsNull(FbxVertexData^ vertexData)
     {
         return vertexData == nullptr;
-    }
-
-    template <typename T>
-    void FbxMeshData::MapByPolygonVertex(FbxLayerElementTemplate<T>* layerElementTemplate)
-    {
-        if (layerElementTemplate->GetMappingMode() == FbxLayerElementTemplate<T>::EMappingMode::eByPolygonVertex)
-        {
-            return;
-        }
-
-        int result = layerElementTemplate->RemapIndexTo(FbxLayerElement::EMappingMode::eByPolygonVertex);
-        if (result == -1) {
-            throw gcnew Exception("Remap failed. Result: " + result.ToString() + " Current Mode: " + ((int)layerElementTemplate->GetMappingMode()).ToString());
-        }
     }
 }
 

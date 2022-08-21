@@ -23,9 +23,6 @@ namespace FbxDataExtractor {
 		static FbxMeshData^ Import(FbxMesh* fbxMesh);
 
 		static bool VertexDataIsNull(FbxVertexData^ vertexData);
-
-		template<typename T>
-		static void MapByPolygonVertex(FbxLayerElementTemplate<T>* layerElementTemplate);
 	};
 }
 
