@@ -87,7 +87,7 @@ public class FbxMeshDataViewModel
         {
             FLVER.VertexBoneIndices boneIndices = new();
             FLVER.VertexBoneWeights boneWeights = new();
-            for (int j = 0; j < vertexData.BoneNames.Length; j++)
+            for (int j = 0; j < Math.Min(vertexData.BoneNames.Length, 4); j++)
             {
                 int boneIndex = GetBoneIndexFromName(flver, vertexData.BoneNames[j]);
                 boneIndices[j] = boneIndex;
