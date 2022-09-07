@@ -2,4 +2,4 @@
 
 namespace FbxImporter.ViewModels;
 
-public record ClothReorderOptions(ClothData ClothData, bool MirrorX);
+public record ClothReorderOptions(XElement SkinOperator, bool MirrorX);

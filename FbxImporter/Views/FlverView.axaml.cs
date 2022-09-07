@@ -85,39 +85,11 @@ public partial class FlverView : ReactiveUserControl<FlverViewModel>
 
         ClothDataSelectorViewModel clothDataSelectorViewModel = new(clothContainer);
 
-        ClothReorderOptions? options;
-        while (true)
+        ClothDataSelectorView clothDataSelectorView = new()
         {
-            ClothDataSelectorView clothDataSelectorView = new()
-            {
-                DataContext = clothDataSelectorViewModel
-            };
-            options = await clothDataSelectorView.ShowDialog<ClothReorderOptions?>(mainWindow);
-            if (options is null) break;
-
-            int numPoseVertices = options.ClothData.PosePositions.Value.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries).Length;
-            int numSelectedVertices = ViewModel!.SelectedMesh!.Mesh.Vertices.Count;
-            if (numPoseVertices == numSelectedVertices) break;
-
-            if (numPoseVertices > numSelectedVertices)
-            {
-                IMsBoxWindow<ButtonResult>? messageBoxWarning = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Warning: Vertex Count Mismatch", 
-                    $"The vertex count of the selected cloth data ({numPoseVertices}) is higher\nthan the vertex count of the selected mesh ({numSelectedVertices})." + 
-                    "\nPlease note that this operation will add additional vertices to the mesh." +
-                    "\nAre you sure you wish to continue?",
-                    ButtonEnum.OkCancel);
-                ButtonResult result = await messageBoxWarning.Show(mainWindow);
-                if (result == ButtonResult.Ok) break;
-                
-                clothDataSelectorViewModel.SelectedClothData = null;
-                continue;
-            }
-
-            await ShowMessage("Error: Vertex Count Mismatch",
-                        $"The vertex count of the selected cloth data ({numPoseVertices}) does not match the vertex count of the selected mesh ({numSelectedVertices}).");
-            
-            clothDataSelectorViewModel.SelectedClothData = null;
-        }
+            DataContext = clothDataSelectorViewModel
+        };
+        ClothReorderOptions? options = await clothDataSelectorView.ShowDialog<ClothReorderOptions?>(mainWindow);
         interaction.SetOutput(options);
     }
 

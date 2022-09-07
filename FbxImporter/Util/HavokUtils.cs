@@ -38,7 +38,8 @@ namespace FbxImporter.Util
             uint uintMax = vectorRounded.Select(BitConverter.SingleToUInt32Bits).Select(x => x & exponentMask).Max();
 
             const uint offset = 0x4e800000;
-            uint[] uintVector = vector.Select(BitConverter.SingleToUInt32Bits).Select(x => unchecked(x + offset - uintMax)).ToArray();
+            uint[] uintVector = vector.Select(BitConverter.SingleToUInt32Bits)
+                .Select(x => unchecked(x + offset - uintMax)).ToArray();
 
             uintMax = unchecked(uintMax - offset);
 
@@ -68,6 +69,16 @@ namespace FbxImporter.Util
         {
             byte[] bytes = BitConverter.GetBytes(num);
             return BitConverter.ToUInt16(bytes, shortIndex * 2);
+        }
+
+        public static float[] ToFloatArray(this Vector3 vector)
+        {
+            return new[] { vector.X, vector.Y, vector.Z };
+        }
+
+        public static Vector3 ToVector3(this float[] array)
+        {
+            return new Vector3(array[0], array[1], array[2]);
         }
     }
 }

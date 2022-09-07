@@ -77,6 +77,8 @@ namespace FbxImporter.ViewModels
 
         [Reactive] public FbxSceneDataViewModel? Fbx { get; set; }
 
+        public MeshImportOptions? MeshImportOptionsCache { get; set; }
+
         private string? FlverPath { get; set; }
 
         [ObservableAsProperty] public extern bool CanAddToFlver { get; }
@@ -109,9 +111,11 @@ namespace FbxImporter.ViewModels
 
         private async Task AddToFlverAsync()
         {
-            MeshImportOptionsViewModel optionsViewModel = new(Fbx!.SelectedMesh!.Name, Flver!.MaterialInfoBank);
+            MeshImportOptionsViewModel optionsViewModel = new(Fbx!.SelectedMesh!.Name, Flver!.MaterialInfoBank, MeshImportOptionsCache);
             MeshImportOptions? options = await GetMeshImportOptions.Handle(optionsViewModel);
             if (options is null) return;
+
+            MeshImportOptionsCache = options;
             
             AddToFlverWithHistory(options);
         }
@@ -163,6 +167,7 @@ namespace FbxImporter.ViewModels
                 return;
             }
 
+            Logger.Log($"Importing {Path.GetFileName(fbxPath)}...");
             List<FbxMeshDataViewModel> meshes;
             try
             {
@@ -171,6 +176,7 @@ namespace FbxImporter.ViewModels
             catch (Exception)
             {
                 Logger.Log("Fbx Import Failed");
+                IsImporting = false;
                 throw;
             }
 
@@ -179,7 +185,7 @@ namespace FbxImporter.ViewModels
                 MeshData = new ObservableCollection<FbxMeshDataViewModel>(meshes)
             };
             
-            Logger.Log($"Successfully imported {Path.GetFileName(fbxPath)}.");
+            Logger.Log("Import successful.");
 
             Fbx = scene;
 

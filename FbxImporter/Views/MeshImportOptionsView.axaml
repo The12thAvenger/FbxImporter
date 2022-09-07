@@ -14,9 +14,9 @@
         <Grid RowDefinitions="40, Auto, *, 40" Margin="5">
             <ComboBox Items="{Binding Materials}" SelectedItem="{Binding SelectedMaterial}" VirtualizationMode="Simple" IsTextSearchEnabled="True" Grid.Row="0"/>
             <StackPanel Grid.Row="2" Margin="0, 10">
-                <CheckBox Content="Create Default Bone" IsChecked="{Binding CreateDefaultBone}"/>
+                <!--<CheckBox Content="Create Default Bone" IsChecked="{Binding CreateDefaultBone}"/>-->
                 <CheckBox Content="Mirror" IsChecked="{Binding MirrorX}"/>
-                <CheckBox Content="Cloth Mesh" IsChecked="{Binding IsCloth}" IsVisible="False"/>
+                <!--<CheckBox Content="Cloth Mesh" IsChecked="{Binding IsCloth}" IsVisible="False"/>-->
             </StackPanel>
             <Grid ColumnDefinitions="*, *" Grid.Row="3">
                 <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="0, 0, 2, 0" Grid.Column="0" />

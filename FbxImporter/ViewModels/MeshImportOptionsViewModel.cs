@@ -12,16 +12,27 @@ public class MeshImportOptionsViewModel : ViewModelBase
 {
     private readonly FLVER2MaterialInfoBank _materialInfoBank;
 
-    public MeshImportOptionsViewModel(string meshName, FLVER2MaterialInfoBank materialInfoBank)
+    public MeshImportOptionsViewModel(string meshName, FLVER2MaterialInfoBank materialInfoBank, MeshImportOptions? optionsCache)
     {
+        CreateDefaultBone = optionsCache?.CreateDefaultBone ?? true;
+        MirrorX = optionsCache?.MirrorX ?? false;
+
+        string? lastUsedMaterial =
+            optionsCache?.MTD is not null && materialInfoBank.MaterialDefs.ContainsKey(optionsCache.MTD)
+                ? optionsCache?.MTD
+                : null;
+
         _materialInfoBank = materialInfoBank;
         bool isErBank = materialInfoBank.MaterialDefs.Keys.Any(x => x.ToLower().StartsWith("aeg"));
         Materials = new ObservableCollection<string>(materialInfoBank.MaterialDefs.Keys.Where(x => IsDisplayedMaterial(x, isErBank)).OrderBy(x => x));
 
         string[] meshNameParts = meshName.Split('|', StringSplitOptions.TrimEntries);
         SelectedMaterial = meshNameParts.Length > 1
-            ? Materials.FirstOrDefault(x => string.Equals(x.Replace(".mtd", ""), meshNameParts[1].Replace(".mtd", ""), StringComparison.CurrentCultureIgnoreCase)) ?? Materials[0]
-            : Materials[0];
+            ? Materials.FirstOrDefault(x => string.Equals(x.Replace(".mtd", ""),
+                  meshNameParts[1].Replace(".mtd", ""),
+                  StringComparison.CurrentCultureIgnoreCase)) ??
+              lastUsedMaterial ?? Materials[0]
+            : lastUsedMaterial ?? Materials[0];
 
         CancelCommand = ReactiveCommand.Create(Cancel);
 
@@ -43,11 +54,9 @@ public class MeshImportOptionsViewModel : ViewModelBase
         return true;
     }
 
-    [Reactive] public bool IsCloth { get; set; } = true;
+    [Reactive] public bool CreateDefaultBone { get; set; }
 
-    [Reactive] public bool CreateDefaultBone { get; set; } = true;
-
-    [Reactive] public bool MirrorX { get; set; }  = true;
+    [Reactive] public bool MirrorX { get; set; }
 
     public ObservableCollection<string> Materials { get; }
 
@@ -68,7 +77,6 @@ public class MeshImportOptionsViewModel : ViewModelBase
         {
             CreateDefaultBone = CreateDefaultBone,
             MirrorX = MirrorX,
-            IsCloth = IsCloth,
             MTD = SelectedMaterial,
             MaterialInfoBank = _materialInfoBank
         };

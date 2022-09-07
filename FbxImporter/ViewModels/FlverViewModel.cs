@@ -108,7 +108,7 @@ public class FlverViewModel : ViewModelBase
 
         void Redo()
         {
-            ReorderVerticesFromClothPose(options);
+            SelectedMesh.ReorderVerticesFromClothPose(options);
         }
     }
 
@@ -144,42 +144,27 @@ public class FlverViewModel : ViewModelBase
         {
             Flver.FixAllBoundingBoxes();
         }
-        Flver.Write(path);
-    }
 
-    private void ReorderVerticesFromClothPose(ClothReorderOptions options)
-    {
-        ((_, XElement posePositions, List<int> triangleIndices), bool mirrorX) = options;
-        
-        List<Vector3> positions = posePositions.Value.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries)
-            .Select(position => position.Substring(1, position.Length - 2)
-                .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => float.Parse(x, CultureInfo.InvariantCulture))
-                .ToArray())
-            .Select(x => new Vector3(x[0], x[1], x[2]))
-            .ToList();
 
-        List<FLVER.Vertex> newVertexOrder = positions.Select(position => GetVertex(position, SelectedMesh!.Mesh, mirrorX))
-            .Select(matchingVertex => new FLVER.Vertex(matchingVertex))
-            .ToList();
-
-        SelectedMesh!.Mesh.Vertices = newVertexOrder;
-
-        foreach (FLVER2.FaceSet faceSet in SelectedMesh.Mesh.FaceSets)
+        // Soulsformats will corrupt the file if there is an exception on write so back up the file first and write it back to disk if the write fails.
+        FLVER2? backupFlver;
+        try
         {
-            faceSet.Indices = triangleIndices;
-            faceSet.Flip();
+            backupFlver = FLVER2.Read(path);
         }
-    }
+        catch
+        {
+            backupFlver = null;
+        }
 
-    private static FLVER.Vertex GetVertex(Vector3 position, FLVER2.Mesh mesh, bool mirrorX)
-    {
-        const float accuracy = 0.001f;
-        int xSign = mirrorX ? -1 : 1;
-        return mesh.Vertices.FirstOrDefault(x =>
-                Math.Abs(x.Position.X - xSign * position.X) < accuracy &&
-                Math.Abs(x.Position.Y - position.Y) < accuracy &&
-                Math.Abs(x.Position.Z - position.Z) < accuracy) 
-            ?? throw new InvalidDataException($"No matching vertex was found for vertex {position}.\nMake sure to enable \"Do Not Split Vertices\" in the Havok Export Utility.\nIf the issue persists, export a version of the cloth data with \"Collapse Verts\" disabled in your sim mesh.");
+        try
+        {
+            Flver.Write(path);
+        }
+        catch (Exception)
+        {
+            backupFlver?.Write(path);
+            throw;
+        }
     }
 }

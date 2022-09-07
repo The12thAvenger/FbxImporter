@@ -9,58 +9,32 @@ using ReactiveUI.Fody.Helpers;
 
 namespace FbxImporter.ViewModels;
 
-public record ClothData(string Name, XElement PosePositions, List<int> TriangleIndices);
+public record ClothData(string Name, IEnumerable<SkinOperator> SkinOperators);
+
+public record SkinOperator(string Name, XElement Data);
 
 public class ClothDataSelectorViewModel : ViewModelBase
 {
     public ClothDataSelectorViewModel(XElement clothContainer)
     {
-        string[] clothDatas = clothContainer.Elements().First(x => x.Attribute("name")?.Value == "clothDatas").Value
-            .Split('\n', StringSplitOptions.RemoveEmptyEntries);
-        foreach (string clothDataRef in clothDatas)
-        {
-            XElement? clothData = clothContainer.Parent!.Elements()
-                .FirstOrDefault(x => x.Attribute("name")?.Value == clothDataRef);
-            if (clothData is null) continue;
-            
-            string name = clothData.Elements().First(x => x.Attribute("name")?.Value == "name").Value;
-            
-            string simClothRef = clothData.Elements().First(x => x.Attribute("name")?.Value == "simClothDatas").Value
-                .Split('\n', StringSplitOptions.RemoveEmptyEntries)[0];
-            XElement? simClothData = clothContainer.Parent!.Elements()
-                .FirstOrDefault(x => x.Attribute("name")?.Value == simClothRef);
-            if (simClothData is null) continue;
-            
-            List<int> triangleIndices = simClothData.Elements().First(x => x.Attribute("name")?.Value == "triangleIndices").Value
-                .Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
-
-            string simPoseRef = simClothData.Elements().First(x => x.Attribute("name")?.Value == "simClothPoses").Value
-                .Split('\n', StringSplitOptions.RemoveEmptyEntries)[0];
-            XElement? simClothPose = clothContainer.Parent!.Elements()
-                .FirstOrDefault(x => x.Attribute("name")?.Value == simPoseRef);
-            if (simClothPose is null) continue;
-
-            XElement posePositions = simClothPose.Elements().First(x => x.Attribute("name")?.Value == "positions");
-            
-            ClothData.Add(new ClothData(name, posePositions, triangleIndices));
-        }
+        LoadClothData(clothContainer);
 
         SelectClothDataCommand = ReactiveCommand.Create(SelectClothData);
         
         CancelCommand = ReactiveCommand.Create(Cancel);
     }
 
-    public ObservableCollection<ClothData> ClothData { get; } = new();
+    public List<ClothData> ClothData { get; } = new();
 
     [Reactive] public bool MirrorX { get; set; } = true;
 
-    [Reactive] public ClothData? SelectedClothData { get; set; }
+    [Reactive] public SkinOperator? SelectedSkinOperatorData { get; set; }
 
     public ReactiveCommand<Unit, ClothReorderOptions?> SelectClothDataCommand { get; }
 
     public ReactiveCommand<Unit, ClothReorderOptions?> CancelCommand { get; }
 
-    private ClothReorderOptions? Cancel()
+    private static ClothReorderOptions? Cancel()
     {
         return null;
     }
@@ -68,6 +42,45 @@ public class ClothDataSelectorViewModel : ViewModelBase
     // ReSharper disable once ReturnTypeCanBeNotNullable
     private ClothReorderOptions? SelectClothData()
     {
-        return new ClothReorderOptions(SelectedClothData!, MirrorX);
+        return new ClothReorderOptions(SelectedSkinOperatorData!.Data, MirrorX);
     }
+
+    private void LoadClothData(XElement clothContainer)
+    {
+
+        Dictionary<string, XElement> clothDataDict = new();
+        Dictionary<string, XElement> skinOperatorDict = new();
+        foreach (XElement hkobject in clothContainer.Parent!.Elements())
+        {
+            if (hkobject.Attribute("class")?.Value == "hclClothData")
+            {
+                clothDataDict.Add(hkobject.Attribute("name")!.Value, hkobject);
+            }
+
+            if (hkobject.Attribute("class")?.Value.Contains("hclObjectSpaceSkin") ?? false)
+            {
+                skinOperatorDict.Add(hkobject.Attribute("name")!.Value, hkobject);
+            }
+        }
+
+        string[] clothDatas = clothContainer.Elements().First(x => x.Attribute("name")?.Value == "clothDatas").Value
+            .Split('\n', StringSplitOptions.RemoveEmptyEntries);
+        foreach (string clothDataRef in clothDatas.Where(clothDataDict.ContainsKey))
+        {
+            XElement clothData = clothDataDict[clothDataRef];
+            string name = clothData.Elements().First(x => x.Attribute("name")?.Value == "name").Value;
+
+            IEnumerable<string> operatorRefs = clothData.Elements().First(x => x.Attribute("name")?.Value == "operators").Value
+                .Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            IEnumerable<SkinOperator> skinOperators = operatorRefs.Where(skinOperatorDict.ContainsKey).Select(x =>
+            {
+                XElement skinOperator = skinOperatorDict[x];
+                string skinName = skinOperator.Elements().First(x => x.Attribute("name")?.Value == "name").Value;
+                return new SkinOperator(skinName, skinOperator);
+            });
+
+            ClothData.Add(new ClothData(name, skinOperators));
+        }
+    }
+
 }
