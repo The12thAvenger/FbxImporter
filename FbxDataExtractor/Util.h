@@ -22,6 +22,12 @@ namespace FbxDataExtractor
 	}
 
 	template<typename T>
+	bool IsAllEqual(std::vector<T> vector)
+	{
+		return std::equal(vector.begin() + 1, vector.end(), vector.begin());
+	}
+
+	template<typename T>
 	int GetVertexIndex(const FbxLayerElementTemplate<T>* element, const int* vertexIndices, const int index)
 	{
 		switch (element->GetMappingMode())
@@ -35,9 +41,9 @@ namespace FbxDataExtractor
 	}
 
 	template<typename T>
-	std::vector<T> GetElementByVertex(const FbxLayerElementTemplate<T>* element, const int* vertexIndices, const int numVertices)
+	std::vector<std::vector<T>> GetElementListByControlPoint(const FbxLayerElementTemplate<T>* element, const int* vertexIndices, const int numVertices)
 	{
-		std::vector<T> elementsPerVertex(numVertices);
+		std::vector<std::vector<T>> elementListPerControlPoint(numVertices);
 
 		const FbxLayerElementArrayTemplate<T>& directArray = element->GetDirectArray();
 		const FbxLayerElementArrayTemplate<int>& indexArray = element->GetIndexArray();
@@ -48,7 +54,7 @@ namespace FbxDataExtractor
 			for (int i = 0; i < directArray.GetCount(); i++)
 			{
 				const int vertexIndex = GetVertexIndex(element, vertexIndices, i);
-				elementsPerVertex.at(vertexIndex) = directArray.GetAt(i);
+				elementListPerControlPoint.at(vertexIndex).push_back(directArray.GetAt(i));
 			}
 			break;
 		case FbxLayerElement::eIndexToDirect:
@@ -56,13 +62,53 @@ namespace FbxDataExtractor
 			{
 				const int directIndex = indexArray.GetAt(i);
 				const int vertexIndex = GetVertexIndex(element, vertexIndices, i);
-				elementsPerVertex.at(vertexIndex) = directArray.GetAt(directIndex);
+				elementListPerControlPoint.at(vertexIndex).push_back(directArray.GetAt(directIndex));
 			}
 			break;
 		default: throw gcnew IO::InvalidDataException("Unsupported reference mode.");
 		}
 
-		return elementsPerVertex;
+		return elementListPerControlPoint;
+	}
+
+	inline bool IsIdentical(FbxVertexData^ v1, FbxVertexData^ v2)
+	{
+		if (!Linq::Enumerable::SequenceEqual(gcnew  List<float>(v1->Position), gcnew  List<float>(v2->Position))
+			|| Linq::Enumerable::SequenceEqual(gcnew  List<float>(v1->Normal), gcnew  List<float>(v2->Normal))
+			|| v1->Tangents->Count != v2->Tangents->Count
+			|| v1->UVs->Count != v2->UVs->Count)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < v1->Tangents->Count; ++i)
+		{
+			if (!Linq::Enumerable::SequenceEqual(gcnew  List<float>(v1->Tangents[i]), gcnew  List<float>(v2->Tangents[i])))
+			{
+				return false;
+			}
+		}
+
+		for (int i = 0; i < v1->UVs->Count; ++i)
+		{
+			if (!Linq::Enumerable::SequenceEqual(gcnew  List<float>(v1->UVs[i]), gcnew  List<float>(v2->UVs[i])))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	inline void DecrementVertexIndicesAbove(const int limit, List<int>^ vertexIndices)
+	{
+		for (int i = 0; i < vertexIndices->Count; ++i)
+		{
+			if (vertexIndices[i] > limit)
+			{
+				vertexIndices[i] -= 1;
+			}
+		}
 	}
 }
 

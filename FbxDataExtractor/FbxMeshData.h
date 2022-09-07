@@ -21,8 +21,6 @@ namespace FbxDataExtractor {
 
 	private:
 		static FbxMeshData^ Import(FbxMesh* fbxMesh);
-
-		static bool VertexDataIsNull(FbxVertexData^ vertexData);
 	};
 }
 
