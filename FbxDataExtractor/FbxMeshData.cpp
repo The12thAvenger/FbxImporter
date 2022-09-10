@@ -213,7 +213,7 @@ namespace FbxDataExtractor {
 
         for (int i = 0; i < vertexDataList->Count; ++i)
         {
-	        while (i < vertexDataList->Count && vertexDataList[i] == nullptr)
+	        if (vertexDataList[i] == nullptr)
 	        {
                 DecrementVertexIndicesAbove(i, vertexIndicesList);
                 vertexDataList->RemoveAt(i);

@@ -76,12 +76,13 @@
                         <Button Content="Delete Mesh" ToolTip.Tip="Delete the selected mesh" HotKey="Delete"
                                 Command="{Binding Flver.DeleteMeshCommand}"
                                 Grid.Column="0"
+                                Grid.ColumnSpan="2"
                                 Margin="0, 5,2, 0"/>
-                        <Button Content="Reorder Vertices"
+                        <!--<Button Content="Reorder Vertices"
                                 ToolTip.Tip="Reorder the vertices and faceset indices of the selected mesh based on a cloth pose"
                                 Command="{Binding Flver.ReorderVerticesCommand}"
                                 Grid.Column="1"
-                                Margin="2, 5,2, 0"/>
+                                Margin="2, 5,2, 0"/>-->
                     </Grid>
                 </Grid>
             </Border>
