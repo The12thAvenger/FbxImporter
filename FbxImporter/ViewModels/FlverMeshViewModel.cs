@@ -146,7 +146,7 @@ public class FlverMeshViewModel : ViewModelBase
 
         if (newVertexOrder.Distinct().Count() != newVertexOrder.Length)
         {
-            
+            throw new NotImplementedException();
         }
         
         Mesh.Vertices = newVertexOrder.ToList();

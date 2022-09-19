@@ -87,11 +87,13 @@ public class FbxMeshDataViewModel
         {
             FLVER.VertexBoneIndices boneIndices = new();
             FLVER.VertexBoneWeights boneWeights = new();
-            for (int j = 0; j < Math.Min(vertexData.BoneNames.Length, 4); j++)
+            List<(string, float)> orderedWeightData = vertexData.BoneNames
+                .Select((s, i) => (s, vertexData.BoneWeights[i])).OrderByDescending(x => x.Item2).ToList();
+            for (int j = 0; j < Math.Min(orderedWeightData.Count, 4); j++)
             {
-                int boneIndex = GetBoneIndexFromName(flver, vertexData.BoneNames[j]);
+                int boneIndex = GetBoneIndexFromName(flver, orderedWeightData[j].Item1);
                 boneIndices[j] = boneIndex;
-                boneWeights[j] = vertexData.BoneWeights[j];
+                boneWeights[j] = orderedWeightData[j].Item2;
             }
 
             int xSign = options.MirrorX ? -1 : 1;
