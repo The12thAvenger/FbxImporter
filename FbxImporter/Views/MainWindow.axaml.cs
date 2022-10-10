@@ -1,10 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.ReactiveUI;
+using Avalonia.VisualTree;
 using FbxImporter.ViewModels;
+using MessageBox.Avalonia.BaseWindows.Base;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Models;
 using ReactiveUI;
 
 namespace FbxImporter.Views
@@ -20,7 +26,38 @@ namespace FbxImporter.Views
             {
                 d(ViewModel!.GetFilePath.RegisterHandler(GetFilePathAsync));
                 d(ViewModel!.GetMeshImportOptions.RegisterHandler(GetMeshImportOptionsAsync));
+                d(ViewModel!.GetTargetGame.RegisterHandler(GetTargetGame));
             });
+        }
+
+        private async Task GetTargetGame(InteractionContext<Unit, string?> interaction)
+        {
+            List<ButtonDefinition> buttonDefinitions = new()
+            {
+                new ButtonDefinition
+                {
+                    Name = "Elden Ring",
+                    IsDefault = true
+                },
+                new ButtonDefinition
+                {
+                    Name = "Sekiro"
+                }
+            };
+
+            MessageBoxCustomParams messageBoxParams = new()
+            {
+                ButtonDefinitions = buttonDefinitions,
+                CanResize = false,
+                ContentHeader = "Unable to determine target game",
+                ContentMessage = "Could not determine target game, please specify."
+            };
+            IMsBoxWindow<string>? messageBox = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(messageBoxParams);
+
+            Window mainWindow = (Window)this.GetVisualRoot();
+            if (mainWindow is null) throw new Exception("Main Window is null");
+            string game = await messageBox.ShowDialog(mainWindow);
+            interaction.SetOutput(game);
         }
 
         private async Task GetFilePathAsync(InteractionContext<MainWindowViewModel.GetFilePathArgs, string?> interaction)

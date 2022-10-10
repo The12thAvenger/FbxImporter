@@ -214,7 +214,7 @@ public class FbxMeshDataViewModel
             for (int i = 0; i < flver.BufferLayouts.Count; i++)
             {
                 FLVER2.BufferLayout bufferLayout = flver.BufferLayouts[i];
-                if (bufferLayout.Select(x => (x.Type, x.Semantic)).SequenceEqual(referenceBufferLayout.Select(x => (x.Type, x.Semantic))))
+                if (bufferLayout.SequenceEqual(referenceBufferLayout, new LayoutMemberComparer()))
                 {
                     indices.Add(i);
                     break;
@@ -230,6 +230,23 @@ public class FbxMeshDataViewModel
         }
 
         return indices;
+    }
+
+    private class LayoutMemberComparer : IEqualityComparer<FLVER.LayoutMember>
+    {
+        public bool Equals(FLVER.LayoutMember? x, FLVER.LayoutMember? y)
+        {
+            if (ReferenceEquals(x, y)) return true;
+            if (x is null) return false;
+            if (y is null) return false;
+            if (x.GetType() != y.GetType()) return false;
+            return x.Unk00 == y.Unk00 && x.Type == y.Type && x.Semantic == y.Semantic && x.Index == y.Index && x.Size == y.Size;
+        }
+
+        public int GetHashCode(FLVER.LayoutMember obj)
+        {
+            return HashCode.Combine(obj.Unk00, (int)obj.Type, (int)obj.Semantic, obj.Index, obj.Size);
+        }
     }
 
     private void FlipFaceSet()

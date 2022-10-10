@@ -91,6 +91,8 @@ namespace FbxImporter.ViewModels
 
         public Interaction<GetFilePathArgs, string?> GetFilePath { get; } = new();
 
+        public Interaction<Unit, string?> GetTargetGame { get; } = new();
+
         public Interaction<MeshImportOptionsViewModel, MeshImportOptions?> GetMeshImportOptions { get; } = new();
 
         public ReactiveCommand<Unit, Unit> SaveFlverCommand { get; }
@@ -202,8 +204,30 @@ namespace FbxImporter.ViewModels
             GetFilePathArgs args = new("Open Flver", filters, GetPathMode.Open);
             string? flverPath = await GetFilePath.Handle(args);
             if (flverPath is null) return;
+
+            FLVER2 flver = FLVER2.Read(flverPath);
+
+            FlverViewModel.FlverVersion? optionalVersion = flver.Header.Version switch
+            {
+                131092 => FlverViewModel.FlverVersion.DS3,
+                131098 when flver.Materials.Any(x => x.MTD.Contains(".matxml")) => FlverViewModel.FlverVersion.ER,
+                131098 => await GetTargetGame.Handle(Unit.Default) switch
+                {
+                    "Elden Ring" => FlverViewModel.FlverVersion.ER,
+                    "Sekiro" => FlverViewModel.FlverVersion.SDT,
+                    null => null,
+                    _ => throw new ArgumentOutOfRangeException()
+                },
+                _ => throw new InvalidDataException("Invalid Flver Version")
+            };
+
+            if (optionalVersion is not { } version)
+            {
+                return;
+            }
+
             _history.Clear();
-            Flver = new FlverViewModel(FLVER2.Read(flverPath), _history);
+            Flver = new FlverViewModel(flver, version, _history);
             FlverPath = flverPath;
         }
 

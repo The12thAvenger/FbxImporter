@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using FbxImporter.Util;
 using ReactiveHistory;
 using ReactiveUI;
@@ -23,12 +20,20 @@ public class FlverViewModel : ViewModelBase
 {
     private readonly IHistory _history;
 
-    public FlverViewModel(FLVER2 flver, IHistory history)
+    public enum FlverVersion
+    {
+        DS3,
+        SDT,
+        ER
+    }
+
+    public FlverViewModel(FLVER2 flver, FlverVersion version,  IHistory history)
     {
         Flver = flver;
         _history = history;
 
-        string xmlPath = GetMaterialInfoBankPath(flver);
+        string basePath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "SapResources", "FLVER2MaterialInfoBank");
+        string xmlPath = Path.Join(basePath, $"Bank{version}.xml");
         MaterialInfoBank = FLVER2MaterialInfoBank.ReadFromXML(xmlPath);
         
         Meshes = new ObservableCollection<FlverMeshViewModel>(flver.Meshes.Select(x => new FlverMeshViewModel(flver, x)));
@@ -62,19 +67,8 @@ public class FlverViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> ReorderVerticesCommand { get; }
 
     public Interaction<Unit, ClothReorderOptions?> GetClothPose { get; } = new();
-    
-    public Interaction<(string, string), Unit> ShowMessage { get; } = new();
 
-    private static string GetMaterialInfoBankPath(FLVER2 flver)
-    {
-        string basePath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "SapResources", "FLVER2MaterialInfoBank");
-        return flver.Header.Version switch
-        {
-            131092 => Path.Join(basePath, "BankDS3.xml"),
-            131098 => Path.Join(basePath, Path.GetExtension(flver.Materials[0].MTD) == ".matxml" ? "BankER.xml" : "BankSDT.xml"),
-            _ => throw new ArgumentOutOfRangeException(nameof(flver), "Failed to load flver. Unsupported flver version.")
-        };
-    }
+    public Interaction<(string, string), Unit> ShowMessage { get; } = new();
 
     private async Task ReorderVerticesWithHistoryAsync()
     {

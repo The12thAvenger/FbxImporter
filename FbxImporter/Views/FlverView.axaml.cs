@@ -11,7 +11,9 @@ using Avalonia.VisualTree;
 using FbxImporter.ViewModels;
 using JetBrains.Annotations;
 using MessageBox.Avalonia.BaseWindows.Base;
+using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using MessageBox.Avalonia.Models;
 using ReactiveUI;
 
 namespace FbxImporter.Views;
