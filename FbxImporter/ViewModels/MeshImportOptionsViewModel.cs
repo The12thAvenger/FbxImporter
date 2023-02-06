@@ -46,7 +46,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
             return false;
         }
 
-        if (isErBank && !materialName.ToLower().StartsWith("p[") && !materialName.ToLower().StartsWith("c["))
+        if (isErBank && !materialName.ToLower().StartsWith("p[") && !materialName.ToLower().StartsWith("m[") && !materialName.ToLower().StartsWith("c["))
         {
             return false;
         }
