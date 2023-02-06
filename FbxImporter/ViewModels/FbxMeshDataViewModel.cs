@@ -64,7 +64,7 @@ public class FbxMeshDataViewModel
         {
             VertexBuffers = layoutIndices.Select(x => new FLVER2.VertexBuffer(x)).ToList(),
             MaterialIndex = flver.Materials.Count,
-            Dynamic = 1
+            Dynamic = (byte)(options.IsSkinned ? 1 : 0)
         };
 
         int defaultBoneIndex = flver.Bones.IndexOf(flver.Bones.FirstOrDefault(x => x.Name == this.Name));
@@ -200,7 +200,7 @@ public class FbxMeshDataViewModel
             int missingColorCount = usageCounts[FLVER.LayoutSemantic.VertexColor] - vertex.Colors.Count;
             for (int i = 0; i < missingColorCount; i++)
             {
-                vertex.Colors.Add(new FLVER.VertexColor(255, 255, 0, 255));
+                vertex.Colors.Add(new FLVER.VertexColor(255, 255, 255, 255));
             }
         }
     }

@@ -62,6 +62,8 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
     [Reactive] public string SelectedMaterial { get; set; }
 
+    [Reactive] public bool IsSkinned { get; set; } = true;
+
     public ReactiveCommand<Unit, MeshImportOptions> ConfirmCommand { get; }
 
     public ReactiveCommand<Unit, MeshImportOptions?> CancelCommand { get; }
@@ -78,7 +80,8 @@ public class MeshImportOptionsViewModel : ViewModelBase
             CreateDefaultBone = CreateDefaultBone,
             MirrorX = MirrorX,
             MTD = SelectedMaterial,
-            MaterialInfoBank = _materialInfoBank
+            MaterialInfoBank = _materialInfoBank,
+            IsSkinned = IsSkinned
         };
     }
 }

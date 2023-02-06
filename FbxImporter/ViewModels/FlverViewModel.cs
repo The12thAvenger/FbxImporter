@@ -134,10 +134,10 @@ public class FlverViewModel : ViewModelBase
             Meshes[i].Material.GXIndex = i;
         }
 
-        if (Flver.Header.Version == 131098)
-        {
+        // if (Flver.Header.Version == 131098)
+        // {
             Flver.FixAllBoundingBoxes();
-        }
+        // }
 
 
         // Soulsformats will corrupt the file if there is an exception on write so back up the file first and write it back to disk if the write fails.

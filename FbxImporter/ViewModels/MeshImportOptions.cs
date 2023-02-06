@@ -11,4 +11,6 @@ public record MeshImportOptions
     public string MTD { get; init; } = null!;
 
     public FLVER2MaterialInfoBank MaterialInfoBank { get; init; } = null!;
+    
+    public bool IsSkinned { get; init; }
 }
