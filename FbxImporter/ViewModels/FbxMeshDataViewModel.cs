@@ -58,6 +58,8 @@ public class FbxMeshDataViewModel
             }
         }
 
+        AdjustBoneIndexBufferSize(flver, bufferLayouts);
+
         List<int> layoutIndices = GetLayoutIndices(flver, bufferLayouts);
 
         FLVER2.Mesh newMesh = new()
@@ -151,6 +153,19 @@ public class FbxMeshDataViewModel
             
         FlverMeshViewModel output = new(newMesh, newMaterial, gxList);
         return output;
+    }
+
+    private static void AdjustBoneIndexBufferSize(FLVER2 flver, List<FLVER2.BufferLayout> bufferLayouts)
+    {
+        if (flver.Bones.Count <= byte.MaxValue) return;
+        
+        foreach (FLVER2.BufferLayout bufferLayout in bufferLayouts)
+        {
+            foreach (FLVER.LayoutMember layoutMember in bufferLayout.Where(x => x.Semantic == FLVER.LayoutSemantic.BoneIndices))
+            {
+                layoutMember.Type = FLVER.LayoutType.ShortBoneIndices;
+            }
+        }
     }
 
     private static void PadVertex(FLVER.Vertex vertex, IEnumerable<FLVER2.BufferLayout> bufferLayouts)

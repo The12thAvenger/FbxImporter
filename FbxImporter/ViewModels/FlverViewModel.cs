@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
 using FbxImporter.Util;
 using ReactiveHistory;
 using ReactiveUI;
@@ -40,18 +39,6 @@ public class FlverViewModel : ViewModelBase
         
         IObservable<bool> isMeshSelected = this.WhenAnyValue(x => x.SelectedMesh).Select(x => x is not null);
         DeleteMeshCommand = ReactiveCommand.Create(DeleteMeshWithHistory, isMeshSelected);
-        ReorderVerticesCommand = ReactiveCommand.CreateFromTask(ReorderVerticesWithHistoryAsync, isMeshSelected);
-        ReorderVerticesCommand.ThrownExceptions.Subscribe(e =>
-        {
-            if (e is InvalidDataException)
-            {
-                Logger.Log(e.Message);
-            }
-            else
-            {
-                Logger.Log(e);
-            }
-        });
     }
 
     public FLVER2 Flver { get; }
@@ -64,47 +51,9 @@ public class FlverViewModel : ViewModelBase
 
     public ReactiveCommand<Unit, Unit> DeleteMeshCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> ReorderVerticesCommand { get; }
-
     public Interaction<Unit, ClothReorderOptions?> GetClothPose { get; } = new();
 
     public Interaction<(string, string), Unit> ShowMessage { get; } = new();
-
-    private async Task ReorderVerticesWithHistoryAsync()
-    {
-        ClothReorderOptions? options = await GetClothPose.Handle(Unit.Default);
-        if (options is null) return;
-
-        FLVER2.Mesh mesh = SelectedMesh!.Mesh;
-        List<List<int>> facesetIndices = mesh.FaceSets.Select(x => x.Indices.ToList()).ToList();
-        List<FLVER.Vertex> vertices = mesh.Vertices.Select(x => new FLVER.Vertex(x)).ToList();
-
-        try
-        {
-            Redo();
-            _history.Snapshot(Undo, Redo);
-            Logger.Log("Successfully reordered vertices.");
-        }
-        catch (InvalidDataException e)
-        {
-            await ShowMessage.Handle(("Error Reordering Vertices", e.Message));
-            Undo();
-        }
-
-        void Undo()
-        {
-            mesh.Vertices = vertices;
-            for (int i = 0; i < mesh.FaceSets.Count; i++)
-            {
-                mesh.FaceSets[i].Indices = facesetIndices[i];
-            }
-        }
-
-        void Redo()
-        {
-            SelectedMesh.ReorderVerticesFromClothPose(options);
-        }
-    }
 
     private void DeleteMeshWithHistory()
     {

@@ -1,9 +1,9 @@
-﻿using Avalonia;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using FbxImporter.ViewModels;
 using ReactiveUI;
 using System;
+using Avalonia;
 
 namespace FbxImporter.Views;
 
