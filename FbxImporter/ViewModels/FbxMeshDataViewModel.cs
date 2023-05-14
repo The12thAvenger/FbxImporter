@@ -66,7 +66,7 @@ public class FbxMeshDataViewModel
         {
             VertexBuffers = layoutIndices.Select(x => new FLVER2.VertexBuffer(x)).ToList(),
             MaterialIndex = flver.Materials.Count,
-            Dynamic = (byte)(options.IsSkinned ? 1 : 0)
+            Dynamic = (byte)(options.IsSkinned && bufferLayouts.Any(x => x.Any(y => y.Semantic == FLVER.LayoutSemantic.BoneWeights)) ? 1 : 0)
         };
 
         int defaultBoneIndex = flver.Bones.IndexOf(flver.Bones.FirstOrDefault(x => x.Name == this.Name));
