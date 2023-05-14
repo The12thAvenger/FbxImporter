@@ -16,6 +16,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
     {
         CreateDefaultBone = optionsCache?.CreateDefaultBone ?? true;
         MirrorX = optionsCache?.MirrorX ?? false;
+        IsSkinned = optionsCache?.IsSkinned ?? true;
 
         string? lastUsedMaterial =
             optionsCache?.MTD is not null && materialInfoBank.MaterialDefs.ContainsKey(optionsCache.MTD)
