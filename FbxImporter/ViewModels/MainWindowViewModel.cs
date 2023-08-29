@@ -218,6 +218,7 @@ namespace FbxImporter.ViewModels
                     null => null,
                     _ => throw new ArgumentOutOfRangeException()
                 },
+                131099 => FlverViewModel.FlverVersion.AC6,
                 _ => throw new InvalidDataException("Invalid Flver Version")
             };
 

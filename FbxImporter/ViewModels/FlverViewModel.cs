@@ -23,7 +23,8 @@ public class FlverViewModel : ViewModelBase
     {
         DS3,
         SDT,
-        ER
+        ER,
+        AC6
     }
 
     public FlverViewModel(FLVER2 flver, FlverVersion version,  IHistory history)
