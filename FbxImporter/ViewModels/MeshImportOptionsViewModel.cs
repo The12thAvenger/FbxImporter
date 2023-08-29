@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -46,8 +47,8 @@ public class MeshImportOptionsViewModel : ViewModelBase
         string[] meshNameParts = meshName.Split('|', StringSplitOptions.TrimEntries);
         if (meshNameParts.Length > 1)
         {
-            SelectedMaterial = FilteredMaterials.FirstOrDefault(x => string.Equals(x.Replace(".mtd", ""),
-                meshNameParts[1].Replace(".mtd", ""),
+            SelectedMaterial = FilteredMaterials.FirstOrDefault(x => string.Equals(Path.GetFileNameWithoutExtension(x),
+                Path.GetFileNameWithoutExtension(meshNameParts[1]),
                 StringComparison.CurrentCultureIgnoreCase))!;
         }
         SelectedMaterial ??= lastUsedMaterial ?? materialNameList[0];
