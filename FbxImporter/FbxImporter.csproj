@@ -12,7 +12,7 @@
         <Configurations>Debug;Release;Publish</Configurations>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
-      <Optimize>True</Optimize>
+        <Optimize>True</Optimize>
     </PropertyGroup>
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
@@ -47,4 +47,10 @@
       <ProjectReference Include="..\SoulsAssetPipeline\SoulsAssetPipeline.csproj" />
       <ProjectReference Include="..\SoulsFormats\SoulsFormats\SoulsFormats.csproj" />
     </ItemGroup>
+    <ItemGroup>
+        <CopyMaterialBanks Include="$(ProjectDir)\SapResources\FLVER2MaterialInfoBank\*.*" />
+    </ItemGroup>
+    <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+        <Copy SourceFiles="@(CopyMaterialBanks)" DestinationFolder="$(OutDir)\SapResources\FLVER2MaterialInfoBank" />
+    </Target>
 </Project>
