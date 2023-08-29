@@ -321,7 +321,7 @@ namespace SoulsAssetPipeline.FLVERImporting
                     // See if runtime check passed.
                     if (texChannelSemantic == TextureChannelSemantic.Unknown)
                     {
-                        throw new Exception($"Semantic of texture channel '{tcn.InnerText}' not defined.");
+                        // throw new Exception($"Semantic of texture channel '{tcn.InnerText}' not defined.");
                     }
 
                     var chanTypeKey = new FlverTextureChannelType()
@@ -355,7 +355,7 @@ namespace SoulsAssetPipeline.FLVERImporting
             XmlDocument xml = new XmlDocument();
             xml.Load(xmlFile);
 
-            DefaultFallbackMTDName = xml.SelectSingleNode("material_info_bank/default_fallback_mtd_name").InnerText.ToLower();
+            DefaultFallbackMTDName = xml.SelectSingleNode("material_info_bank/default_fallback_mtd_name")?.InnerText.ToLower();
 
             var materialDefNodes = xml.SelectNodes("material_info_bank/material_def_list/material_def");
 
