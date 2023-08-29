@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Numerics;
-using System.Xml.Linq;
-using FbxImporter.Util;
-using Newtonsoft.Json;
-using SoulsFormats;
+﻿using SoulsFormats;
 
 namespace FbxImporter.ViewModels;
 
