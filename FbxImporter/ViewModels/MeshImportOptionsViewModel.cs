@@ -35,7 +35,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
         }
     }
 
-    public MeshImportOptionsViewModel(string meshName, FLVER2MaterialInfoBank materialInfoBank,
+    public MeshImportOptionsViewModel(string? mtd, FLVER2MaterialInfoBank materialInfoBank,
         MeshImportOptions? optionsCache)
     {
         CreateDefaultBone = optionsCache?.CreateDefaultBone ?? true;
@@ -68,15 +68,9 @@ public class MeshImportOptionsViewModel : ViewModelBase
             .Bind(FilteredMaterials)
             .Subscribe();
 
-        string[] meshNameParts = meshName.Split('|', StringSplitOptions.TrimEntries);
-        if (meshNameParts.Length > 1)
-        {
-            SelectedMaterial = materialNameList.FirstOrDefault(x => string.Equals(Path.GetFileNameWithoutExtension(x),
-                Path.GetFileNameWithoutExtension(meshNameParts[1]),
-                StringComparison.CurrentCultureIgnoreCase))!;
-        }
-
-        SelectedMaterial ??= lastUsedMaterial ?? materialNameList[0];
+        SelectedMaterial = materialNameList.FirstOrDefault(x => string.Equals(Path.GetFileNameWithoutExtension(x),
+            Path.GetFileNameWithoutExtension(mtd),
+            StringComparison.CurrentCultureIgnoreCase)) ?? lastUsedMaterial;
 
         IObservable<bool> isMaterialSelected = this.WhenAnyValue(x => x.SelectedMaterial).Select(x => x is not null);
 
