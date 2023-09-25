@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 
 namespace FbxImporter;
 
@@ -33,9 +31,4 @@ public class Logger
             Instance.LogInstance(message);
         }
     }
-}
-
-public interface ILoggable
-{
-    public string Log { get; set; }
 }

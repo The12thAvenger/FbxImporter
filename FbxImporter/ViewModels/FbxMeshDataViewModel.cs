@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Numerics;
 using FbxDataExtractor;
@@ -181,27 +180,27 @@ public class FbxMeshDataViewModel
             }
         }
 
-        if (usageCounts.ContainsKey(FLVER.LayoutSemantic.Tangent))
+        if (usageCounts.TryGetValue(FLVER.LayoutSemantic.Tangent, out int tangentCount))
         {
-            int missingTangentCount = usageCounts[FLVER.LayoutSemantic.Tangent] - vertex.Tangents.Count;
+            int missingTangentCount = tangentCount - vertex.Tangents.Count;
             for (int i = 0; i < missingTangentCount; i++)
             {
                 vertex.Tangents.Add(Vector4.Zero);
             }
         }
 
-        if (usageCounts.ContainsKey(FLVER.LayoutSemantic.UV))
+        if (usageCounts.TryGetValue(FLVER.LayoutSemantic.UV, out int uvCount))
         {
-            int missingUvCount = usageCounts[FLVER.LayoutSemantic.UV] - vertex.UVs.Count;
+            int missingUvCount = uvCount - vertex.UVs.Count;
             for (int i = 0; i < missingUvCount; i++)
             {
                 vertex.UVs.Add(Vector3.Zero);
             }
         }
 
-        if (usageCounts.ContainsKey(FLVER.LayoutSemantic.VertexColor))
+        if (usageCounts.TryGetValue(FLVER.LayoutSemantic.VertexColor, out int colorCount))
         {
-            int missingColorCount = usageCounts[FLVER.LayoutSemantic.VertexColor] - vertex.Colors.Count;
+            int missingColorCount = colorCount - vertex.Colors.Count;
             for (int i = 0; i < missingColorCount; i++)
             {
                 vertex.Colors.Add(new FLVER.VertexColor(255, 255, 255, 255));
