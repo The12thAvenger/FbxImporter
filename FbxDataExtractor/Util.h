@@ -1,114 +1,66 @@
 #pragma once
 #include <fbxsdk.h>
 #include <vector>
+#include <fbxsdk/scene/geometry/fbxlayer.h>
 
 namespace FbxDataExtractor
 {
-	template<int ArraySize, typename T>
-	array<float>^ FbxVectorToArray(const T& sourceVector)
+	template <class T>
+	bool SequenceEqual(const std::vector<T>& vector1, const std::vector<T>& vector2)
 	{
-		array<float>^ targetArray = gcnew array<float>(ArraySize);
-		for (int i = 0; i < ArraySize; i++)
+		if (vector1.size() != vector2.size()) return false;
+		for (int i = 0; i < vector1.size(); ++i)
 		{
-			const int arrSize = *(&sourceVector.mData + 1) - sourceVector.mData;
-			if (i >= arrSize)
-			{
-				targetArray[i] = 0.0f;
-			}
-			targetArray[i] = sourceVector.mData[i];
-		}
-
-		return targetArray;
-	}
-
-	template<typename T>
-	bool IsAllEqual(std::vector<T> vector)
-	{
-		return std::equal(vector.begin() + 1, vector.end(), vector.begin());
-	}
-
-	template<typename T>
-	int GetVertexIndex(const FbxLayerElementTemplate<T>* element, const int* vertexIndices, const int index)
-	{
-		switch (element->GetMappingMode())
-		{
-		case FbxLayerElement::eByControlPoint:
-			return index;
-		case FbxLayerElement::eByPolygonVertex:
-			return vertexIndices[index];
-		default: throw gcnew IO::InvalidDataException("Unsupported mapping mode.");
-		}
-	}
-
-	template<typename T>
-	std::vector<std::vector<T>> GetElementListByControlPoint(const FbxLayerElementTemplate<T>* element, const int* vertexIndices, const int numVertices)
-	{
-		std::vector<std::vector<T>> elementListPerControlPoint(numVertices);
-
-		const FbxLayerElementArrayTemplate<T>& directArray = element->GetDirectArray();
-		const FbxLayerElementArrayTemplate<int>& indexArray = element->GetIndexArray();
-
-		switch (element->GetReferenceMode())
-		{
-		case FbxLayerElement::eDirect:
-			for (int i = 0; i < directArray.GetCount(); i++)
-			{
-				const int vertexIndex = GetVertexIndex(element, vertexIndices, i);
-				elementListPerControlPoint.at(vertexIndex).push_back(directArray.GetAt(i));
-			}
-			break;
-		case FbxLayerElement::eIndexToDirect:
-			for (int i = 0; i < indexArray.GetCount(); i++)
-			{
-				const int directIndex = indexArray.GetAt(i);
-				const int vertexIndex = GetVertexIndex(element, vertexIndices, i);
-				elementListPerControlPoint.at(vertexIndex).push_back(directArray.GetAt(directIndex));
-			}
-			break;
-		default: throw gcnew IO::InvalidDataException("Unsupported reference mode.");
-		}
-
-		return elementListPerControlPoint;
-	}
-
-	inline bool IsIdentical(FbxVertexData^ v1, FbxVertexData^ v2)
-	{
-		if (!Linq::Enumerable::SequenceEqual(gcnew  List<float>(v1->Position), gcnew  List<float>(v2->Position))
-			|| Linq::Enumerable::SequenceEqual(gcnew  List<float>(v1->Normal), gcnew  List<float>(v2->Normal))
-			|| v1->Tangents->Count != v2->Tangents->Count
-			|| v1->UVs->Count != v2->UVs->Count)
-		{
-			return false;
-		}
-
-		for (int i = 0; i < v1->Tangents->Count; ++i)
-		{
-			if (!Linq::Enumerable::SequenceEqual(gcnew  List<float>(v1->Tangents[i]), gcnew  List<float>(v2->Tangents[i])))
-			{
-				return false;
-			}
-		}
-
-		for (int i = 0; i < v1->UVs->Count; ++i)
-		{
-			if (!Linq::Enumerable::SequenceEqual(gcnew  List<float>(v1->UVs[i]), gcnew  List<float>(v2->UVs[i])))
-			{
-				return false;
-			}
+			if (vector1[i] != vector2[i]) return false;
 		}
 
 		return true;
 	}
 
-	inline void DecrementVertexIndicesAbove(const int limit, List<int>^ vertexIndices)
+	inline Vector4 FbxColorToVector4(const FbxColor& sourceVector)
 	{
-		for (int i = 0; i < vertexIndices->Count; ++i)
+		return Vector4(static_cast<float>(sourceVector[0]), static_cast<float>(sourceVector[1]), static_cast<float>(sourceVector[2]), static_cast<float>(sourceVector[3]));
+	}
+
+	inline Vector4 FbxVector4ToVector4(const FbxVector4& sourceVector)
+	{
+		return Vector4(static_cast<float>(sourceVector[0]), static_cast<float>(sourceVector[1]), static_cast<float>(sourceVector[2]), static_cast<float>(sourceVector[3]));
+	}
+
+	inline Vector3 FbxVector4ToVector3(const FbxVector4& sourceVector)
+	{
+		return Vector3(static_cast<float>(sourceVector[0]), static_cast<float>(sourceVector[1]), static_cast<float>(sourceVector[2]));
+	}
+
+	inline Vector2 FbxVector2ToVector2(const FbxVector2& sourceVector)
+	{
+		return Vector2(static_cast<float>(sourceVector[0]), static_cast<float>(sourceVector[1]));
+	}
+
+	inline int GetMappedIndex(const FbxLayerElement::EMappingMode mappingMode, const int controlPointIndex, const int polygonVertexIndex)
+	{
+		switch (mappingMode)
 		{
-			if (vertexIndices[i] > limit)
-			{
-				vertexIndices[i] -= 1;
-			}
+		case FbxLayerElement::eByControlPoint:
+			return controlPointIndex;
+		case FbxLayerElement::eByPolygonVertex:
+			return polygonVertexIndex;
+		default: throw gcnew IO::InvalidDataException("Unsupported mapping mode.");
+		}
+	}
+
+	template <typename T>
+	T GetLayerElementValue(const FbxLayerElementTemplate<T>& element, const int controlPointIndex, const int polygonVertexIndex)
+	{
+		int mappedIndex = GetMappedIndex(element.GetMappingMode(), controlPointIndex, polygonVertexIndex);
+		switch (element.GetReferenceMode())
+		{
+		case FbxLayerElement::eDirect:
+			return element.GetDirectArray().GetAt(mappedIndex);
+		case FbxLayerElement::eIndexToDirect:
+		case FbxLayerElement::eIndex:
+			return element.GetDirectArray().GetAt(element.GetIndexArray().GetAt(mappedIndex));
+		default: throw gcnew IO::InvalidDataException("Unsupported reference mode.");
 		}
 	}
 }
-

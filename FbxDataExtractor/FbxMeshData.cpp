@@ -1,230 +1,358 @@
 #include "pch.h"
-#include <msclr/marshal.h>
+#include <msclr/marshal_cppstd.h>
 #include <vector>
+#include <future>
+#include <unordered_map>
+#include <ranges>
+
+#include <fbxsdk.h>
 
 #include "FbxMeshData.h"
 #include "Util.h"
 
-namespace FbxDataExtractor {
-    FbxMeshData::FbxMeshData(const char* name)
-    {
-        Name = gcnew String(name);
-        VertexIndices = gcnew List<int>();
-        VertexData = gcnew List<FbxVertexData^>();
-    }
+struct FbxPolygonVertex
+{
+	int Id;
+	FbxVector4 Normal;
+	FbxVector4 Bitangent;
+	std::vector<FbxVector4> Tangents;
+	std::vector<FbxVector2> UVs;
+	std::vector<FbxColor> Colors;
 
-    List<FbxMeshData^>^ FbxMeshData::Import(String^ path)
-    {
-        FbxManager* fbxManager = FbxManager::Create();
+	bool operator==(const FbxPolygonVertex& other) const
+	{
+		return Normal == other.Normal
+			&& Bitangent == other.Bitangent
+			&& FbxDataExtractor::SequenceEqual(Tangents, other.Tangents)
+			&& FbxDataExtractor::SequenceEqual(UVs, other.UVs)
+			&& FbxDataExtractor::SequenceEqual(Colors, other.Colors);
+	}
+};
 
-        FbxIOSettings* ios = FbxIOSettings::Create(fbxManager, IOSROOT);
-        fbxManager->SetIOSettings(ios);
-        FbxImporter* importer = FbxImporter::Create(fbxManager, "");
+struct FbxControlPoint
+{
+	FbxVector4 Position;
+	std::vector<const char*> BoneNames;
+	std::vector<double> BoneWeights;
+	FbxPolygonVertex FinalVertex;
+	std::vector<FbxPolygonVertex> PolygonVertices;
+};
 
-        msclr::interop::marshal_context^ context = gcnew msclr::interop::marshal_context();
-        const char* pathPtr = context->marshal_as<const char*>(path);
+struct FbxExtractedMesh
+{
+	const char* Name;
+	std::vector<FbxControlPoint> Vertices;
+	std::vector<int> Triangles;
+};
 
-        importer->Initialize(pathPtr, -1, ios);
+namespace std
+{
+	template <typename T, typename... Rest>
+	void hash_combine(std::size_t& seed, const T& v, const Rest&... rest)
+	{
+		seed ^= std::hash<T> { }(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+		(hash_combine(seed, rest), ...);
+	}
 
-        delete context;
+	template <>
+	struct hash<FbxPolygonVertex>
+	{
+		std::size_t operator()(FbxPolygonVertex const& vertex) const noexcept
+		{
+			std::size_t hash = 0;
+			hash_combine(hash, vertex.Normal, vertex.Bitangent);
+			if (vertex.Tangents.size() > 0) hash_combine(hash, vertex.Tangents[0]);
+			if (vertex.UVs.size() > 0) hash_combine(hash, vertex.UVs[0]);
+			if (vertex.Colors.size() > 0) hash_combine(hash, vertex.Colors[0]);
+			return hash;
+		}
+	};
 
-        FbxScene* scene = FbxScene::Create(fbxManager, "");
-        importer->Import(scene);
-        importer->Destroy();
-        ios->Destroy();
+	template <>
+	struct hash<FbxVector4>
+	{
+		std::size_t operator()(FbxVector4 const& vector) const noexcept
+		{
+			std::size_t hash = 0;
+			hash_combine(hash, vector[0], vector[1], vector[2], vector[3]);
+			return hash;
+		}
+	};
 
-        List<FbxMeshData^>^ meshList = gcnew List<FbxMeshData^>();
-        for (int i = 0; i < scene->GetNodeCount(); i++)
-        {
-            FbxMesh* mesh = scene->GetNode(i)->GetMesh();
-            if (mesh == nullptr) {
-                continue;
-            }
-            meshList->Add(Import(mesh));
-        }
+	template <>
+	struct hash<FbxColor>
+	{
+		std::size_t operator()(FbxColor const& color) const noexcept
+		{
+			std::size_t hash = 0;
+			hash_combine(hash, color[0], color[1], color[2], color[3]);
+			return hash;
+		}
+	};
 
-        fbxManager->Destroy();
-
-        return meshList;
-    }
-    
-    FbxMeshData^ FbxMeshData::Import(FbxMesh* fbxMesh)
-    {
-        const char* meshName = fbxMesh->GetNode()->GetName();
-        if (!fbxMesh->IsTriangleMesh()) {
-            throw gcnew IO::InvalidDataException(gcnew String("Fbx mesh \"" + gcnew String(meshName) + "\" is not triangulated. Please triangulate all meshes."));
-        }
-
-        fbxMesh->GenerateNormals();
-        fbxMesh->GenerateTangentsDataForAllUVSets();
-
-        const int* vertexIndices = fbxMesh->GetPolygonVertices();
-
-        // get all vertex data per control point, must account for multiple unique normals/tangents/uvs
-        const int numControlPoints = fbxMesh->GetControlPointsCount();
-        const std::vector<std::vector<FbxVector4>> normalListPerControlPoint = GetElementListByControlPoint(fbxMesh->GetElementNormal(), vertexIndices, numControlPoints);
-
-        std::vector<std::vector<std::vector<FbxVector4>>> tangentListPerControlPointLayers{ };
-        const int numTangents = fbxMesh->GetElementTangentCount();
-        for (int i = 0; i < numTangents; i++)
-        {
-            tangentListPerControlPointLayers.push_back(GetElementListByControlPoint(fbxMesh->GetElementTangent(i), vertexIndices, numControlPoints));
-        }
-
-        std::vector<std::vector<std::vector<FbxVector2>>> uvListPerControlPointLayers{ };
-        const int numUvs = fbxMesh->GetElementUVCount();
-        for (int i = 0; i < numUvs; i++)
-        {
-            uvListPerControlPointLayers.push_back(GetElementListByControlPoint(fbxMesh->GetElementUV(i), vertexIndices, numControlPoints));
-        }
-
-        array<int>^ numVertexDataPerControlPoint = gcnew array<int>(numControlPoints);
-        List<int>^ vertexIndicesList = gcnew List<int>();
-        for (int i = 0; i < fbxMesh->GetPolygonVertexCount(); i++)
-        {
-            numVertexDataPerControlPoint[vertexIndices[i]] += 1;
-            vertexIndicesList->Add(vertexIndices[i]);
-        }
-
-        // loop over control points and create all vertex data
-        array<array<FbxVertexData^>^>^ vertexDataPerControlPoint = gcnew array<array<FbxVertexData^>^>(numControlPoints);
-        for (int i = 0; i < numControlPoints; i++)
-        {
-            if (numVertexDataPerControlPoint[i] == 0) {
-                vertexDataPerControlPoint[i] = nullptr;
-                continue;
-            }
-            vertexDataPerControlPoint[i] = gcnew array<FbxVertexData^>(numVertexDataPerControlPoint[i]);
-
-            for (int j = 0; j < vertexDataPerControlPoint[i]->Length; ++j)
-            {
-                FbxVertexData^ vertexData = gcnew FbxVertexData();
-                vertexDataPerControlPoint[i][j] = vertexData;
-
-                FbxVector4 position = fbxMesh->GetControlPointAt(i);
-                vertexData->Position = FbxVectorToArray<3>(position);
-
-                FbxVector4 normal = normalListPerControlPoint.at(i).at(j);
-                vertexData->Normal = FbxVectorToArray<3>(normal);
-
-                for (int k = 0; k < numTangents; k++)
-                {
-                    FbxVector4 tangent = tangentListPerControlPointLayers.at(k).at(i).at(j);
-                    vertexData->Tangents->Add(FbxVectorToArray<4>(tangent));
-                }
-
-                for (int k = 0; k < numUvs; k++)
-                {
-                    FbxVector2 uv = uvListPerControlPointLayers.at(k).at(i).at(j);
-                    vertexData->UVs->Add(FbxVectorToArray<3>(uv));
-                }
-            }
-        }
-
-        // get skin data for each control point, this is the same for all vertices belonging to a given control point
-        FbxSkin* skin = nullptr;
-        for (int i = 0; i < fbxMesh->GetDeformerCount(); i++)
-        {
-            if (fbxMesh->GetDeformer(i)->GetDeformerType() == FbxDeformer::eSkin) {
-                skin = static_cast<FbxSkin*>(fbxMesh->GetDeformer(i));
-                break;
-            }
-        }
-
-        if (skin != nullptr) {
-            for (int i = 0; i < skin->GetClusterCount(); i++)
-            {
-                FbxCluster* cluster = skin->GetCluster(i);
-                const int* controlPointIndices = cluster->GetControlPointIndices();
-                const double* controlPointWeights = cluster->GetControlPointWeights();
-                for (int j = 0; j < cluster->GetControlPointIndicesCount(); j++)
-                {
-                    if (vertexDataPerControlPoint[controlPointIndices[j]] == nullptr) {
-                        continue;
-                    }
-	                for (int k = 0; k < vertexDataPerControlPoint[controlPointIndices[j]]->Length; k++)
-	                {
-                        FbxVertexData^ vertexData = vertexDataPerControlPoint[controlPointIndices[j]][k];
-
-                        String^ boneName = gcnew String(cluster->GetLink()->GetName());
-                        vertexData->BoneNames->Add(boneName);
-
-                        const float boneWeight = controlPointWeights[j];
-                        vertexData->BoneWeights->Add(boneWeight);
-	                }
-                }
-            }
-        }
-
-        // flatten vertex data, remove duplicates and adjust vertex indices
-
-        array<Queue<FbxVertexData^>^>^ vertexDataQueuesPerControlPoint = gcnew array<Queue<FbxVertexData^>^>(vertexDataPerControlPoint->Length);
-        for (int i = 0; i < vertexDataQueuesPerControlPoint->Length; ++i)
-        {
-            if (vertexDataPerControlPoint[i] == nullptr)
-            {
-                continue;
-            }
-            vertexDataQueuesPerControlPoint[i] = gcnew Queue<FbxVertexData^>(vertexDataPerControlPoint[i]);
-        }
-        
-        List<FbxVertexData^>^ vertexDataList = gcnew List<FbxVertexData^>(gcnew array<FbxVertexData^>(numControlPoints));
-        for (int i = 0; i < vertexIndicesList->Count; ++i)
-        {
-            int controlPointIndex = vertexIndicesList[i];
-
-            FbxVertexData^ vertexData = vertexDataQueuesPerControlPoint[controlPointIndex]->Dequeue();
-            FbxVertexData^ vertexDataAtControlPointIndex = vertexDataList[controlPointIndex];
-            if(vertexDataAtControlPointIndex == nullptr)
-            {
-                vertexDataList[controlPointIndex] = vertexData;
-                continue;
-            }
-
-            if (IsIdentical(vertexData, vertexDataAtControlPointIndex))
-            {
-                continue;
-            }
-
-            /*int vertexIndex = -1;
-            for (int j = numControlPoints; j < vertexDataList->Count; ++j)
-            {
-                if (vertexDataList[j] == nullptr)
-                {
-                    continue;
-                }
-
-                if (IsIdentical(vertexData, vertexDataList[j]))
-                {
-                    vertexIndex = j;
-                    break;
-                }
-            }
-
-            if (vertexIndex != -1)
-            {
-                vertexIndicesList[i] = vertexIndex;
-                continue;
-            }*/
-
-            vertexIndicesList[i] = vertexDataList->Count;
-            vertexDataList->Add(vertexData);
-        }
-
-        for (int i = 0; i < vertexDataList->Count; ++i)
-        {
-	        while (vertexDataList[i] == nullptr)
-	        {
-                DecrementVertexIndicesAbove(i, vertexIndicesList);
-                vertexDataList->RemoveAt(i);
-	        }
-        }
-
-        FbxMeshData^ meshData = gcnew FbxMeshData(meshName);
-        meshData->VertexData = vertexDataList;
-        meshData->VertexIndices = vertexIndicesList;
-
-        return meshData;
-    }
+	template <>
+	struct hash<FbxVector2>
+	{
+		std::size_t operator()(FbxVector2 const& vector) const noexcept
+		{
+			std::size_t hash = 0;
+			hash_combine(hash, vector[0], vector[1]);
+			return hash;
+		}
+	};
 }
 
+namespace FbxDataExtractor
+{
+	FbxMeshData::FbxMeshData(const char* name)
+	{
+		Name = gcnew String(name);
+	}
+
+	static void GetVertexData(const FbxMesh* fbxMesh, std::vector<FbxControlPoint>& controlPoints, std::vector<int>& vertexIndices)
+	{
+		controlPoints = std::vector<FbxControlPoint>(fbxMesh->GetControlPointsCount());
+
+		const int avgPolygonVertexCount = fbxMesh->GetPolygonVertexCount() / (int)controlPoints.size();
+		for (int i = 0; i < controlPoints.size(); i++)
+		{
+			FbxControlPoint& controlPoint = controlPoints.at(i);
+			controlPoint.Position = fbxMesh->GetControlPointAt(i);
+			controlPoint.PolygonVertices.reserve(avgPolygonVertexCount);
+		}
+
+		// getting element counts seems to have a performance impact so we cache them
+		const int tangentCount = fbxMesh->GetElementTangentCount();
+		const int uvCount = fbxMesh->GetElementUVCount();
+		const int colorCount = fbxMesh->GetElementVertexColorCount();
+
+		vertexIndices = std::vector<int>(fbxMesh->GetPolygonVertexCount());
+		const int* controlPointIndices = fbxMesh->GetPolygonVertices();
+		for (int i = 0; i < vertexIndices.size(); i++)
+		{
+			const int controlPointIndex = controlPointIndices[i];
+			vertexIndices[i] = controlPointIndex;
+			FbxPolygonVertex& polygonVertex = controlPoints.at(controlPointIndex).PolygonVertices.emplace_back();
+
+			polygonVertex.Id = i;
+			polygonVertex.Normal = GetLayerElementValue(*fbxMesh->GetElementNormal(), controlPointIndex, i);
+			polygonVertex.Bitangent = GetLayerElementValue(*fbxMesh->GetElementBinormal(), controlPointIndex, i);
+
+			polygonVertex.Tangents.reserve(tangentCount);
+			for (int j = 0; j < tangentCount; j++)
+			{
+				polygonVertex.Tangents.emplace_back(GetLayerElementValue(*fbxMesh->GetElementTangent(j), controlPointIndex, i));
+			}
+
+			polygonVertex.UVs.reserve(uvCount);
+			for (int j = 0; j < uvCount; j++)
+			{
+				polygonVertex.UVs.emplace_back(GetLayerElementValue(*fbxMesh->GetElementUV(j), controlPointIndex, i));
+			}
+
+			polygonVertex.Colors.reserve(colorCount);
+			for (int j = 0; j < colorCount; j++)
+			{
+				polygonVertex.Colors.emplace_back(GetLayerElementValue(*fbxMesh->GetElementVertexColor(j), controlPointIndex, i));
+			}
+		}
+	}
+
+	static void GetSkinData(const FbxMesh* fbxMesh, std::vector<FbxControlPoint>& controlPoints)
+	{
+		const FbxSkin* skin = nullptr;
+		for (int i = 0; i < fbxMesh->GetDeformerCount(); i++)
+		{
+			if (fbxMesh->GetDeformer(i)->GetDeformerType() == FbxDeformer::eSkin)
+			{
+				skin = static_cast<FbxSkin*>(fbxMesh->GetDeformer(i));
+				break;
+			}
+		}
+
+		if (!skin) return;
+
+		for (int i = 0; i < skin->GetClusterCount(); i++)
+		{
+			const FbxCluster* cluster = skin->GetCluster(i);
+			const int* clusterControlPointIndices = cluster->GetControlPointIndices();
+			const double* controlPointWeights = cluster->GetControlPointWeights();
+			for (int j = 0; j < cluster->GetControlPointIndicesCount(); j++)
+			{
+				const int ccpIndex = clusterControlPointIndices[j];
+				FbxControlPoint& controlPoint = controlPoints.at(ccpIndex);
+				controlPoint.BoneNames.emplace_back(cluster->GetLink()->GetName());
+				controlPoint.BoneWeights.emplace_back(controlPointWeights[j]);
+			}
+		}
+	}
+
+	static void FlattenVertices(std::vector<FbxControlPoint>& controlPoints, std::vector<int>& vertexIndices)
+	{
+		std::vector vertexIndicesRemap(vertexIndices);
+		for (int i = 0; i < controlPoints.size(); ++i)
+		{
+			const FbxControlPoint controlPoint = std::move(controlPoints.at(i));
+			std::unordered_map<FbxPolygonVertex, std::vector<int>> vertexGroups { };
+			for (int j = 0; j < controlPoint.PolygonVertices.size(); ++j)
+			{
+				const FbxPolygonVertex& polygonVertex = controlPoint.PolygonVertices[j];
+				vertexGroups.try_emplace(polygonVertex, std::vector<int>());
+				vertexGroups[polygonVertex].push_back(polygonVertex.Id);
+			}
+
+			auto current = vertexGroups.begin();
+			int currentIndex = i;
+			while (current != vertexGroups.end())
+			{
+				if (currentIndex != i) controlPoints.emplace_back();
+
+				controlPoints.at(currentIndex) = FbxControlPoint {
+					.Position = controlPoint.Position,
+					.BoneNames = controlPoint.BoneNames,
+					.BoneWeights = controlPoint.BoneWeights,
+					.FinalVertex = current->first
+				};
+
+				for (const int polygonIndex : current->second)
+				{
+					vertexIndices.at(polygonIndex) = currentIndex;
+				}
+
+				currentIndex = (int)controlPoints.size();
+				++current;
+			}
+		}
+	}
+
+	static List<FbxVertexData^>^ ToClrVertices(const std::vector<FbxControlPoint>& vertices)
+	{
+		List<FbxVertexData^>^ clrData = gcnew List<FbxVertexData^>((int)vertices.size());
+		for (const FbxControlPoint& vertex : vertices)
+		{
+			FbxVertexData^ clrVertex = gcnew FbxVertexData();
+
+			FbxVector4 position = vertex.Position;
+			clrVertex->Position = FbxVector4ToVector3(position);
+
+			clrVertex->BoneNames = gcnew array<String^>((int)vertex.BoneNames.size());
+			for (int i = 0; i < (int)vertex.BoneNames.size(); ++i)
+			{
+				clrVertex->BoneNames[i] = gcnew String(vertex.BoneNames[i]);
+			}
+
+			clrVertex->BoneWeights = gcnew array<float>((int)vertex.BoneWeights.size());
+			for (int i = 0; i < (int)vertex.BoneWeights.size(); ++i)
+			{
+				clrVertex->BoneWeights[i] = static_cast<float>(vertex.BoneWeights[i]);
+			}
+
+			FbxVector4 normal = vertex.FinalVertex.Normal;
+			clrVertex->Normal = FbxVector4ToVector3(normal);
+
+			FbxVector4 bitangent = vertex.FinalVertex.Bitangent;
+			clrVertex->Bitangent = FbxVector4ToVector4(bitangent);
+
+			clrVertex->Tangents = gcnew List<Vector4>((int)vertex.FinalVertex.Tangents.size());
+			for (const FbxVector4& tangent : vertex.FinalVertex.Tangents)
+			{
+				clrVertex->Tangents->Add(FbxVector4ToVector4(tangent));
+			}
+
+			clrVertex->UVs = gcnew List<Vector2>((int)vertex.FinalVertex.UVs.size());
+			for (const FbxVector2& uv : vertex.FinalVertex.UVs)
+			{
+				clrVertex->UVs->Add(FbxVector2ToVector2(uv));
+			}
+
+			clrVertex->Colors = gcnew List<Vector4>((int)vertex.FinalVertex.Colors.size());
+			for (const FbxColor& color : vertex.FinalVertex.Colors)
+			{
+				clrVertex->Tangents->Add(FbxColorToVector4(color));
+			}
+
+			clrData->Add(clrVertex);
+		}
+		return clrData;
+	}
+
+	FbxExtractedMesh ImportMesh(const FbxMesh* fbxMesh)
+	{
+		FbxExtractedMesh extractedMesh;
+		extractedMesh.Name = fbxMesh->GetName();
+		GetVertexData(fbxMesh, extractedMesh.Vertices, extractedMesh.Triangles);
+		FlattenVertices(extractedMesh.Vertices, extractedMesh.Triangles);
+		return extractedMesh;
+	}
+
+	List<FbxMeshData^>^ FbxMeshData::Import(String^ path)
+	{
+		FbxManager* fbxManager = FbxManager::Create();
+
+		FbxIOSettings* ios = FbxIOSettings::Create(fbxManager, IOSROOT);
+		fbxManager->SetIOSettings(ios);
+		FbxImporter* importer = FbxImporter::Create(fbxManager, "");
+
+		const std::string pathPtr = msclr::interop::marshal_as<std::string>(path);
+
+		importer->Initialize(pathPtr.c_str(), -1, ios);
+
+		FbxScene* scene = FbxScene::Create(fbxManager, "");
+		importer->Import(scene);
+		importer->Destroy();
+		ios->Destroy();
+
+		FbxGeometryConverter geometryConverter(fbxManager);
+		geometryConverter.Triangulate(scene, true);
+
+		std::vector<FbxMesh*> meshes;
+		std::vector<std::future<FbxExtractedMesh>> tasks;
+		for (int i = 0; i < scene->GetNodeCount(); i++)
+		{
+			FbxNode* node = scene->GetNode(i);
+			FbxMesh* mesh = node->GetMesh();
+			if (!mesh) continue;
+
+			mesh->GenerateNormals();
+			mesh->GenerateTangentsDataForAllUVSets();
+			meshes.push_back(mesh);
+			tasks.emplace_back(std::async(std::launch::async, &ImportMesh, mesh));
+		}
+
+		bool working;
+		do
+		{
+			working = false;
+			for (std::future<FbxExtractedMesh>& task : tasks)
+			{
+				working |= !task._Is_ready();
+			}
+		}
+		while (working);
+
+		List<FbxMeshData^>^ meshList = gcnew List<FbxMeshData^>();
+		for (size_t i = 0; i < meshes.size(); ++i)
+		{
+			const FbxMesh* mesh = meshes[i];
+			std::future<FbxExtractedMesh>& task = tasks[i];
+			FbxExtractedMesh extractedMesh = std::move(task.get());
+
+			// GetSkinData cannot be made thread safe as FbxCluster operations are not thread safe even if const
+			GetSkinData(mesh, extractedMesh.Vertices);
+
+			FbxMeshData^ clrMesh = gcnew FbxMeshData(extractedMesh.Name);
+			clrMesh->VertexData = ToClrVertices(extractedMesh.Vertices);
+
+			clrMesh->VertexIndices = gcnew List<int>((int)extractedMesh.Vertices.size());
+			for (const int vertexIndex : extractedMesh.Triangles)
+			{
+				clrMesh->VertexIndices->Add(vertexIndex);
+			}
+			meshList->Add(clrMesh);
+		}
+
+		fbxManager->Destroy();
+
+		return meshList;
+	}
+}

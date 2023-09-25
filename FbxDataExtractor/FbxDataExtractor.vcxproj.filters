@@ -24,9 +24,6 @@
     <ClInclude Include="FbxMeshData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FbxVertexData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -42,9 +39,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FbxMeshData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FbxVertexData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
