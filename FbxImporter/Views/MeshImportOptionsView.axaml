@@ -16,12 +16,13 @@
         <Grid RowDefinitions="40, 200, 40, 40, 40" Margin="5">
             <TextBox Text="{Binding Filter}" Grid.Row="0" Margin="5"/>
             <ListBox Items="{Binding FilteredMaterials}" SelectedItem="{Binding SelectedMaterial}" 
-                     VirtualizationMode="Simple" SelectionMode="Single" Grid.Row="1" Margin="5"/>
+                     VirtualizationMode="Simple" SelectionMode="Single" AutoScrollToSelectedItem="True" 
+                     Name="MaterialListBox" Grid.Row="1" Margin="5"/>
             <TextBox Text="{Binding SelectedMaterial}" IsEnabled="False" Grid.Row="2" Margin="5"/>
             <StackPanel Grid.Row="3" Margin="0, 10">
-                <!--<CheckBox Content="Create Default Bone" IsChecked="{Binding CreateDefaultBone}"/>-->
                 <CheckBox Content="Mirror" IsChecked="{Binding MirrorZ}" ToolTip.Tip="Inverts the Z-scale of the model."/>
                 <CheckBox Content="Static Mesh" IsChecked="{Binding IsStatic}" ToolTip.Tip="Enable if the mesh is not deformed by a skeleton and does not contain bone weights."/>
+                <CheckBox Content="Create Default Bone" IsChecked="{Binding CreateDefaultBone}" ToolTip.Tip="Creates a default bone for the mesh if no bone matching the mesh name is found."/>
             </StackPanel>
             <Grid ColumnDefinitions="*, *" Grid.Row="4">
                 <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="0, 0, 2, 0" Grid.Column="0" />

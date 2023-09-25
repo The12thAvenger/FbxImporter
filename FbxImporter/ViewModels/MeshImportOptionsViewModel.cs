@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive;
@@ -15,8 +16,28 @@ namespace FbxImporter.ViewModels;
 public class MeshImportOptionsViewModel : ViewModelBase
 {
     private readonly FLVER2MaterialInfoBank _materialInfoBank;
+    private string? _selectedMaterial;
 
-    public MeshImportOptionsViewModel(string meshName, FLVER2MaterialInfoBank materialInfoBank, MeshImportOptions? optionsCache)
+    public class FilteredStringComparer : IComparer<string>
+    {
+        private readonly string _filter;
+        public FilteredStringComparer(string filter)
+        {
+            _filter = filter;
+        }
+
+        public int Compare(string? x, string? y)
+        {
+            if (x is null) return 1;
+            if (y is null) return -1;
+            if (x.StartsWith(_filter) && !y.StartsWith(_filter)) return -1;
+            if (!x.StartsWith(_filter) && y.StartsWith(_filter)) return 1;
+            return StringComparer.InvariantCultureIgnoreCase.Compare(x, y);
+        }
+    }
+
+    public MeshImportOptionsViewModel(string meshName, FLVER2MaterialInfoBank materialInfoBank,
+        MeshImportOptions? optionsCache)
     {
         CreateDefaultBone = optionsCache?.CreateDefaultBone ?? true;
         MirrorZ = optionsCache?.MirrorZ ?? false;
@@ -32,25 +53,30 @@ public class MeshImportOptionsViewModel : ViewModelBase
             .OrderBy(x => x).ToList();
         Materials = new SourceCache<string, string>(x => x);
         Materials.AddOrUpdate(materialNameList);
-        
+
         IObservable<Func<string, bool>> materialFilter = this.WhenAnyValue(x => x.Filter)
             .Throttle(TimeSpan.FromMilliseconds(100))
-            .Select(x => (Func<string, bool>)(y => y.StartsWith(x)));
+            .Select(x => (Func<string, bool>)(y => y.Contains(x)));
+        
+        IObservable<IComparer<string>> sortComparer = this.WhenAnyValue(x => x.Filter)
+            .Throttle(TimeSpan.FromMilliseconds(100))
+            .Select(x => new FilteredStringComparer(x));
 
         FilteredMaterials = new ObservableCollectionExtended<string>();
         Materials.Connect()
             .Filter(materialFilter)
-            .Sort(StringComparer.OrdinalIgnoreCase)
+            .Sort(sortComparer)
             .Bind(FilteredMaterials)
             .Subscribe();
 
         string[] meshNameParts = meshName.Split('|', StringSplitOptions.TrimEntries);
         if (meshNameParts.Length > 1)
         {
-            SelectedMaterial = FilteredMaterials.FirstOrDefault(x => string.Equals(Path.GetFileNameWithoutExtension(x),
+            SelectedMaterial = materialNameList.FirstOrDefault(x => string.Equals(Path.GetFileNameWithoutExtension(x),
                 Path.GetFileNameWithoutExtension(meshNameParts[1]),
                 StringComparison.CurrentCultureIgnoreCase))!;
         }
+
         SelectedMaterial ??= lastUsedMaterial ?? materialNameList[0];
 
         IObservable<bool> isMaterialSelected = this.WhenAnyValue(x => x.SelectedMaterial).Select(x => x is not null);
@@ -60,16 +86,24 @@ public class MeshImportOptionsViewModel : ViewModelBase
     }
 
     [Reactive] public string Filter { get; set; } = string.Empty;
-    
+
     [Reactive] public bool CreateDefaultBone { get; set; }
 
     [Reactive] public bool MirrorZ { get; set; }
 
     public SourceCache<string, string> Materials { get; }
-    
+
     public ObservableCollectionExtended<string> FilteredMaterials { get; }
 
-    [Reactive] public string? SelectedMaterial { get; set; }
+    public string? SelectedMaterial
+    {
+        get => _selectedMaterial;
+        set 
+        {
+            if (value is null) return;
+            this.RaiseAndSetIfChanged(ref _selectedMaterial, value);
+        }
+    }
 
     [Reactive] public bool IsStatic { get; set; }
 

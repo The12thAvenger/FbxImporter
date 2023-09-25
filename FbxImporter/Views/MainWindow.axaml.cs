@@ -5,6 +5,7 @@ using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Avalonia.VisualTree;
 using FbxImporter.ViewModels;
@@ -19,7 +20,7 @@ namespace FbxImporter.Views
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             ViewModel = new MainWindowViewModel();
             DataContext = ViewModel;
             this.WhenActivated(d =>
@@ -112,6 +113,11 @@ namespace FbxImporter.Views
             
             ScrollViewer? log = sender as ScrollViewer;
             log?.ScrollToEnd();
+        }
+        
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
         }
     }
 }
