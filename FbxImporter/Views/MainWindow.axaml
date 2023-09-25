@@ -43,14 +43,14 @@
             <MenuItem Header="_File">
                 <MenuItem.Items>
                     <MenuItem Header="_Open" HotKey="Ctrl+O" Command="{Binding OpenFlverCommand}"/>
-                    <MenuItem Header="_Save" HotKey="Ctrl+S" Command="{Binding SaveFlverCommand}" IsEnabled="{Binding Flver, Converter={x:Static ObjectConverters.IsNotNull}}"/>
-                    <MenuItem Header="Save As..." HotKey="Ctrl+Shift+S" Command="{Binding SaveFlverAsCommand}" IsEnabled="{Binding Flver, Converter={x:Static ObjectConverters.IsNotNull}}"/>
-                    <MenuItem Header="_Import Fbx" HotKey="Ctrl+I" Command="{Binding ImportFbxCommand}" IsEnabled="{Binding !IsImporting}"/>
+                    <MenuItem Header="_Save" HotKey="Ctrl+S" Command="{Binding SaveFlverCommand}"/>
+                    <MenuItem Header="Save As..." HotKey="Ctrl+Shift+S" Command="{Binding SaveFlverAsCommand}"/>
+                    <MenuItem Header="_Import Fbx" HotKey="Ctrl+I" Command="{Binding ImportFbxCommand}"/>
                 </MenuItem.Items>
             </MenuItem>
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo" HotKey="Ctrl+Z" Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}"/>
-                <MenuItem Header="_Redo" HotKey="Ctrl+Shift+Z" Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}"/>
+                <MenuItem Header="_Undo" HotKey="Ctrl+Z" Command="{Binding UndoCommand}"/>
+                <MenuItem Header="_Redo" HotKey="Ctrl+Shift+Z" Command="{Binding RedoCommand}"/>
             </MenuItem>
         </Menu>
         <Border DockPanel.Dock="Bottom" 

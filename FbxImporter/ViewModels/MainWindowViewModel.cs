@@ -28,11 +28,14 @@ namespace FbxImporter.ViewModels
         {
             _history = new StackHistory();
 
-            SaveFlverCommand = ReactiveCommand.Create(SaveFlver);
+            IObservable<bool> isFlverLoaded = this.WhenAnyValue(x => x.Flver).Select(x => x is not null);
+            IObservable<bool> isFbxLoaded = this.WhenAnyValue(x => x.Fbx).Select(x => x is not null);
+            IObservable<bool> canAddToFlver = isFlverLoaded.Zip(isFbxLoaded, (isFlver, isFbx) => isFlver && isFbx);
+            SaveFlverCommand = ReactiveCommand.Create(SaveFlver, isFlverLoaded);
             OpenFlverCommand = ReactiveCommand.CreateFromTask(OpenFlverAsync);
-            SaveFlverAsCommand = ReactiveCommand.CreateFromTask(SaveFlverAsAsync);
+            SaveFlverAsCommand = ReactiveCommand.CreateFromTask(SaveFlverAsAsync, isFlverLoaded);
             ImportFbxCommand = ReactiveCommand.CreateFromTask(ImportFbxAsync);
-            AddToFlverCommand = ReactiveCommand.CreateFromTask(AddToFlverAsync);
+            AddToFlverCommand = ReactiveCommand.CreateFromTask(AddToFlverAsync, canAddToFlver);
 
             ImportFbxCommand.ThrownExceptions.Subscribe(e =>
             {
@@ -43,18 +46,12 @@ namespace FbxImporter.ViewModels
                 Logger.Log(e is InvalidDataException ? e.Message : e.ToString());
             });
 
-            UndoCommand = ReactiveCommand.Create(_history.Undo);
-            RedoCommand = ReactiveCommand.Create(_history.Redo);
+            UndoCommand = ReactiveCommand.Create(_history.Undo, _history.CanUndo);
+            RedoCommand = ReactiveCommand.Create(_history.Redo, _history.CanRedo);
 
             this.WhenAnyValue(x => x.Flver,
-                    y => y.Fbx!.SelectedMesh,
-                    (x, y) => x is not null && y is not null)
-                .ToPropertyEx(this, x => x.CanAddToFlver, initialValue: false);
-
-            _history.CanUndo.ToPropertyEx(this, x => x.CanUndo);
-            _history.CanRedo.ToPropertyEx(this, x => x.CanRedo);
-
-            IsImporting = false;
+                y => y.Fbx!.SelectedMesh,
+                (x, y) => x is not null && y is not null);
         }
 
         [Reactive] public FlverViewModel? Flver { get; set; }
@@ -64,14 +61,6 @@ namespace FbxImporter.ViewModels
         public MeshImportOptions? MeshImportOptionsCache { get; set; }
 
         private string? FlverPath { get; set; }
-
-        [ObservableAsProperty] public extern bool CanAddToFlver { get; }
-
-        [ObservableAsProperty] public extern bool CanUndo { get; }
-
-        [ObservableAsProperty] public extern bool CanRedo { get; }
-
-        [Reactive] public bool IsImporting { get; set; }
 
         public ObservableCollection<string> Log => Logger.Instance.Lines;
 
@@ -98,7 +87,7 @@ namespace FbxImporter.ViewModels
         private async Task AddToFlverAsync()
         {
             MeshImportOptionsViewModel optionsViewModel =
-                new(Fbx!.SelectedMesh!.Name, Flver!.MaterialInfoBank, MeshImportOptionsCache);
+                new(Fbx!.SelectedMesh!.MTD, Flver!.MaterialInfoBank, MeshImportOptionsCache);
             MeshImportOptions? options = await GetMeshImportOptions.Handle(optionsViewModel);
             if (options is null) return;
 
@@ -139,8 +128,6 @@ namespace FbxImporter.ViewModels
 
         private async Task ImportFbxAsync()
         {
-            IsImporting = true;
-
             List<FileTypeFilter> filters = new()
             {
                 new FileTypeFilter("Autodesk Fbx Files", new List<string> { "fbx" }),
@@ -148,11 +135,7 @@ namespace FbxImporter.ViewModels
             };
             GetFilePathArgs args = new("Import Fbx", filters, GetPathMode.Open);
             string? fbxPath = await GetFilePath.Handle(args);
-            if (fbxPath is null)
-            {
-                IsImporting = false;
-                return;
-            }
+            if (fbxPath is null) return;
 
             Logger.Log($"Importing {Path.GetFileName(fbxPath)}...");
             List<FbxMeshDataViewModel> meshes;
@@ -164,7 +147,6 @@ namespace FbxImporter.ViewModels
             catch (Exception)
             {
                 Logger.Log("Fbx Import Failed");
-                IsImporting = false;
                 throw;
             }
 
@@ -176,8 +158,6 @@ namespace FbxImporter.ViewModels
             Logger.Log("Import successful.");
 
             Fbx = scene;
-
-            IsImporting = false;
         }
 
         private async Task OpenFlverAsync()
