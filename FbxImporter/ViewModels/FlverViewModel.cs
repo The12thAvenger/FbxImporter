@@ -52,8 +52,6 @@ public class FlverViewModel : ViewModelBase
 
     public ReactiveCommand<Unit, Unit> DeleteMeshCommand { get; }
 
-    public Interaction<Unit, ClothReorderOptions?> GetClothPose { get; } = new();
-
     public Interaction<(string, string), Unit> ShowMessage { get; } = new();
 
     private void DeleteMeshWithHistory()
@@ -76,18 +74,15 @@ public class FlverViewModel : ViewModelBase
             Flver.Materials.Add(Meshes[i].Material);
             Meshes[i].Mesh.MaterialIndex = i;
 
-            if (Flver.Header.Version == 131098)
+            if (Flver.Header.Version >= 131098)
             {
                 Meshes[i].Material.Unk18 = i;
             }
             Flver.GXLists.Add(Meshes[i].GxList);
             Meshes[i].Material.GXIndex = i;
         }
-
-        // if (Flver.Header.Version == 131098)
-        // {
-            Flver.FixAllBoundingBoxes();
-        // }
+        
+        Flver.FixAllBoundingBoxes();
 
 
         // Soulsformats will corrupt the file if there is an exception on write so back up the file first and write it back to disk if the write fails.
