@@ -57,10 +57,7 @@
                 Margin="10, 10"
                 Classes="inner">
             <ScrollViewer Height="100" ScrollChanged="Log_OnScrollChanged" VerticalContentAlignment="Top">
-                <TextBlock Text="{Binding Log}"
-                         Classes="inner"
-                         Margin="5"
-                         VerticalAlignment="Top"/>
+                <ListBox IsEnabled="False" BorderThickness="0" Items="{Binding Log}"/>
             </ScrollViewer>
         </Border>
         <Grid ColumnDefinitions="*, *">
@@ -78,11 +75,6 @@
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
                                 Margin="0, 5,2, 0"/>
-                        <!--<Button Content="Reorder Vertices"
-                                ToolTip.Tip="Reorder the vertices and faceset indices of the selected mesh based on a cloth pose"
-                                Command="{Binding Flver.ReorderVerticesCommand}"
-                                Grid.Column="1"
-                                Margin="2, 5,2, 0"/>-->
                     </Grid>
                 </Grid>
             </Border>

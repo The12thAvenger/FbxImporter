@@ -14,7 +14,7 @@ using FbxDataExtractor;
 
 namespace FbxImporter.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase, ILoggable
+    public class MainWindowViewModel : ViewModelBase
     {
         public enum GetPathMode
         {
@@ -27,7 +27,7 @@ namespace FbxImporter.ViewModels
         public MainWindowViewModel()
         {
             _history = new StackHistory();
-            
+
             SaveFlverCommand = ReactiveCommand.Create(SaveFlver);
             OpenFlverCommand = ReactiveCommand.CreateFromTask(OpenFlverAsync);
             SaveFlverAsCommand = ReactiveCommand.CreateFromTask(SaveFlverAsAsync);
@@ -36,41 +36,25 @@ namespace FbxImporter.ViewModels
 
             ImportFbxCommand.ThrownExceptions.Subscribe(e =>
             {
-                if (e is InvalidDataException)
-                {
-                    Logger.Log(e.Message);
-                }
-                else
-                {
-                    Logger.Log(e);
-                }
+                Logger.Log(e is InvalidDataException ? e.Message : e.ToString());
             });
             AddToFlverCommand.ThrownExceptions.Subscribe(e =>
             {
-                if (e is InvalidDataException)
-                {
-                    Logger.Log(e.Message);
-                }
-                else
-                {
-                    Logger.Log(e);
-                }
+                Logger.Log(e is InvalidDataException ? e.Message : e.ToString());
             });
 
             UndoCommand = ReactiveCommand.Create(_history.Undo);
             RedoCommand = ReactiveCommand.Create(_history.Redo);
 
             this.WhenAnyValue(x => x.Flver,
-                              y => y.Fbx!.SelectedMesh,
-                              (x, y) => x is not null && y is not null)
-               .ToPropertyEx(this, x => x.CanAddToFlver, initialValue: false);
+                    y => y.Fbx!.SelectedMesh,
+                    (x, y) => x is not null && y is not null)
+                .ToPropertyEx(this, x => x.CanAddToFlver, initialValue: false);
 
             _history.CanUndo.ToPropertyEx(this, x => x.CanUndo);
             _history.CanRedo.ToPropertyEx(this, x => x.CanRedo);
 
             IsImporting = false;
-            
-            Logger.CurrentLoggable = this;
         }
 
         [Reactive] public FlverViewModel? Flver { get; set; }
@@ -89,6 +73,8 @@ namespace FbxImporter.ViewModels
 
         [Reactive] public bool IsImporting { get; set; }
 
+        public ObservableCollection<string> Log => Logger.Instance.Lines;
+
         public Interaction<GetFilePathArgs, string?> GetFilePath { get; } = new();
 
         public Interaction<Unit, string?> GetTargetGame { get; } = new();
@@ -105,20 +91,19 @@ namespace FbxImporter.ViewModels
 
         public ReactiveCommand<Unit, Unit> AddToFlverCommand { get; }
 
-        public ReactiveCommand<Unit,bool> RedoCommand { get; }
+        public ReactiveCommand<Unit, bool> RedoCommand { get; }
 
-        public ReactiveCommand<Unit,bool> UndoCommand { get; }
-
-        [Reactive] public string Log { get; set; } = "";
+        public ReactiveCommand<Unit, bool> UndoCommand { get; }
 
         private async Task AddToFlverAsync()
         {
-            MeshImportOptionsViewModel optionsViewModel = new(Fbx!.SelectedMesh!.Name, Flver!.MaterialInfoBank, MeshImportOptionsCache);
+            MeshImportOptionsViewModel optionsViewModel =
+                new(Fbx!.SelectedMesh!.Name, Flver!.MaterialInfoBank, MeshImportOptionsCache);
             MeshImportOptions? options = await GetMeshImportOptions.Handle(optionsViewModel);
             if (options is null) return;
 
             MeshImportOptionsCache = options;
-            
+
             AddToFlverWithHistory(options);
         }
 
@@ -155,11 +140,11 @@ namespace FbxImporter.ViewModels
         private async Task ImportFbxAsync()
         {
             IsImporting = true;
-            
+
             List<FileTypeFilter> filters = new()
             {
-                new FileTypeFilter("Autodesk Fbx Files", new List<string> {"fbx"}),
-                new FileTypeFilter("All Files", new List<string> {"*"})
+                new FileTypeFilter("Autodesk Fbx Files", new List<string> { "fbx" }),
+                new FileTypeFilter("All Files", new List<string> { "*" })
             };
             GetFilePathArgs args = new("Import Fbx", filters, GetPathMode.Open);
             string? fbxPath = await GetFilePath.Handle(args);
@@ -173,7 +158,8 @@ namespace FbxImporter.ViewModels
             List<FbxMeshDataViewModel> meshes;
             try
             {
-                meshes = await Task.Run(() => FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList()) ;
+                meshes = await Task.Run(() =>
+                    FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList());
             }
             catch (Exception)
             {
@@ -186,7 +172,7 @@ namespace FbxImporter.ViewModels
             {
                 MeshData = new ObservableCollection<FbxMeshDataViewModel>(meshes)
             };
-            
+
             Logger.Log("Import successful.");
 
             Fbx = scene;
@@ -198,14 +184,21 @@ namespace FbxImporter.ViewModels
         {
             List<FileTypeFilter> filters = new()
             {
-                new FileTypeFilter("Flver Files", new List<string> {"flver"}),
-                new FileTypeFilter("All Files", new List<string> {"*"})
+                new FileTypeFilter("Flver Files", new List<string> { "flver" }),
+                new FileTypeFilter("All Files", new List<string> { "*" })
             };
             GetFilePathArgs args = new("Open Flver", filters, GetPathMode.Open);
             string? flverPath = await GetFilePath.Handle(args);
             if (flverPath is null) return;
+        
+            FLVER2? flver = await Task.Run(() =>
+            {
 
-            FLVER2 flver = FLVER2.Read(flverPath);
+                if (FLVER2.IsRead(flverPath, out FLVER2 flver)) return flver;
+                Logger.Log($"{flverPath} is not a flver file");
+                return null;
+            });
+            if (flver is null) return;
 
             FlverViewModel.FlverVersion? optionalVersion = flver.Header.Version switch
             {
@@ -236,8 +229,8 @@ namespace FbxImporter.ViewModels
         {
             List<FileTypeFilter> filters = new()
             {
-                new FileTypeFilter("Flver Files", new List<string> {"flver"}),
-                new FileTypeFilter("All Files", new List<string> {"*"})
+                new FileTypeFilter("Flver Files", new List<string> { "flver" }),
+                new FileTypeFilter("All Files", new List<string> { "*" })
             };
             GetFilePathArgs args = new("Save Flver As...", filters, GetPathMode.Save);
             string? flverPath = await GetFilePath.Handle(args);

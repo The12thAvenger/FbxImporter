@@ -1,13 +1,37 @@
-﻿namespace FbxImporter;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
 
-public static class Logger
+namespace FbxImporter;
+
+public class Logger
 {
-    public static ILoggable? CurrentLoggable { get; set; }
+    private readonly ObservableCollection<string> _lines = new();
 
-    public static void Log(object message)
+    private static Logger? _instance;
+    private static readonly object InstanceLock = new();
+
+    public ObservableCollection<string> Lines => _lines;
+
+    public static Logger Instance
     {
-        if (CurrentLoggable is null) return;
-        CurrentLoggable.Log += "\n" + message;
+        get {
+            if (_instance is null) { lock (InstanceLock) { _instance = new Logger();}} 
+            return _instance;
+        }
+    }
+
+    private void LogInstance(string message)
+    {
+        _lines.Add(message);
+    }
+    
+    public static void Log(string message)
+    { 
+        lock (InstanceLock)
+        {
+            Instance.LogInstance(message);
+        }
     }
 }
 
