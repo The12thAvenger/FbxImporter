@@ -69,17 +69,21 @@ public class FlverViewModel : ViewModelBase
         Flver.Meshes = new List<FLVER2.Mesh>(Meshes.Select(x => x.Mesh));
         Flver.Materials = new List<FLVER2.Material>();
         Flver.GXLists = new List<FLVER2.GXList>();
-        for (int i = 0; i < Meshes.Count; i++)
+        foreach (FlverMeshViewModel mesh in Meshes)
         {
-            Flver.Materials.Add(Meshes[i].Material);
-            Meshes[i].Mesh.MaterialIndex = i;
-
-            if (Flver.Header.Version >= 131098)
+            FLVER2.Material material = mesh.Material;
+            int materialIndex = Flver.Materials.FindIndex(x => x.Name == material.Name && x.MTD == material.MTD);
+            if (materialIndex == -1)
             {
-                Meshes[i].Material.Unk18 = i;
+                materialIndex = Flver.Materials.Count;
+                Flver.Materials.Add(material);
+                if (Flver.Header.Version >= 131098) material.Unk18 = materialIndex;
+
+                int gxListIndex = Flver.GXLists.Count;
+                Flver.GXLists.Add(mesh.GxList);
+                material.GXIndex = gxListIndex;
             }
-            Flver.GXLists.Add(Meshes[i].GxList);
-            Meshes[i].Material.GXIndex = i;
+            mesh.Mesh.MaterialIndex = materialIndex;
         }
         
         Flver.FixAllBoundingBoxes();
@@ -100,7 +104,7 @@ public class FlverViewModel : ViewModelBase
         {
             Flver.Write(path);
         }
-        catch (Exception)
+        catch
         {
             backupFlver?.Write(path);
             throw;
