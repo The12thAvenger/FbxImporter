@@ -268,7 +268,7 @@ namespace FbxDataExtractor
 			clrVertex->Colors = gcnew List<Vector4>((int)vertex.FinalVertex.Colors.size());
 			for (const FbxColor& color : vertex.FinalVertex.Colors)
 			{
-				clrVertex->Tangents->Add(FbxColorToVector4(color));
+				clrVertex->Colors->Add(FbxColorToVector4(color));
 			}
 
 			clrData->Add(clrVertex);
