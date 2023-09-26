@@ -31,4 +31,9 @@ public class Logger
             Instance.LogInstance(message);
         }
     }
+    
+    public static void LogWarning(string message)
+    { 
+        Log($"Warning: {message}");
+    }
 }
