@@ -36,4 +36,9 @@ public class Logger
     { 
         Log($"Warning: {message}");
     }
+
+    public static void LogError(string message)
+    {
+        Log($"Error: {message}");
+    }
 }

@@ -11,6 +11,7 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using SoulsFormats;
 using FbxDataExtractor;
+using SoulsAssetPipeline.FLVERImporting;
 
 namespace FbxImporter.ViewModels
 {
@@ -24,6 +25,8 @@ namespace FbxImporter.ViewModels
 
         private readonly IHistory _history;
 
+        private MeshImportOptions? _meshImportOptionsCache;
+
         public MainWindowViewModel()
         {
             _history = new StackHistory();
@@ -31,34 +34,36 @@ namespace FbxImporter.ViewModels
             IObservable<bool> isFlverLoaded = this.WhenAnyValue(x => x.Flver).Select(x => x is not null);
             IObservable<bool> isFbxLoaded = this.WhenAnyValue(x => x.Fbx).Select(x => x is not null);
             IObservable<bool> canAddToFlver = isFlverLoaded.Zip(isFbxLoaded, (isFlver, isFbx) => isFlver && isFbx);
-            SaveFlverCommand = ReactiveCommand.Create(SaveFlver, isFlverLoaded);
             OpenFlverCommand = ReactiveCommand.CreateFromTask(OpenFlverAsync);
+            SaveFlverCommand = ReactiveCommand.CreateFromTask(() => Task.Run(SaveFlver), isFlverLoaded);
             SaveFlverAsCommand = ReactiveCommand.CreateFromTask(SaveFlverAsAsync, isFlverLoaded);
             ImportFbxCommand = ReactiveCommand.CreateFromTask(ImportFbxAsync);
             AddToFlverCommand = ReactiveCommand.CreateFromTask(AddToFlverAsync, canAddToFlver);
+            UndoCommand = ReactiveCommand.Create(_history.Undo, _history.CanUndo);
+            RedoCommand = ReactiveCommand.Create(_history.Redo, _history.CanRedo);
+            
+            OpenFlverCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Opening Flver..."));
+            SaveFlverCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Saving Flver..."));
+            SaveFlverAsCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Saving Flver..."));
+            ImportFbxCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Importing Fbx..."));
 
             ImportFbxCommand.ThrownExceptions.Subscribe(e =>
             {
-                Logger.Log(e is InvalidDataException ? e.Message : e.ToString());
+                Logger.LogError(e is InvalidDataException ? e.Message : e.ToString());
             });
             AddToFlverCommand.ThrownExceptions.Subscribe(e =>
             {
-                Logger.Log(e is InvalidDataException ? e.Message : e.ToString());
+                Logger.LogError(e is InvalidDataException ? e.Message : e.ToString());
             });
 
-            UndoCommand = ReactiveCommand.Create(_history.Undo, _history.CanUndo);
-            RedoCommand = ReactiveCommand.Create(_history.Redo, _history.CanRedo);
-
-            this.WhenAnyValue(x => x.Flver,
-                y => y.Fbx!.SelectedMesh,
-                (x, y) => x is not null && y is not null);
+            
         }
 
         [Reactive] public FlverViewModel? Flver { get; set; }
 
         [Reactive] public FbxSceneDataViewModel? Fbx { get; set; }
-
-        public MeshImportOptions? MeshImportOptionsCache { get; set; }
+        
+        public ProgressViewModel Progress { get; } = new();
 
         private string? FlverPath { get; set; }
 
@@ -83,15 +88,21 @@ namespace FbxImporter.ViewModels
         public ReactiveCommand<Unit, bool> RedoCommand { get; }
 
         public ReactiveCommand<Unit, bool> UndoCommand { get; }
+        
+        private void ObserveProgress(bool isActive, string status)
+        {
+            Progress.IsActive = isActive;
+            Progress.Status = status;
+        }
 
         private async Task AddToFlverAsync()
         {
             MeshImportOptionsViewModel optionsViewModel =
-                new(Fbx!.SelectedMesh!.MTD, Flver!.MaterialInfoBank, MeshImportOptionsCache);
+                new(Fbx!.SelectedMesh!.MTD, Flver!.MaterialInfoBank, _meshImportOptionsCache);
             MeshImportOptions? options = await GetMeshImportOptions.Handle(optionsViewModel);
             if (options is null) return;
 
-            MeshImportOptionsCache = options;
+            _meshImportOptionsCache = options;
 
             AddToFlverWithHistory(options);
         }
@@ -123,7 +134,7 @@ namespace FbxImporter.ViewModels
         private void SaveFlver()
         {
             Flver!.Write(FlverPath!);
-            Logger.Log("Saved File");
+            Logger.Log($"Saved flver to {FlverPath}");
         }
 
         private async Task ImportFbxAsync()
@@ -144,9 +155,10 @@ namespace FbxImporter.ViewModels
                 meshes = await Task.Run(() =>
                     FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList());
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Logger.Log("Fbx Import Failed");
+                Logger.LogError("Fbx Import Failed: ");
+                Logger.LogError(e.ToString());
                 throw;
             }
 
@@ -171,15 +183,18 @@ namespace FbxImporter.ViewModels
             string? flverPath = await GetFilePath.Handle(args);
             if (flverPath is null) return;
         
-            FLVER2? flver = await Task.Run(() =>
+            Logger.Log($"Opening {Path.GetFileName(flverPath)}...");
+            FLVER2? flver;
+            try
             {
-
-                if (FLVER2.IsRead(flverPath, out FLVER2 flver)) return flver;
-                Logger.Log($"{flverPath} is not a flver file");
-                return null;
-            });
-            if (flver is null) return;
-
+                flver = await Task.Run(() => ReadFlver(flverPath));
+                if (flver is null) return;
+            }
+            catch
+            {
+                return;
+            }
+            
             FlverViewModel.FlverVersion? optionalVersion = flver.Header.Version switch
             {
                 131092 => FlverViewModel.FlverVersion.DS3,
@@ -195,14 +210,20 @@ namespace FbxImporter.ViewModels
                 _ => throw new InvalidDataException("Invalid Flver Version")
             };
 
-            if (optionalVersion is not { } version)
-            {
-                return;
-            }
-
+            if (optionalVersion is not { } version) return;
+            FLVER2MaterialInfoBank materialInfoBank = await FlverViewModel.LoadMaterialInfoBankAsync(version);
+            
             _history.Clear();
-            Flver = new FlverViewModel(flver, version, _history);
+            Flver = new FlverViewModel(flver, materialInfoBank, _history);
             FlverPath = flverPath;
+            Logger.Log("Successfully opened flver");
+        }
+
+        private static FLVER2? ReadFlver(string? flverPath)
+        {
+            if (FLVER2.IsRead(flverPath, out FLVER2 flver)) return flver;
+            Logger.LogError($"{flverPath} is not a flver file");
+            return null;
         }
 
         private async Task SaveFlverAsAsync()

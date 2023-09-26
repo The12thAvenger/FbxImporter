@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using FbxImporter.Util;
 using ReactiveHistory;
 using ReactiveUI;
@@ -19,6 +20,19 @@ public class FlverViewModel : ViewModelBase
 {
     private readonly IHistory _history;
 
+    private static readonly Dictionary<FlverVersion, FLVER2MaterialInfoBank> MaterialInfoBanks = new();
+
+    public static async Task<FLVER2MaterialInfoBank> LoadMaterialInfoBankAsync(FlverVersion version)
+    {
+        if (MaterialInfoBanks.TryGetValue(version, out FLVER2MaterialInfoBank? materialInfoBank))
+            return materialInfoBank;
+        string basePath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "SapResources", "FLVER2MaterialInfoBank");
+        string xmlPath = Path.Join(basePath, $"Bank{version}.xml");
+        materialInfoBank = await Task.Run(() => FLVER2MaterialInfoBank.ReadFromXML(xmlPath));
+        MaterialInfoBanks.Add(version, materialInfoBank);
+        return materialInfoBank;
+    }
+
     public enum FlverVersion
     {
         DS3,
@@ -27,14 +41,11 @@ public class FlverViewModel : ViewModelBase
         AC6
     }
 
-    public FlverViewModel(FLVER2 flver, FlverVersion version,  IHistory history)
+    public FlverViewModel(FLVER2 flver, FLVER2MaterialInfoBank materialInfoBank,  IHistory history)
     {
         Flver = flver;
         _history = history;
-
-        string basePath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "SapResources", "FLVER2MaterialInfoBank");
-        string xmlPath = Path.Join(basePath, $"Bank{version}.xml");
-        MaterialInfoBank = FLVER2MaterialInfoBank.ReadFromXML(xmlPath);
+        MaterialInfoBank = materialInfoBank;
         
         Meshes = new ObservableCollection<FlverMeshViewModel>(flver.Meshes.Select(x => new FlverMeshViewModel(flver, x)));
         
