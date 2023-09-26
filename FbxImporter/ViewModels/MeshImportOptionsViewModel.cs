@@ -17,7 +17,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
     private readonly FLVER2MaterialInfoBank _materialInfoBank;
     private string? _selectedMaterial;
 
-    public class FilteredStringComparer : IComparer<string>
+    private class FilteredStringComparer : IComparer<string>
     {
         private readonly string _filter;
         public FilteredStringComparer(string filter)
@@ -40,7 +40,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
     {
         CreateDefaultBone = optionsCache?.CreateDefaultBone ?? true;
         MirrorZ = optionsCache?.MirrorZ ?? false;
-        IsStatic = optionsCache?.IsStatic ?? false;
+        Weighting = optionsCache?.Weighting ?? WeightingMode.Skin;
 
         string? lastUsedMaterial =
             optionsCache?.MTD is not null && materialInfoBank.MaterialDefs.ContainsKey(optionsCache.MTD)
@@ -97,8 +97,9 @@ public class MeshImportOptionsViewModel : ViewModelBase
             this.RaiseAndSetIfChanged(ref _selectedMaterial, value);
         }
     }
-
-    [Reactive] public bool IsStatic { get; set; }
+    
+    [Reactive] public WeightingMode Weighting { get; set; }
+    public List<WeightingMode> WeightingModes => WeightingMode.Values;
 
     public ReactiveCommand<Unit, MeshImportOptions> ConfirmCommand { get; }
 
@@ -117,7 +118,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
             MirrorZ = MirrorZ,
             MTD = SelectedMaterial!,
             MaterialInfoBank = _materialInfoBank,
-            IsStatic = IsStatic
+            Weighting = Weighting
         };
     }
 }

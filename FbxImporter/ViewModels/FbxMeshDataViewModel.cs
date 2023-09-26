@@ -54,13 +54,15 @@ public class FbxMeshDataViewModel
 
         List<int> layoutIndices = GetLayoutIndices(flver, bufferLayouts);
 
+        if (options.Weighting == WeightingMode.Skin && bufferLayouts.SelectMany(x => x).All(x => x.Semantic != FLVER.LayoutSemantic.BoneWeights))
+        {
+            Logger.LogWarning("The selected material does not support the skin weighting mode.");
+        }
+
         FLVER2.Mesh newMesh = new()
         {
             VertexBuffers = layoutIndices.Select(x => new FLVER2.VertexBuffer(x)).ToList(),
-            Dynamic = (byte)(!options.IsStatic &&
-                             bufferLayouts.Any(x => x.Any(y => y.Semantic == FLVER.LayoutSemantic.BoneWeights))
-                ? 1
-                : 0)
+            Dynamic = (byte)(options.Weighting == WeightingMode.Skin ? 1 : 0)
         };
 
         int defaultBoneIndex = flver.Bones.IndexOf(flver.Bones.FirstOrDefault(x => x.Name ==  Name));
@@ -76,22 +78,12 @@ public class FbxMeshDataViewModel
                 defaultBoneIndex = 0;
             }
         }
-
         newMesh.DefaultBoneIndex = defaultBoneIndex;
 
+        bool foundWeights = false;
+        HashSet<string> missingBones = new();
         foreach (FbxVertexData vertexData in Data.VertexData)
         {
-            FLVER.VertexBoneIndices boneIndices = new();
-            FLVER.VertexBoneWeights boneWeights = new();
-            List<(string Name, float Weight)> orderedWeightData = vertexData.BoneNames
-                .Zip(vertexData.BoneWeights).OrderByDescending(x => x.Item2).ToList();
-            for (int j = 0; j < Math.Min(orderedWeightData.Count, 4); j++)
-            {
-                int boneIndex = GetBoneIndexFromName(flver, orderedWeightData[j].Name);
-                boneIndices[j] = boneIndex;
-                boneWeights[j] = orderedWeightData[j].Weight;
-            }
-
             int zSign = options.MirrorZ ? -1 : 1;
 
             FLVER.Vertex newVertex = new()
@@ -103,13 +95,51 @@ public class FbxMeshDataViewModel
                 UVs = vertexData.UVs.Select(x => new Vector3(x.X, 1 - x.Y, 0.0f)).ToList(),
                 // Fbx uses RGBA, SF uses ARGB
                 Colors = vertexData.Colors.Select(x => new FLVER.VertexColor(x.W, x.X, x.Y, x.Z)).ToList(),
-                BoneIndices = boneIndices,
-                BoneWeights = boneWeights
             };
 
+            
+            FLVER.VertexBoneIndices boneIndices = new();
+            FLVER.VertexBoneWeights boneWeights = new();
+            List<(string Name, float Weight)> orderedWeightData = vertexData.BoneNames
+                .Zip(vertexData.BoneWeights).OrderByDescending(x => x.Item2).ToList();
+            for (int j = 0; j < Math.Min(orderedWeightData.Count, 4); j++)
+            {
+                (string boneName, float boneWeight) = orderedWeightData[j];
+                int boneIndex = flver.Bones.IndexOf(flver.Bones.FirstOrDefault(x => x.Name == boneName));
+                if (boneIndex == -1)
+                {
+                    missingBones.Add(boneName);
+                    boneIndex = 0;
+                }
+
+                if (!foundWeights && boneWeight > 0) foundWeights = true;
+
+                boneIndices[j] = boneIndex;
+                boneWeights[j] = boneWeight;
+            }
+            
+            if (options.Weighting == WeightingMode.Single)
+            {
+                newVertex.NormalW = boneWeights[0] > 0 ? boneIndices[0] : -1;
+            }
+            else if (options.Weighting == WeightingMode.Skin)
+            {
+                newVertex.BoneIndices = boneIndices;
+                newVertex.BoneWeights = boneWeights;
+            }
+            
             PadVertex(newVertex, bufferLayouts);
 
             newMesh.Vertices.Add(newVertex);
+        }
+
+        if (!foundWeights && options.Weighting != WeightingMode.Static)
+        {
+            Logger.LogWarning("Non-static weighting mode selected but mesh contains no bone weights.");
+        }
+        foreach (string missingBone in missingBones)
+        {
+            Logger.LogWarning($"No bone with name {missingBone} found, bone index set to 0");
         }
 
         FLVER2.FaceSet.FSFlags[] faceSetFlags =
@@ -257,14 +287,5 @@ public class FbxMeshDataViewModel
             (Data.VertexIndices[i + 1], Data.VertexIndices[i + 2]) =
                 (Data.VertexIndices[i + 2], Data.VertexIndices[i + 1]);
         }
-    }
-
-    private static int GetBoneIndexFromName(FLVER2 flver, string boneName)
-    {
-        int boneIndex = flver.Bones.IndexOf(flver.Bones.FirstOrDefault(x => x.Name == boneName));
-        if (boneIndex != -1) return boneIndex;
-
-        Logger.Log($"No Bone with name {boneName} found, bone index set to 0");
-        return 0;
     }
 }
