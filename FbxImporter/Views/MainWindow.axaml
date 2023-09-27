@@ -57,7 +57,8 @@
                 Margin="10, 10"
                 Classes="inner">
             <ScrollViewer Height="100" ScrollChanged="Log_OnScrollChanged" VerticalContentAlignment="Top">
-                <ListBox IsEnabled="False" BorderThickness="0" Items="{Binding Log}"/>
+                <ListBox IsEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="0" Items="{Binding Log}"/>
             </ScrollViewer>
         </Border>
         <Grid>
@@ -99,8 +100,7 @@
             <Border Background="{DynamicResource ThemeControlTransparentBrush}"  IsVisible="{Binding Progress.IsActive}">
                 <Border BorderBrush="{DynamicResource ThemeBorderHighBrush}" BorderThickness="1"
                         Background="{DynamicResource ThemeBackgroundBrush}"
-                        Width="300" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"
-                        IsHitTestVisible="True">
+                        Width="300" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid RowDefinitions="1.5*, *" Margin="5">
                         <TextBlock Text="{Binding Progress.Status}" VerticalAlignment="Center" Grid.Row="0" />
                         <ProgressBar IsIndeterminate="True" Grid.Row="1" />
