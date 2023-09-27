@@ -104,6 +104,8 @@ namespace std
 
 namespace FbxDataExtractor
 {
+	static std::mutex skinMutex;
+
 	FbxMeshData::FbxMeshData(const char* name)
 	{
 		Name = gcnew String(name);
@@ -190,7 +192,8 @@ namespace FbxDataExtractor
 	static void FlattenVertices(std::vector<FbxControlPoint>& controlPoints, std::vector<int>& vertexIndices)
 	{
 		std::vector vertexIndicesRemap(vertexIndices);
-		for (int i = 0; i < controlPoints.size(); ++i)
+		const int controlPointCount = (int)controlPoints.size();
+		for (int i = 0; i < controlPointCount; ++i)
 		{
 			const FbxControlPoint controlPoint = std::move(controlPoints.at(i));
 			std::unordered_map<FbxPolygonVertex, std::vector<int>> vertexGroups { };
@@ -281,6 +284,11 @@ namespace FbxDataExtractor
 		FbxExtractedMesh extractedMesh;
 		extractedMesh.Name = fbxMesh->GetName();
 		GetVertexData(fbxMesh, extractedMesh.Vertices, extractedMesh.Triangles);
+		{
+			// GetSkinData cannot be made thread safe as FbxCluster operations are not thread safe even if const
+			std::lock_guard lock(skinMutex);
+			GetSkinData(fbxMesh, extractedMesh.Vertices);
+		}
 		FlattenVertices(extractedMesh.Vertices, extractedMesh.Triangles);
 		return extractedMesh;
 	}
@@ -305,7 +313,6 @@ namespace FbxDataExtractor
 		FbxGeometryConverter geometryConverter(fbxManager);
 		geometryConverter.Triangulate(scene, true);
 
-		std::vector<FbxMesh*> meshes;
 		std::vector<std::future<FbxExtractedMesh>> tasks;
 		for (int i = 0; i < scene->GetNodeCount(); i++)
 		{
@@ -315,7 +322,6 @@ namespace FbxDataExtractor
 
 			mesh->GenerateNormals();
 			mesh->GenerateTangentsDataForAllUVSets();
-			meshes.push_back(mesh);
 			tasks.emplace_back(std::async(std::launch::async, &ImportMesh, mesh));
 		}
 
@@ -331,14 +337,9 @@ namespace FbxDataExtractor
 		while (working);
 
 		List<FbxMeshData^>^ meshList = gcnew List<FbxMeshData^>();
-		for (size_t i = 0; i < meshes.size(); ++i)
+		for (std::future<FbxExtractedMesh>& task : tasks)
 		{
-			const FbxMesh* mesh = meshes[i];
-			std::future<FbxExtractedMesh>& task = tasks[i];
 			FbxExtractedMesh extractedMesh = std::move(task.get());
-
-			// GetSkinData cannot be made thread safe as FbxCluster operations are not thread safe even if const
-			GetSkinData(mesh, extractedMesh.Vertices);
 
 			FbxMeshData^ clrMesh = gcnew FbxMeshData(extractedMesh.Name);
 			clrMesh->VertexData = ToClrVertices(extractedMesh.Vertices);
