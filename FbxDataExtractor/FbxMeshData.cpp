@@ -115,7 +115,7 @@ namespace FbxDataExtractor
 	{
 		controlPoints = std::vector<FbxControlPoint>(fbxMesh->GetControlPointsCount());
 
-		const int avgPolygonVertexCount = fbxMesh->GetPolygonVertexCount() / (int)controlPoints.size();
+		const int avgPolygonVertexCount = controlPoints.size() > 0 ? fbxMesh->GetPolygonVertexCount() / (int)controlPoints.size() : 0;
 		for (int i = 0; i < controlPoints.size(); i++)
 		{
 			FbxControlPoint& controlPoint = controlPoints.at(i);

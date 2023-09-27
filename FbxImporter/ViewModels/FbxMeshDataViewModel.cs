@@ -13,13 +13,24 @@ public class FbxMeshDataViewModel
     public FbxMeshDataViewModel(FbxMeshData meshData)
     {
         Data = meshData;
-        string[] nameParts = Data.Name.Split('|', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+        string[] nameParts = Data.Name.Split('|', StringSplitOptions.TrimEntries);
         Name = nameParts[0];
+        if (Name == string.Empty)
+        {
+            Name = "Unknown";
+            Logger.Log("Encountered mesh with no name, renaming to \"Unknown\".");
+        }
+
         if (nameParts.Length > 1) MTD = nameParts[1];
+
+        if (Data.VertexData.Count == 0)
+        {
+            Logger.LogWarning($"Mesh {Name} contains no vertices.");
+        }
     }
 
     public string Name { get; }
-    
+
     public string? MTD { get; }
 
     private FbxMeshData Data { get; }
@@ -54,7 +65,8 @@ public class FbxMeshDataViewModel
 
         List<int> layoutIndices = GetLayoutIndices(flver, bufferLayouts);
 
-        if (options.Weighting == WeightingMode.Skin && bufferLayouts.SelectMany(x => x).All(x => x.Semantic != FLVER.LayoutSemantic.BoneWeights))
+        if (options.Weighting == WeightingMode.Skin && bufferLayouts.SelectMany(x => x)
+                .All(x => x.Semantic != FLVER.LayoutSemantic.BoneWeights))
         {
             Logger.LogWarning("The selected material does not support the skin weighting mode.");
         }
@@ -65,7 +77,7 @@ public class FbxMeshDataViewModel
             Dynamic = (byte)(options.Weighting == WeightingMode.Skin ? 1 : 0)
         };
 
-        int defaultBoneIndex = flver.Bones.IndexOf(flver.Bones.FirstOrDefault(x => x.Name ==  Name));
+        int defaultBoneIndex = flver.Bones.IndexOf(flver.Bones.FirstOrDefault(x => x.Name == Name));
         if (defaultBoneIndex == -1)
         {
             if (options.CreateDefaultBone)
@@ -78,6 +90,7 @@ public class FbxMeshDataViewModel
                 defaultBoneIndex = 0;
             }
         }
+
         newMesh.DefaultBoneIndex = defaultBoneIndex;
 
         bool foundWeights = false;
@@ -97,7 +110,7 @@ public class FbxMeshDataViewModel
                 Colors = vertexData.Colors.Select(x => new FLVER.VertexColor(x.W, x.X, x.Y, x.Z)).ToList(),
             };
 
-            
+
             FLVER.VertexBoneIndices boneIndices = new();
             FLVER.VertexBoneWeights boneWeights = new();
             List<(string Name, float Weight)> orderedWeightData = vertexData.BoneNames
@@ -117,7 +130,7 @@ public class FbxMeshDataViewModel
                 boneIndices[j] = boneIndex;
                 boneWeights[j] = boneWeight;
             }
-            
+
             if (options.Weighting == WeightingMode.Single)
             {
                 newVertex.NormalW = boneWeights[0] > 0 ? boneIndices[0] : -1;
@@ -127,7 +140,7 @@ public class FbxMeshDataViewModel
                 newVertex.BoneIndices = boneIndices;
                 newVertex.BoneWeights = boneWeights;
             }
-            
+
             PadVertex(newVertex, bufferLayouts);
 
             newMesh.Vertices.Add(newVertex);
@@ -137,6 +150,7 @@ public class FbxMeshDataViewModel
         {
             Logger.LogWarning("Non-static weighting mode selected but mesh contains no bone weights.");
         }
+
         foreach (string missingBone in missingBones)
         {
             Logger.LogWarning($"No bone with name {missingBone} found, bone index set to 0");
@@ -195,7 +209,8 @@ public class FbxMeshDataViewModel
             .Where(x => paddedProperties.Contains(x.Semantic));
         foreach (FLVER.LayoutMember layoutMember in layoutMembers)
         {
-            bool isDouble = layoutMember is { Semantic: FLVER.LayoutSemantic.UV, Type: FLVER.LayoutType.Float4 or FLVER.LayoutType.UVPair };
+            bool isDouble = layoutMember is
+                { Semantic: FLVER.LayoutSemantic.UV, Type: FLVER.LayoutType.Float4 or FLVER.LayoutType.UVPair };
             int count = isDouble ? 2 : 1;
 
             if (usageCounts.ContainsKey(layoutMember.Semantic))
@@ -252,7 +267,7 @@ public class FbxMeshDataViewModel
                 }
 
                 if (i != flver.BufferLayouts.Count - 1) continue;
-                
+
                 indices.Add(i + 1);
                 flver.BufferLayouts.Add(referenceBufferLayout);
                 break;
