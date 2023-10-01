@@ -12,16 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="SapResources\CompressAnim\CompressAnim.exe" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="SapResources\CompressAnim\CompressAnim.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Animation\HKX2\HKX2.csproj" />
   </ItemGroup>
 
@@ -32,27 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SoulsFormats\SoulsFormats\SoulsFormats.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="SapResources\FLVER2MaterialInfoBank\BankBB.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="SapResources\FLVER2MaterialInfoBank\BankDS1.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="SapResources\FLVER2MaterialInfoBank\BankDS1R.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="SapResources\FLVER2MaterialInfoBank\BankDS2.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="SapResources\FLVER2MaterialInfoBank\BankDS3.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="SapResources\FLVER2MaterialInfoBank\BankSDT.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
