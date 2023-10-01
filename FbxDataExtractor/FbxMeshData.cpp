@@ -282,7 +282,7 @@ namespace FbxDataExtractor
 	FbxExtractedMesh ImportMesh(const FbxMesh* fbxMesh)
 	{
 		FbxExtractedMesh extractedMesh;
-		extractedMesh.Name = fbxMesh->GetName();
+		extractedMesh.Name = fbxMesh->GetNode()->GetName();
 		GetVertexData(fbxMesh, extractedMesh.Vertices, extractedMesh.Triangles);
 		{
 			// GetSkinData cannot be made thread safe as FbxCluster operations are not thread safe even if const
