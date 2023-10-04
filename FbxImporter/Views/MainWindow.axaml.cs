@@ -20,7 +20,7 @@ namespace FbxImporter.Views
     {
         public MainWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new MainWindowViewModel();
             DataContext = ViewModel;
             this.WhenActivated(d =>

@@ -3,7 +3,7 @@ using Avalonia.ReactiveUI;
 using FbxImporter.ViewModels;
 using ReactiveUI;
 using System;
-using Avalonia;
+using System.Collections.Specialized;
 using Avalonia.Threading;
 
 namespace FbxImporter.Views;
@@ -17,22 +17,23 @@ public partial class MeshImportOptionsView : ReactiveWindow<MeshImportOptionsVie
         {
             d(ViewModel!.ConfirmCommand.Subscribe(Close));
             d(ViewModel!.CancelCommand.Subscribe(Close));
-            ViewModel.FilteredMaterials.CollectionChanged += (_, _) =>
-            {
-                Dispatcher.UIThread.Post(UpdateMaterialSelection);
-            };
+            ViewModel.FilteredMaterials.CollectionChanged -= UpdateMaterialSelection;
+            ViewModel.FilteredMaterials.CollectionChanged += UpdateMaterialSelection;
         });
 #if DEBUG
         this.AttachDevTools();
 #endif
     }
-
-    private void UpdateMaterialSelection()
+    
+    private void UpdateMaterialSelection(object? sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
     {
-        int selectedIndex = ViewModel!.FilteredMaterials.IndexOf(ViewModel!.SelectedMaterial!);
-        selectedIndex = Math.Clamp(selectedIndex, 0, int.MaxValue);
-        MaterialListBox.ScrollIntoView(selectedIndex);
-        MaterialListBox.SelectedItem = ViewModel.SelectedMaterial;
+        Dispatcher.UIThread.Post(() =>
+        {
+            int selectedIndex = ViewModel!.FilteredMaterials.IndexOf(ViewModel!.SelectedMaterial!);
+            selectedIndex = Math.Clamp(selectedIndex, 0, int.MaxValue);
+            MaterialListBox.ScrollIntoView(selectedIndex);
+            MaterialListBox.SelectedItem = ViewModel.SelectedMaterial;
+        });
     }
 
     private void InitializeComponent()
