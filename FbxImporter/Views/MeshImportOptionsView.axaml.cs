@@ -29,6 +29,7 @@ public partial class MeshImportOptionsView : ReactiveWindow<MeshImportOptionsVie
     {
         Dispatcher.UIThread.Post(() =>
         {
+            if (ViewModel!.FilteredMaterials.Count == 0) return;
             int selectedIndex = ViewModel!.FilteredMaterials.IndexOf(ViewModel!.SelectedMaterial!);
             selectedIndex = Math.Clamp(selectedIndex, 0, int.MaxValue);
             MaterialListBox.ScrollIntoView(selectedIndex);
