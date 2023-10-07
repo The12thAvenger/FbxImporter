@@ -40,7 +40,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
     {
         CreateDefaultBone = optionsCache?.CreateDefaultBone ?? true;
         MirrorZ = optionsCache?.MirrorZ ?? false;
-        ReverseFacesets = optionsCache?.ReverseFacesets ?? false;
+        FlipFaces = optionsCache?.FlipFaces ?? false;
         Weighting = optionsCache?.Weighting ?? WeightingMode.Skin;
 
         string? lastUsedMaterial =
@@ -85,7 +85,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
     [Reactive] public bool MirrorZ { get; set; }
     
-    [Reactive] public bool ReverseFacesets { get; set; }
+    [Reactive] public bool FlipFaces { get; set; }
 
     public SourceCache<string, string> Materials { get; }
 
@@ -119,7 +119,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
         {
             CreateDefaultBone = CreateDefaultBone,
             MirrorZ = MirrorZ,
-            ReverseFacesets = ReverseFacesets,
+            FlipFaces = FlipFaces,
             MTD = SelectedMaterial!,
             MaterialInfoBank = _materialInfoBank,
             Weighting = Weighting

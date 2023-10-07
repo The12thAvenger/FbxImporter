@@ -166,7 +166,7 @@ public class FbxMeshDataViewModel
             FLVER2.FaceSet.FSFlags.MotionBlur | FLVER2.FaceSet.FSFlags.LodLevel2
         };
 
-        if (options.ReverseFacesets)
+        if (options.FlipFaces)
         {
             FlipFaceSet();
         }

@@ -9,7 +9,7 @@ public record MeshImportOptions
 
     public bool MirrorZ { get; init; } = false;
     
-    public bool ReverseFacesets { get; init; } = false;
+    public bool FlipFaces { get; init; } = false;
 
     public string MTD { get; init; } = null!;
 
