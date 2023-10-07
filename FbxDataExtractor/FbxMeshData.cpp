@@ -138,7 +138,11 @@ namespace FbxDataExtractor
 
 			polygonVertex.Id = i;
 			polygonVertex.Normal = GetLayerElementValue(*fbxMesh->GetElementNormal(), controlPointIndex, i);
-			polygonVertex.Bitangent = GetLayerElementValue(*fbxMesh->GetElementBinormal(), controlPointIndex, i);
+
+			if (fbxMesh->GetElementBinormalCount() > 0)
+			{
+				polygonVertex.Bitangent = GetLayerElementValue(*fbxMesh->GetElementBinormal(), controlPointIndex, i);
+			}
 
 			polygonVertex.Tangents.reserve(tangentCount);
 			for (int j = 0; j < tangentCount; j++)
@@ -313,7 +317,7 @@ namespace FbxDataExtractor
 		FbxGeometryConverter geometryConverter(fbxManager);
 		geometryConverter.Triangulate(scene, true);
 
-		std::vector<std::future<FbxExtractedMesh>> tasks;
+		std::vector<FbxMesh*> meshes;
 		for (int i = 0; i < scene->GetNodeCount(); i++)
 		{
 			FbxNode* node = scene->GetNode(i);
@@ -322,6 +326,12 @@ namespace FbxDataExtractor
 
 			mesh->GenerateNormals();
 			mesh->GenerateTangentsDataForAllUVSets();
+			meshes.push_back(mesh);
+		}
+
+		std::vector<std::future<FbxExtractedMesh>> tasks;
+		for (FbxMesh* mesh : meshes)
+		{
 			tasks.emplace_back(std::async(std::launch::async, &ImportMesh, mesh));
 		}
 
