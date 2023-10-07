@@ -41,7 +41,7 @@ namespace FbxImporter.ViewModels
             AddToFlverCommand = ReactiveCommand.CreateFromTask(AddToFlverAsync, canAddToFlver);
             UndoCommand = ReactiveCommand.Create(_history.Undo, _history.CanUndo);
             RedoCommand = ReactiveCommand.Create(_history.Redo, _history.CanRedo);
-            
+
             OpenFlverCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Opening Flver..."));
             SaveFlverCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Saving Flver..."));
             SaveFlverAsCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Saving Flver..."));
@@ -55,14 +55,12 @@ namespace FbxImporter.ViewModels
             {
                 Logger.LogError(e is InvalidDataException ? e.Message : e.ToString());
             });
-
-            
         }
 
         [Reactive] public FlverViewModel? Flver { get; set; }
 
         [Reactive] public FbxSceneDataViewModel? Fbx { get; set; }
-        
+
         public ProgressViewModel Progress { get; } = new();
 
         private string? FlverPath { get; set; }
@@ -88,7 +86,7 @@ namespace FbxImporter.ViewModels
         public ReactiveCommand<Unit, bool> RedoCommand { get; }
 
         public ReactiveCommand<Unit, bool> UndoCommand { get; }
-        
+
         private void ObserveProgress(bool isActive, string status)
         {
             Progress.IsActive = isActive;
@@ -182,7 +180,7 @@ namespace FbxImporter.ViewModels
             GetFilePathArgs args = new("Open Flver", filters, GetPathMode.Open);
             string? flverPath = await GetFilePath.Handle(args);
             if (flverPath is null) return;
-        
+
             Logger.Log($"Opening {Path.GetFileName(flverPath)}...");
             FLVER2? flver;
             try
@@ -194,7 +192,7 @@ namespace FbxImporter.ViewModels
             {
                 return;
             }
-            
+
             FlverViewModel.FlverVersion? optionalVersion = flver.Header.Version switch
             {
                 131092 => FlverViewModel.FlverVersion.DS3,
@@ -212,7 +210,7 @@ namespace FbxImporter.ViewModels
 
             if (optionalVersion is not { } version) return;
             FLVER2MaterialInfoBank materialInfoBank = await FlverViewModel.LoadMaterialInfoBankAsync(version);
-            
+
             _history.Clear();
             Flver = new FlverViewModel(flver, materialInfoBank, _history);
             FlverPath = flverPath;
@@ -236,8 +234,8 @@ namespace FbxImporter.ViewModels
             GetFilePathArgs args = new("Save Flver As...", filters, GetPathMode.Save);
             string? flverPath = await GetFilePath.Handle(args);
             if (flverPath is null) return;
-            Flver!.Write(flverPath);
             FlverPath = flverPath;
+            SaveFlver();
         }
 
         public record GetFilePathArgs(string Title, List<FileTypeFilter> Filters, GetPathMode Mode);
