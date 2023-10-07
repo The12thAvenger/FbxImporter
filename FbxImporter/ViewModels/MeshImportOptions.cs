@@ -7,7 +7,9 @@ public record MeshImportOptions
 {
     public bool CreateDefaultBone { get; init; }
 
-    public bool MirrorZ { get; init; } = true;
+    public bool MirrorZ { get; init; } = false;
+    
+    public bool ReverseFacesets { get; init; } = false;
 
     public string MTD { get; init; } = null!;
 

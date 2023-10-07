@@ -166,8 +166,12 @@ public class FbxMeshDataViewModel
             FLVER2.FaceSet.FSFlags.MotionBlur | FLVER2.FaceSet.FSFlags.LodLevel2
         };
 
+        if (options.ReverseFacesets)
+        {
+            FlipFaceSet();
+        }
+        
         List<FLVER2.FaceSet> faceSets = new();
-
         foreach (FLVER2.FaceSet.FSFlags faceSetFlag in faceSetFlags)
         {
             faceSets.Add(new FLVER2.FaceSet

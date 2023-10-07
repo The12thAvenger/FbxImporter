@@ -9,37 +9,43 @@
                      x:Class="FbxImporter.Views.MeshImportOptionsView"
                      WindowStartupLocation="CenterOwner"
                      Title="Mesh Import Options"
-                     Height="450"
+                     Height="460"
                      Width="350"
                      CanResize="False">
-    <ScrollViewer>
-        <Grid RowDefinitions="40, 200, 40, 90, 40" Margin="5">
+    <Design.DataContext>
+        <vm:MeshImportOptionsViewModel/>
+    </Design.DataContext>
+    
+    <Border>
+        <Grid RowDefinitions="40, 200, 40, 120, 40" Margin="5">
             <TextBox Text="{Binding Filter}" Grid.Row="0" Margin="5"/>
             <ListBox Name="MaterialListBox" Items="{Binding FilteredMaterials}" SelectedItem="{Binding SelectedMaterial}" 
                      VirtualizationMode="Simple" SelectionMode="Single" AutoScrollToSelectedItem="True" 
                      VerticalAlignment="Stretch" Grid.Row="1" Margin="5"/>
             <TextBox Text="{Binding SelectedMaterial}" IsEnabled="False" Grid.Row="2" Margin="5"/>
-            <Grid RowDefinitions="30, 30, 30" ColumnDefinitions="*, *" Grid.Row="3" Margin="5">
+            <Grid RowDefinitions="30, 30, 30, 30" ColumnDefinitions="*, *" Grid.Row="3" Margin="5">
                 <TextBlock Text="Mirror" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
                 <CheckBox IsChecked="{Binding MirrorZ}" ToolTip.Tip="Inverts the Z-scale of the model." Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
-                <TextBlock Text="Weighting Mode" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                <ComboBox Items="{Binding WeightingModes}" SelectedItem="{Binding Weighting}" Grid.Row="1" Grid.Column="1">
+                <TextBlock Text="Reverse Facesets" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                <CheckBox IsChecked="{Binding ReverseFacesets}" ToolTip.Tip="Reverses the facesets of the model." Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"/>
+                <TextBlock Text="Weighting Mode" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+                <ComboBox Items="{Binding WeightingModes}" SelectedItem="{Binding Weighting}" Grid.Row="2" Grid.Column="1">
                     <ComboBox.DataTemplates>
                         <DataTemplate DataType="vm:WeightingMode">
                             <TextBlock Text="{Binding Name}" ToolTip.Tip="{Binding Description}"/>
                         </DataTemplate>
                     </ComboBox.DataTemplates>
                 </ComboBox>
-                <TextBlock Text="Create Default Bone" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+                <TextBlock Text="Create Default Bone" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
                 <CheckBox IsChecked="{Binding CreateDefaultBone}" ToolTip.Tip="Creates a default bone for the mesh if no bone matching the mesh name is found." 
-                          Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right"/>
+                          Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right"/>
             </Grid>
             <Grid ColumnDefinitions="*, *" Grid.Row="4">
                 <Button Content="Cancel" Command="{Binding CancelCommand}" ToolTip.Tip="Shortcut: Esc" Margin="0, 0, 2, 0" Grid.Column="0" />
                 <Button Content="Ok" Command="{Binding ConfirmCommand}" ToolTip.Tip="Shortcut: Enter" Margin="2, 0, 0, 0" Grid.Column="1" />
             </Grid>
         </Grid>
-    </ScrollViewer>
+    </Border>
     <Window.KeyBindings>
         <KeyBinding Gesture="Escape" Command="{Binding CancelCommand}" />
         <KeyBinding Gesture="Enter" Command="{Binding ConfirmCommand}" />
