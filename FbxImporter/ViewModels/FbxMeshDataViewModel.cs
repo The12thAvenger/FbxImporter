@@ -103,7 +103,7 @@ public class FbxMeshDataViewModel
             {
                 Position = vertexData.Position with { Z = vertexData.Position.Z * zSign },
                 Normal = vertexData.Normal with { Z = vertexData.Normal.Z * zSign },
-                Bitangent = vertexData.Bitangent,
+                Bitangent = vertexData.Bitangent with { Z = vertexData.Bitangent.Z * zSign },
                 Tangents = vertexData.Tangents.Select(x => x with { Z = x.Z * zSign }).ToList(),
                 UVs = vertexData.UVs.Select(x => new Vector3(x.X, 1 - x.Y, 0.0f)).ToList(),
                 // Fbx uses RGBA, SF uses ARGB
