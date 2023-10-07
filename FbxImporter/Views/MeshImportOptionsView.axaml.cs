@@ -4,6 +4,8 @@ using FbxImporter.ViewModels;
 using ReactiveUI;
 using System;
 using System.Collections.Specialized;
+// ReSharper disable once RedundantUsingDirective
+using Avalonia;
 using Avalonia.Threading;
 
 namespace FbxImporter.Views;
