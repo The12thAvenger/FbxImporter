@@ -166,9 +166,10 @@ public class FbxMeshDataViewModel
             FLVER2.FaceSet.FSFlags.MotionBlur | FLVER2.FaceSet.FSFlags.LodLevel2
         };
 
+        List<int> vertexIndices = new(Data.VertexIndices);
         if (options.FlipFaces)
         {
-            FlipFaceSet();
+            FlipFaceSet(vertexIndices);
         }
         
         List<FLVER2.FaceSet> faceSets = new();
@@ -176,7 +177,7 @@ public class FbxMeshDataViewModel
         {
             faceSets.Add(new FLVER2.FaceSet
             {
-                Indices = Data.VertexIndices,
+                Indices = vertexIndices,
                 CullBackfaces = false,
                 Flags = faceSetFlag,
                 TriangleStrip = false
@@ -299,12 +300,12 @@ public class FbxMeshDataViewModel
         }
     }
 
-    private void FlipFaceSet()
+    private static void FlipFaceSet(IList<int> vertexIndices)
     {
-        for (int i = 0; i < Data.VertexIndices.Count; i += 3)
+        for (int i = 0; i < vertexIndices.Count; i += 3)
         {
-            (Data.VertexIndices[i + 1], Data.VertexIndices[i + 2]) =
-                (Data.VertexIndices[i + 2], Data.VertexIndices[i + 1]);
+            (vertexIndices[i + 1], vertexIndices[i + 2]) =
+                (vertexIndices[i + 2], vertexIndices[i + 1]);
         }
     }
 }
