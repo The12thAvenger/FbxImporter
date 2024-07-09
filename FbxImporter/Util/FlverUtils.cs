@@ -49,7 +49,7 @@ public static class FlverUtils
             MTD = material.MTD,
             Name = material.Name,
             Textures = material.Textures.Select(Clone).ToList(),
-            Unk18 = material.Unk18
+            Index = material.Index
         };
     }
 
@@ -73,7 +73,7 @@ public static class FlverUtils
     {
         flver.Header.BoundingBoxMin = new System.Numerics.Vector3();
         flver.Header.BoundingBoxMax = new System.Numerics.Vector3();
-        foreach (FLVER.Bone bone in flver.Bones)
+        foreach (FLVER.Node bone in flver.Nodes)
         {
             bone.BoundingBoxMin = new System.Numerics.Vector3();
             bone.BoundingBoxMax = new System.Numerics.Vector3();
@@ -95,9 +95,9 @@ public static class FlverUtils
                     bool boneDoesNotExist = false;
 
                     // Mark bone as not-dummied-out since there is geometry skinned to it.
-                    if (boneIndex >= 0 && boneIndex < flver.Bones.Count)
+                    if (boneIndex >= 0 && boneIndex < flver.Nodes.Count)
                     {
-                        flver.Bones[boneIndex].Unk3C = 0;
+                        flver.Nodes[boneIndex].Flags = 0;
                     }
                     else
                     {
@@ -105,7 +105,7 @@ public static class FlverUtils
                     }
 
                     if (!boneDoesNotExist)
-                        flver.Bones[boneIndex].UpdateBoundingBox(flver.Bones, vertex.Position);
+                        flver.Nodes[boneIndex].UpdateBoundingBox(flver.Nodes, vertex.Position);
                 }
             }
         }

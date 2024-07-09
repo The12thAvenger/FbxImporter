@@ -88,7 +88,7 @@ public class FlverViewModel : ViewModelBase
             {
                 materialIndex = Flver.Materials.Count;
                 Flver.Materials.Add(material);
-                if (Flver.Header.Version >= 131098) material.Unk18 = materialIndex;
+                if (Flver.Header.Version >= 131098) material.Index = materialIndex;
 
                 if (mesh.GxList is not null)
                 {
