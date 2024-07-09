@@ -58,11 +58,11 @@ public class MeshImportOptionsViewModel : ViewModelBase
         Materials.AddOrUpdate(materialNameList);
 
         IObservable<Func<string, bool>> materialFilter = this.WhenAnyValue(x => x.Filter)
-            .Throttle(TimeSpan.FromMilliseconds(100))
-            .Select(x => (Func<string, bool>)(y => y.Contains(x)));
+            .Throttle(TimeSpan.FromMilliseconds(50))
+            .Select(x => (Func<string, bool>)(y => y.Contains(x.ToLower())));
         
         IObservable<IComparer<string>> sortComparer = this.WhenAnyValue(x => x.Filter)
-            .Throttle(TimeSpan.FromMilliseconds(100))
+            .Throttle(TimeSpan.FromMilliseconds(50))
             .Select(x => new FilteredStringComparer(x));
 
         FilteredMaterials = new ObservableCollectionExtended<string>();
