@@ -3,10 +3,8 @@ using Avalonia.ReactiveUI;
 using FbxImporter.ViewModels;
 using ReactiveUI;
 using System;
-using System.Collections.Specialized;
 // ReSharper disable once RedundantUsingDirective
 using Avalonia;
-using Avalonia.Threading;
 
 namespace FbxImporter.Views;
 
@@ -19,24 +17,10 @@ public partial class MeshImportOptionsView : ReactiveWindow<MeshImportOptionsVie
         {
             d(ViewModel!.ConfirmCommand.Subscribe(Close));
             d(ViewModel!.CancelCommand.Subscribe(Close));
-            ViewModel.FilteredMaterials.CollectionChanged -= UpdateMaterialSelection;
-            ViewModel.FilteredMaterials.CollectionChanged += UpdateMaterialSelection;
         });
 #if DEBUG
         this.AttachDevTools();
 #endif
-    }
-    
-    private void UpdateMaterialSelection(object? sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
-    {
-        Dispatcher.UIThread.Post(() =>
-        {
-            if (ViewModel!.FilteredMaterials.Count == 0) return;
-            int selectedIndex = ViewModel!.FilteredMaterials.IndexOf(ViewModel!.SelectedMaterial!);
-            selectedIndex = Math.Clamp(selectedIndex, 0, int.MaxValue);
-            MaterialListBox.ScrollIntoView(selectedIndex);
-            MaterialListBox.SelectedItem = ViewModel.SelectedMaterial;
-        });
     }
 
     private void InitializeComponent()

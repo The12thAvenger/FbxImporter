@@ -19,8 +19,8 @@
     <Border>
         <Grid RowDefinitions="40, 200, 40, 120, 40" Margin="5">
             <TextBox Name="FilterTextBox" Text="{Binding Filter}" Grid.Row="0" Margin="5"/>
-            <ListBox Name="MaterialListBox" Items="{Binding FilteredMaterials}" SelectedItem="{Binding SelectedMaterial}" 
-                     VirtualizationMode="Simple" SelectionMode="Single" AutoScrollToSelectedItem="True" 
+            <ListBox Name="MaterialListBox" Items="{Binding FilteredMaterials}" SelectedItems="{Binding FilteredMaterialSelection}" 
+                     VirtualizationMode="Simple" SelectionMode="Single" AutoScrollToSelectedItem="False" 
                      VerticalAlignment="Stretch" Grid.Row="1" Margin="5"/>
             <TextBox Text="{Binding SelectedMaterial}" IsReadOnly="True" CaretBrush="Transparent" Grid.Row="2" Margin="5"/>
             <Grid RowDefinitions="30, 30, 30, 30" ColumnDefinitions="*, *" Grid.Row="3" Margin="5">

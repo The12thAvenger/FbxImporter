@@ -15,7 +15,6 @@ namespace FbxImporter.ViewModels;
 public class MeshImportOptionsViewModel : ViewModelBase
 {
     private readonly FLVER2MaterialInfoBank _materialInfoBank;
-    private string? _selectedMaterial;
 
     private class FilteredStringComparer : IComparer<string>
     {
@@ -72,10 +71,20 @@ public class MeshImportOptionsViewModel : ViewModelBase
             .Bind(FilteredMaterials)
             .Subscribe();
 
-        SelectedMaterial = materialNameList.FirstOrDefault(x => string.Equals(Path.GetFileNameWithoutExtension(x),
+        string? selectedMaterial = materialNameList.FirstOrDefault(x => string.Equals(Path.GetFileNameWithoutExtension(x),
             Path.GetFileNameWithoutExtension(mtd),
             StringComparison.CurrentCultureIgnoreCase)) ?? lastUsedMaterial;
+        if (selectedMaterial is not null)
+        {
+            FilteredMaterialSelection.Add(selectedMaterial);
+        }
 
+        FilteredMaterialSelection.ToObservableChangeSet()
+            .ToCollection()
+            .Select(x => x.FirstOrDefault())
+            .Where(x => x is not null)
+            .ToPropertyEx(this, x => x.SelectedMaterial, selectedMaterial);
+        
         IObservable<bool> isMaterialSelected = this.WhenAnyValue(x => x.SelectedMaterial).Select(x => x is not null);
 
         CancelCommand = ReactiveCommand.Create(Cancel);
@@ -88,19 +97,13 @@ public class MeshImportOptionsViewModel : ViewModelBase
     
     [Reactive] public bool FlipFaces { get; set; }
 
-    public SourceCache<string, string> Materials { get; }
+    private SourceCache<string, string> Materials { get; }
 
     public ObservableCollectionExtended<string> FilteredMaterials { get; }
 
-    public string? SelectedMaterial
-    {
-        get => _selectedMaterial;
-        set 
-        {
-            if (value is null) return;
-            this.RaiseAndSetIfChanged(ref _selectedMaterial, value);
-        }
-    }
+    public ObservableCollectionExtended<string?> FilteredMaterialSelection { get; set; } = new();
+    
+    [ObservableAsProperty] public string? SelectedMaterial { get; set; }
     
     [Reactive] public WeightingMode Weighting { get; set; }
     public List<WeightingMode> WeightingModes => WeightingMode.Values;
@@ -109,12 +112,12 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
     public ReactiveCommand<Unit, MeshImportOptions?> CancelCommand { get; }
 
-    public MeshImportOptions? Cancel()
+    private MeshImportOptions? Cancel()
     {
         return null;
     }
 
-    public MeshImportOptions Confirm()
+    private MeshImportOptions Confirm()
     {
         return new MeshImportOptions
         {
