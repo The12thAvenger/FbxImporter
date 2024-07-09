@@ -299,7 +299,7 @@ namespace SoulsAssetPipeline.FLVERImporting
 
                     if (childBoneIndices.Count > 0)
                     {
-                        flverBone.ChildIndex = (short)childBoneIndices[0];
+                        flverBone.FirstChildIndex = (short)childBoneIndices[0];
 
                         for (int i = 0; i < childBoneIndices.Count; i++)
                         {
