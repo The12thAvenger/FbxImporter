@@ -77,21 +77,32 @@ public class FbxMeshDataViewModel
             UseBoneWeights = options.Weighting == WeightingMode.Skin
         };
 
-        int defaultBoneIndex = flver.Nodes.IndexOf(flver.Nodes.FirstOrDefault(x => x.Name == Name));
-        if (defaultBoneIndex == -1)
+        int nodeIndex = flver.Nodes.IndexOf(flver.Nodes.FirstOrDefault(x => x.Name == Name));
+        if (nodeIndex == -1)
         {
-            if (options.CreateDefaultBone)
+            nodeIndex = flver.Nodes.FindIndex(x => x.Flags.HasFlag(FLVER.Node.NodeFlags.Disabled));
+            if (nodeIndex == -1)
             {
-                flver.Nodes.Add(new FLVER.Node { Name = Name });
-                defaultBoneIndex = flver.Nodes.Count - 1;
+                nodeIndex = flver.Nodes.Count;
             }
-            else
+
+            int lastRootNodeIndex = flver.Nodes.FindLastIndex(x =>
+                x is { ParentIndex: -1, NextSiblingIndex: -1 } && !x.Flags.HasFlag(FLVER.Node.NodeFlags.Disabled));
+            
+            flver.Nodes.Insert(nodeIndex, new FLVER.Node
             {
-                defaultBoneIndex = 0;
+                Name = Name,
+                Flags = FLVER.Node.NodeFlags.Mesh,
+                PreviousSiblingIndex = (short)lastRootNodeIndex
+            });
+
+            if (lastRootNodeIndex != -1)
+            {
+                flver.Nodes[lastRootNodeIndex].NextSiblingIndex = (short)nodeIndex;
             }
         }
 
-        newMesh.NodeIndex = defaultBoneIndex;
+        newMesh.NodeIndex = nodeIndex;
 
         bool foundWeights = false;
         HashSet<string> missingBones = new();
@@ -194,7 +205,7 @@ public class FbxMeshDataViewModel
 
     private static void AdjustBoneIndexBufferSize(FLVER2 flver, List<FLVER2.BufferLayout> bufferLayouts)
     {
-        if (flver.Nodes.Count <= byte.MaxValue) return;
+        if (flver.Nodes.FindLastIndex(x => !x.Flags.HasFlag(FLVER.Node.NodeFlags.Disabled)) <= byte.MaxValue) return;
 
         foreach (FLVER2.BufferLayout bufferLayout in bufferLayouts)
         {

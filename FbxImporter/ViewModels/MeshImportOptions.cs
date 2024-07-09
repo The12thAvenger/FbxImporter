@@ -5,7 +5,6 @@ namespace FbxImporter.ViewModels;
 
 public record MeshImportOptions
 {
-    public bool CreateDefaultBone { get; init; }
 
     public bool MirrorZ { get; init; } = false;
     

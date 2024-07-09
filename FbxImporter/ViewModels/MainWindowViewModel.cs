@@ -108,8 +108,8 @@ namespace FbxImporter.ViewModels
         private void AddToFlverWithHistory(MeshImportOptions options)
         {
             int meshIndex = Flver!.Meshes.Count;
-            int boneIndex = Flver.Flver.Nodes.Count;
-            bool addedBone = Flver.Flver.Nodes.All(x => x.Name != Fbx!.SelectedMesh!.Name) && options.CreateDefaultBone;
+            int nodeIndex = Flver.Flver.Nodes.FindLastIndex(x => !x.Flags.HasFlag(FLVER.Node.NodeFlags.Disabled)) + 1;
+            bool addedNode = Flver.Flver.Nodes.All(x => x.Name != Fbx!.SelectedMesh!.Name);
 
             _history.Snapshot(Undo, Redo);
             Redo();
@@ -117,10 +117,12 @@ namespace FbxImporter.ViewModels
             void Undo()
             {
                 Flver.Meshes.RemoveAt(meshIndex);
-                if (addedBone)
-                {
-                    Flver.Flver.Nodes.RemoveAt(boneIndex);
-                }
+                if (!addedNode) return;
+                
+                FLVER.Node node = Flver.Flver.Nodes[nodeIndex];
+                FLVER.Node prevNode = Flver.Flver.Nodes[node.PreviousSiblingIndex];
+                prevNode.NextSiblingIndex = -1;
+                Flver.Flver.Nodes.RemoveAt(nodeIndex);
             }
 
             void Redo()
