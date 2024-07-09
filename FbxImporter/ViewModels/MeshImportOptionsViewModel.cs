@@ -42,7 +42,6 @@ public class MeshImportOptionsViewModel : ViewModelBase
     public MeshImportOptionsViewModel(string? mtd, FLVER2MaterialInfoBank materialInfoBank,
         MeshImportOptions? optionsCache)
     {
-        CreateDefaultBone = optionsCache?.CreateDefaultBone ?? true;
         MirrorZ = optionsCache?.MirrorZ ?? false;
         FlipFaces = optionsCache?.FlipFaces ?? false;
         Weighting = optionsCache?.Weighting ?? WeightingMode.Skin;
@@ -85,8 +84,6 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
     [Reactive] public string Filter { get; set; } = string.Empty;
 
-    [Reactive] public bool CreateDefaultBone { get; set; }
-
     [Reactive] public bool MirrorZ { get; set; }
     
     [Reactive] public bool FlipFaces { get; set; }
@@ -121,7 +118,6 @@ public class MeshImportOptionsViewModel : ViewModelBase
     {
         return new MeshImportOptions
         {
-            CreateDefaultBone = CreateDefaultBone,
             MirrorZ = MirrorZ,
             FlipFaces = FlipFaces,
             MTD = SelectedMaterial!,

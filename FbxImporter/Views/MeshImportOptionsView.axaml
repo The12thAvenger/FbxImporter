@@ -36,9 +36,6 @@
                         </DataTemplate>
                     </ComboBox.DataTemplates>
                 </ComboBox>
-                <TextBlock Text="Create Default Bone" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
-                <CheckBox IsChecked="{Binding CreateDefaultBone}" ToolTip.Tip="Creates a default bone for the mesh if no bone matching the mesh name is found." 
-                          Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right"/>
             </Grid>
             <Grid ColumnDefinitions="*, *" Grid.Row="4">
                 <Button Content="Cancel" Command="{Binding CancelCommand}" ToolTip.Tip="Shortcut: Esc" Margin="0, 0, 2, 0" Grid.Column="0" />
