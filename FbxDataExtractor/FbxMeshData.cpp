@@ -335,17 +335,6 @@ namespace FbxDataExtractor
 			tasks.emplace_back(std::async(std::launch::async, &ImportMesh, mesh));
 		}
 
-		bool working;
-		do
-		{
-			working = false;
-			for (std::future<FbxExtractedMesh>& task : tasks)
-			{
-				working |= !task._Is_ready();
-			}
-		}
-		while (working);
-
 		List<FbxMeshData^>^ meshList = gcnew List<FbxMeshData^>();
 		for (std::future<FbxExtractedMesh>& task : tasks)
 		{
