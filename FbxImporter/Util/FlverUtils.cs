@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using SoulsAssetPipeline.FLVERImporting;
 using SoulsFormats;
 
@@ -67,6 +68,102 @@ public static class FlverUtils
             (faceSet.Indices[i + 1], faceSet.Indices[i + 2]) = (faceSet.Indices[i + 2], faceSet.Indices[i + 1]);
         }
     }
+    
+    public static void AddNodesToSkeleton(this FLVER2 flver, List<FLVER2.SkeletonSet.Bone> skeleton)
+    {
+        if (skeleton.Count == 0 || skeleton.Count == flver.Nodes.Count) return;
+
+        for (int i = 0; i < flver.Nodes.Count; i++)
+        {
+            if (skeleton.Any(bone => bone.NodeIndex == i)) continue;
+
+            FLVER.Node node = flver.Nodes[i];
+            short parentIndex = (short)skeleton.FindIndex(x => x.NodeIndex == node.ParentIndex);
+            short childIndex = (short)skeleton.FindIndex(x => x.NodeIndex == node.FirstChildIndex);
+            short prevIndex = (short)skeleton.FindIndex(x => x.NodeIndex == node.PreviousSiblingIndex);
+            short nextIndex = (short)skeleton.FindIndex(x => x.NodeIndex == node.NextSiblingIndex);
+
+            if (prevIndex != -1)
+            {
+                skeleton[prevIndex].NextSiblingIndex = (short)skeleton.Count;
+            }
+                
+            skeleton.Add(new FLVER2.SkeletonSet.Bone(i)
+            {
+                ParentIndex = parentIndex,
+                FirstChildIndex = childIndex,
+                PreviousSiblingIndex = prevIndex,
+                NextSiblingIndex = nextIndex
+            });
+        }
+    }
+
+    public static void AddNodesToSkeletons(this FLVER2 flver)
+    {
+        flver.AddNodesToSkeleton(flver.Skeletons.BaseSkeleton);
+        flver.AddNodesToSkeleton(flver.Skeletons.AllSkeletons);
+    }
+
+    private static void SetNodeFlag(FLVER.Node node, FLVER.Node.NodeFlags flag)
+    {
+        node.Flags |= flag;
+        node.Flags &= flag == FLVER.Node.NodeFlags.Disabled ? FLVER.Node.NodeFlags.Disabled : ~FLVER.Node.NodeFlags.Disabled;
+    }
+    
+    public static void SetNodeFlags(this FLVER2 flver)
+    {
+        foreach (FLVER2.Mesh mesh in flver.Meshes)
+        {
+            foreach (FLVER.Vertex vertex in mesh.Vertices)
+            {
+                if (mesh.UseBoneWeights)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        int boneIndex = vertex.BoneIndices[j];
+                        if (vertex.BoneWeights[j] == 0 || boneIndex < 0 || boneIndex >= flver.Nodes.Count) continue;
+                        FLVER.Node node = flver.Nodes[boneIndex];
+                        SetNodeFlag(node, FLVER.Node.NodeFlags.Bone);
+                    }
+                }
+                else if (vertex.NormalW >= 0 && vertex.NormalW < flver.Nodes.Count)
+                {
+                    int normalW = vertex.NormalW;
+                    FLVER.Node node = flver.Nodes[normalW];
+                    SetNodeFlag(node, FLVER.Node.NodeFlags.Bone);
+                }
+            }
+
+            int meshNodeIndex = mesh.NodeIndex;
+            if (meshNodeIndex == -1) continue;
+            if (meshNodeIndex < 0 || meshNodeIndex >= flver.Nodes.Count) continue;
+
+            FLVER.Node meshNode = flver.Nodes[meshNodeIndex];
+            SetNodeFlag(meshNode, FLVER.Node.NodeFlags.Mesh);
+        }
+
+        foreach (FLVER.Dummy dummy in flver.Dummies)
+        {
+            if (dummy.AttachBoneIndex != -1)
+            {
+                if (dummy.AttachBoneIndex < 0 || dummy.AttachBoneIndex >= flver.Nodes.Count) continue;
+                FLVER.Node node = flver.Nodes[dummy.AttachBoneIndex];
+                SetNodeFlag(node, FLVER.Node.NodeFlags.DummyOwner);
+            }
+
+            if (dummy.ParentBoneIndex != -1) continue;
+            if (dummy.ParentBoneIndex < 0 || dummy.ParentBoneIndex >= flver.Nodes.Count) continue;
+            {
+                FLVER.Node node = flver.Nodes[dummy.ParentBoneIndex];
+                SetNodeFlag(node, FLVER.Node.NodeFlags.DummyOwner);
+            }
+        }
+
+        foreach (FLVER.Node node in flver.Nodes.Where(x => x is { ParentIndex: -1, FirstChildIndex: -1, PreviousSiblingIndex: -1, NextSiblingIndex: -1, Flags: 0 }))
+        {
+            SetNodeFlag(node, FLVER.Node.NodeFlags.Disabled);
+        }
+    }
 
     public static void FixAllBoundingBoxes(this FLVER2 flver)
     {
@@ -88,23 +185,32 @@ public static class FlverUtils
                 if (mesh.BoundingBox != null)
                     mesh.UpdateBoundingBox(vertex.Position);
 
-                for (int j = 0; j < vertex.BoneIndices.Length; j++)
+                if (mesh.UseBoneWeights)
                 {
-                    int boneIndex = vertex.BoneIndices[j];
-                    bool boneDoesNotExist = false;
-
-                    // Mark bone as not-dummied-out since there is geometry skinned to it.
-                    if (boneIndex >= 0 && boneIndex < flver.Nodes.Count)
+                    for (int j = 0; j < vertex.BoneIndices.Length; j++)
                     {
-                        flver.Nodes[boneIndex].Flags = 0;
-                    }
-                    else
-                    {
-                        boneDoesNotExist = true;
-                    }
+                        if (vertex.BoneWeights[j] == 0) continue;
+                        int nodeIndex = vertex.BoneIndices[j];
 
-                    if (!boneDoesNotExist)
-                        flver.Nodes[boneIndex].UpdateBoundingBox(flver.Nodes, vertex.Position);
+                        if (nodeIndex < 0 || nodeIndex >= flver.Nodes.Count) continue;
+                        
+                        FLVER.Node node = flver.Nodes[nodeIndex];
+                        if (!node.Flags.HasFlag(FLVER.Node.NodeFlags.Disabled))
+                        {
+                            node.UpdateBoundingBox(flver.Nodes, vertex.Position);
+                        }
+                    }
+                }
+                else
+                {
+                    int nodeIndex = vertex.NormalW;
+                    if (nodeIndex < 0 || nodeIndex >= flver.Nodes.Count) continue;
+                    
+                    FLVER.Node node = flver.Nodes[nodeIndex];
+                    if (!node.Flags.HasFlag(FLVER.Node.NodeFlags.Disabled))
+                    {
+                        node.UpdateBoundingBox(flver.Nodes, vertex.Position);
+                    }
                 }
             }
         }

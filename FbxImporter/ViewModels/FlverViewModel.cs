@@ -74,35 +74,6 @@ public class FlverViewModel : ViewModelBase
             SelectedMesh = Meshes.Count > index ? Meshes[index] : Meshes[index - 1];
         }
     }
-    
-    private static void AddNodesToSkeleton(FLVER2 flver, List<FLVER2.SkeletonSet.Bone> skeleton)
-    {
-        if (skeleton.Count == 0 || skeleton.Count == flver.Nodes.Count) return;
-
-        for (int i = 0; i < flver.Nodes.Count; i++)
-        {
-            if (skeleton.Any(bone => bone.NodeIndex == i)) continue;
-
-            FLVER.Node node = flver.Nodes[i];
-            short parentIndex = (short)skeleton.FindIndex(x => x.NodeIndex == node.ParentIndex);
-            short childIndex = (short)skeleton.FindIndex(x => x.NodeIndex == node.FirstChildIndex);
-            short prevIndex = (short)skeleton.FindIndex(x => x.NodeIndex == node.PreviousSiblingIndex);
-            short nextIndex = (short)skeleton.FindIndex(x => x.NodeIndex == node.NextSiblingIndex);
-
-            if (prevIndex != -1)
-            {
-                skeleton[prevIndex].NextSiblingIndex = (short)skeleton.Count;
-            }
-                
-            skeleton.Add(new FLVER2.SkeletonSet.Bone(i)
-            {
-                ParentIndex = parentIndex,
-                FirstChildIndex = childIndex,
-                PreviousSiblingIndex = prevIndex,
-                NextSiblingIndex = nextIndex
-            });
-        }
-    }
 
     public void Write(string path)
     {
@@ -130,10 +101,8 @@ public class FlverViewModel : ViewModelBase
         }
         
         Flver.FixAllBoundingBoxes();
-
-        AddNodesToSkeleton(Flver, Flver.Skeletons.BaseSkeleton);
-        AddNodesToSkeleton(Flver, Flver.Skeletons.AllSkeletons);
-
+        Flver.AddNodesToSkeletons();
+        Flver.SetNodeFlags();
 
         // Soulsformats will corrupt the file if there is an exception on write so back up the file first and write it back to disk if the write fails.
         FLVER2? backupFlver;
