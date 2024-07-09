@@ -31,6 +31,10 @@ public class MeshImportOptionsViewModel : ViewModelBase
             if (y is null) return -1;
             if (x.StartsWith(_filter) && !y.StartsWith(_filter)) return -1;
             if (!x.StartsWith(_filter) && y.StartsWith(_filter)) return 1;
+            int xIndex = x.IndexOf(_filter, StringComparison.InvariantCultureIgnoreCase);
+            int yIndex = y.IndexOf(_filter, StringComparison.InvariantCultureIgnoreCase);
+            if (xIndex < yIndex) return -1;
+            if (yIndex < xIndex) return 1;
             return StringComparer.InvariantCultureIgnoreCase.Compare(x, y);
         }
     }
