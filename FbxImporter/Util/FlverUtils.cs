@@ -44,7 +44,6 @@ public static class FlverUtils
     {
         return new FLVER2.Material
         {
-            Flags = material.Flags,
             GXIndex = material.GXIndex,
             MTD = material.MTD,
             Name = material.Name,

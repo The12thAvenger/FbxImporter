@@ -47,7 +47,6 @@
     <ItemGroup>
       <ProjectReference Include="..\FbxDataExtractor\FbxDataExtractor.vcxproj" />
       <ProjectReference Include="..\SoulsAssetPipeline\SoulsAssetPipeline.csproj" />
-      <ProjectReference Include="..\SoulsFormats\SoulsFormats\SoulsFormats.csproj" />
     </ItemGroup>
     <ItemGroup>
         <CopyMaterialBanks Include="$(ProjectDir)\SapResources\FLVER2MaterialInfoBank\*.*" />
