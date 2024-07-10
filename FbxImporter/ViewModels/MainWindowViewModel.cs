@@ -32,8 +32,7 @@ namespace FbxImporter.ViewModels
             _history = new StackHistory();
 
             IObservable<bool> isFlverLoaded = this.WhenAnyValue(x => x.Flver).Select(x => x is not null);
-            IObservable<bool> isMeshSelected = this.WhenAnyValue(x => x.Fbx.IsMeshSelected);
-            IObservable<bool> canAddToFlver = isFlverLoaded.Zip(isMeshSelected, (isFlver, isMesh) => isFlver && isMesh);
+            IObservable<bool> canAddToFlver = this.WhenAnyValue(x => x.Fbx.IsMeshSelected).Select(x => x && Flver is not null);
             OpenFlverCommand = ReactiveCommand.CreateFromTask(OpenFlverAsync);
             SaveFlverCommand = ReactiveCommand.CreateFromTask(() => Task.Run(SaveFlver), isFlverLoaded);
             SaveFlverAsCommand = ReactiveCommand.CreateFromTask(SaveFlverAsAsync, isFlverLoaded);
