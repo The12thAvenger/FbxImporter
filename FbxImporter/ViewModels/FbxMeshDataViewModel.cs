@@ -92,7 +92,7 @@ public class FbxMeshDataViewModel
             flver.Nodes.Insert(nodeIndex, new FLVER.Node
             {
                 Name = Name,
-                Flags = FLVER.Node.NodeFlags.Mesh,
+                Flags = flver.Header.Version >= 131098 ? FLVER.Node.NodeFlags.Mesh : 0,
                 PreviousSiblingIndex = (short)lastRootNodeIndex
             });
 
