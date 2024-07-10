@@ -101,8 +101,11 @@ public class FlverViewModel : ViewModelBase
         }
         
         Flver.FixAllBoundingBoxes();
-        Flver.AddNodesToSkeletons();
-        Flver.SetNodeFlags();
+        if (Flver.Header.Version >= 131098)
+        {
+            Flver.AddNodesToSkeletons();
+            Flver.SetNodeFlags();
+        }
 
         // Soulsformats will corrupt the file if there is an exception on write so back up the file first and write it back to disk if the write fails.
         FLVER2? backupFlver;
