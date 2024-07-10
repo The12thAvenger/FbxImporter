@@ -32,7 +32,7 @@ namespace FbxImporter.ViewModels
             _history = new StackHistory();
 
             IObservable<bool> isFlverLoaded = this.WhenAnyValue(x => x.Flver).Select(x => x is not null);
-            IObservable<bool> isMeshSelected = this.WhenAnyValue(x => x.Fbx.SelectedMesh).Select(x => x is not null);
+            IObservable<bool> isMeshSelected = this.WhenAnyValue(x => x.Fbx.IsMeshSelected);
             IObservable<bool> canAddToFlver = isFlverLoaded.Zip(isMeshSelected, (isFlver, isMesh) => isFlver && isMesh);
             OpenFlverCommand = ReactiveCommand.CreateFromTask(OpenFlverAsync);
             SaveFlverCommand = ReactiveCommand.CreateFromTask(() => Task.Run(SaveFlver), isFlverLoaded);
@@ -96,7 +96,7 @@ namespace FbxImporter.ViewModels
         private async Task AddToFlverAsync()
         {
             MeshImportOptionsViewModel optionsViewModel =
-                new(Fbx!.SelectedMesh!.MTD, Flver!.MaterialInfoBank, _meshImportOptionsCache);
+                new(Fbx!.SelectedMeshes[0].MTD, Flver!.MaterialInfoBank, _meshImportOptionsCache);
             MeshImportOptions? options = await GetMeshImportOptions.Handle(optionsViewModel);
             if (options is null) return;
 
@@ -108,26 +108,38 @@ namespace FbxImporter.ViewModels
         private void AddToFlverWithHistory(MeshImportOptions options)
         {
             int meshIndex = Flver!.Meshes.Count;
+            int meshCount = Fbx!.SelectedMeshes.Count;
             int nodeIndex = Flver.Flver.Nodes.FindLastIndex(x => !x.Flags.HasFlag(FLVER.Node.NodeFlags.Disabled)) + 1;
-            bool addedNode = Flver.Flver.Nodes.All(x => x.Name != Fbx!.SelectedMesh!.Name);
+            int numAddedNodes = Fbx!.SelectedMeshes.Count(x => Flver.Flver.Nodes.All(y => x.Name != y.Name));
 
             _history.Snapshot(Undo, Redo);
             Redo();
+            return;
 
             void Undo()
             {
-                Flver.Meshes.RemoveAt(meshIndex);
-                if (!addedNode) return;
+                for (int i = 0; i < meshCount; i++)
+                {
+                    Flver.Meshes.RemoveAt(meshIndex);
+                }
+
+                if (numAddedNodes == 0) return;
                 
-                FLVER.Node node = Flver.Flver.Nodes[nodeIndex];
-                FLVER.Node prevNode = Flver.Flver.Nodes[node.PreviousSiblingIndex];
+                FLVER.Node firstNode = Flver.Flver.Nodes[nodeIndex];
+                FLVER.Node prevNode = Flver.Flver.Nodes[firstNode.PreviousSiblingIndex];
                 prevNode.NextSiblingIndex = -1;
-                Flver.Flver.Nodes.RemoveAt(nodeIndex);
+                for (int i = 0; i < numAddedNodes; i++)
+                {
+                    Flver.Flver.Nodes.RemoveAt(nodeIndex);
+                }
             }
 
             void Redo()
             {
-                Flver.Meshes.Insert(meshIndex, Fbx!.SelectedMesh!.ToFlverMesh(Flver.Flver, options));
+                for (int i = 0; i < meshCount; i++)
+                {
+                    Flver.Meshes.Insert(meshIndex + i, Fbx!.SelectedMeshes[i].ToFlverMesh(Flver.Flver, options));
+                }
             }
         }
 
