@@ -23,7 +23,7 @@
                      VirtualizationMode="Simple" SelectionMode="Single" AutoScrollToSelectedItem="False" 
                      VerticalAlignment="Stretch" Grid.Row="1" Margin="5"/>
             <TextBox Text="{Binding SelectedMaterial}" IsReadOnly="True" CaretBrush="Transparent" Grid.Row="2" Margin="5"/>
-            <Grid RowDefinitions="30, 30, 30, 30" ColumnDefinitions="*, *" Grid.Row="3" Margin="5">
+            <Grid RowDefinitions="30, 30, 30" ColumnDefinitions="*, *" Grid.Row="3" Margin="5">
                 <TextBlock Text="Mirror" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
                 <CheckBox IsChecked="{Binding MirrorZ}" ToolTip.Tip="Inverts the Z-scale of the model." Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
                 <TextBlock Text="Flip Faces" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
