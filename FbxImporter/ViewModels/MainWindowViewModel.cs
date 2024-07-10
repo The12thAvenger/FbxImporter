@@ -201,6 +201,27 @@ namespace FbxImporter.ViewModels
                 flver = await Task.Run(() => ReadFlver(flverPath));
                 if (flver is null) return;
             }
+            catch (InvalidDataException e)
+            {
+                Logger.Log("Warning: Assertion failed with error:");
+                Logger.Log(e.ToString());
+                Logger.Log("Attempting to load in flexible mode. Data might be invalid.");
+
+                BinaryReaderEx.IsFlexible = true;
+                try
+                {
+                    flver = await Task.Run(() => ReadFlver(flverPath));
+                    if (flver is null) return;
+                }
+                catch
+                {
+                    return;
+                }
+                finally
+                {
+                    BinaryReaderEx.IsFlexible = false;
+                }
+            }
             catch
             {
                 return;
