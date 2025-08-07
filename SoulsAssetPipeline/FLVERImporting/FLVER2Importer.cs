@@ -184,10 +184,10 @@ namespace SoulsAssetPipeline.FLVERImporting
 
                 void AddTextureSlot(TextureSlot slot, string ingameSlot)
                 {
-                    flverMaterial.Textures.Add(new FLVER2.Texture(type: ingameSlot,
+                    flverMaterial.Textures.Add(new FLVER2.Texture(paramName: ingameSlot,
                     path: slot.FilePath != null ? Path.GetFullPath(slot.FilePath) : "",
-                    scale: System.Numerics.Vector2.One,
-                        1, true, 0, 0, 0));
+                    tilingScale: System.Numerics.Vector2.One,
+                        FLVER2.Texture.TilingType.Repeat, FLVER2.Texture.TilingType.Repeat, 0, 0, 0));
 
                     string texName = Path.GetFileNameWithoutExtension(slot.FilePath);
                     byte[] texData = scene.GetEmbeddedTexture(slot.FilePath)?.CompressedData;
@@ -196,7 +196,7 @@ namespace SoulsAssetPipeline.FLVERImporting
                     {
                         var ddsFormat = TPFTextureFormatFinder.GetTpfFormatFromDdsBytes(texData);
 
-                        result.Textures.Add(new TPF.Texture(texName, format: ddsFormat, flags1: 0, bytes: texData));
+                        result.Textures.Add(new TPF.Texture(texName, format: ddsFormat, flags1: 0, bytes: texData, TPF.TPFPlatform.PC));
                     }
                 }
 
@@ -216,10 +216,10 @@ namespace SoulsAssetPipeline.FLVERImporting
                             AddTextureSlot(material.TextureEmissive, kvp.Value);
                         else
                         {
-                            flverMaterial.Textures.Add(new FLVER2.Texture(type: kvp.Value,
+                            flverMaterial.Textures.Add(new FLVER2.Texture(paramName: kvp.Value,
                                 path: string.Empty,
-                                scale: System.Numerics.Vector2.One,
-                                0, false, 0, 0, 0));
+                                tilingScale: System.Numerics.Vector2.One,
+                                FLVER2.Texture.TilingType.None, FLVER2.Texture.TilingType.None, 0, 0, 0));
                         }
                     }
                 }
