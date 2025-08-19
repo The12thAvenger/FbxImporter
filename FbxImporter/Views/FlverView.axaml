@@ -12,7 +12,7 @@
         <vm:FlverViewModel/>
     </Design.DataContext>
     
-    <ListBox Background="Gray" Items="{Binding Meshes}" SelectionMode="Single" SelectedItem="{Binding SelectedMesh}">
+    <ListBox Background="Gray" ItemsSource="{Binding Meshes}" SelectionMode="Single" SelectedItem="{Binding SelectedMesh}">
         <ListBox.ItemTemplate>
             <DataTemplate DataType="vm:FlverMeshViewModel">
                 <TextBlock Text="{Binding Name}"/>

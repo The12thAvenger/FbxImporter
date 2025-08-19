@@ -19,9 +19,15 @@
     <Border>
         <Grid RowDefinitions="40, 200, 40, 120, 40" Margin="5">
             <TextBox Name="FilterTextBox" Text="{Binding Filter}" Grid.Row="0" Margin="5"/>
-            <ListBox Name="MaterialListBox" Items="{Binding FilteredMaterials}" SelectedItems="{Binding FilteredMaterialSelection}" 
-                     VirtualizationMode="Simple" SelectionMode="Single" AutoScrollToSelectedItem="False" 
-                     VerticalAlignment="Stretch" Grid.Row="1" Margin="5"/>
+            <ListBox Name="MaterialListBox" ItemsSource="{Binding FilteredMaterials, Mode=OneWay}" SelectedItems="{Binding FilteredMaterialSelection}"
+                     SelectionMode="Single" AutoScrollToSelectedItem="False"
+                     VerticalAlignment="Stretch" Grid.Row="1" Margin="5">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
             <TextBox Text="{Binding SelectedMaterial}" IsReadOnly="True" CaretBrush="Transparent" Grid.Row="2" Margin="5"/>
             <Grid RowDefinitions="30, 30, 30" ColumnDefinitions="*, *" Grid.Row="3" Margin="5">
                 <TextBlock Text="Mirror" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
@@ -29,7 +35,7 @@
                 <TextBlock Text="Flip Faces" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
                 <CheckBox IsChecked="{Binding FlipFaces}" ToolTip.Tip="Flips the faces of the model." Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"/>
                 <TextBlock Text="Weighting Mode" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-                <ComboBox Items="{Binding WeightingModes}" SelectedItem="{Binding Weighting}" Grid.Row="2" Grid.Column="1">
+                <ComboBox ItemsSource="{Binding WeightingModes}" SelectedItem="{Binding Weighting}" Grid.Row="2" Grid.Column="1">
                     <ComboBox.DataTemplates>
                         <DataTemplate DataType="vm:WeightingMode">
                             <TextBlock Text="{Binding Name}" ToolTip.Tip="{Binding Description}"/>

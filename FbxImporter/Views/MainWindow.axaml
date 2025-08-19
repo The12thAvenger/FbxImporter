@@ -58,7 +58,7 @@
                 Classes="inner">
             <ScrollViewer Height="100" ScrollChanged="Log_OnScrollChanged" VerticalContentAlignment="Top">
                 <ListBox IsEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                         ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="0" Items="{Binding Log}"/>
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="0" ItemsSource="{Binding Log}"/>
             </ScrollViewer>
         </Border>
         <Grid>

@@ -24,7 +24,7 @@ public partial class FlverView : ReactiveUserControl<FlverViewModel>
         });
     }
 
-    private async Task HandleShowMessageInteraction(InteractionContext<(string, string), Unit> interaction)
+    private async Task HandleShowMessageInteraction(IInteractionContext<(string, string), Unit> interaction)
     {
         (string title, string text) = interaction.Input;
         await ShowMessage(title, text);
