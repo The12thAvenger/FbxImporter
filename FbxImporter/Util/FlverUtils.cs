@@ -10,7 +10,7 @@ public static class FlverUtils
     public static FLVER2.BufferLayout Clone(this FLVER2.BufferLayout layout)
     {
         FLVER2.BufferLayout newLayout = new();
-        newLayout.AddRange(layout.Select(x => new FLVER.LayoutMember(x.Type, x.Semantic, x.Index, x.Unk00)));
+        newLayout.AddRange(layout.Select(x => new FLVER.LayoutMember(x.Type, x.Semantic, x.Index, (short)x.Stream, x.SpecialModifier)));
         return newLayout;
     }
 
@@ -30,11 +30,11 @@ public static class FlverUtils
     {
         return new FLVER2.Texture
         {
-            Type = texture.Type,
+            ParamName = texture.ParamName,
             Path = texture.Path,
-            Scale = texture.Scale,
-            Unk10 = texture.Unk10,
-            Unk11 = texture.Unk11,
+            TilingScale = texture.TilingScale,
+            TilingTypeU = texture.TilingTypeU,
+            TilingTypeV = texture.TilingTypeV,
             Unk14 = texture.Unk14,
             Unk18 = texture.Unk18,
             Unk1C = texture.Unk1C

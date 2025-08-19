@@ -68,7 +68,7 @@ namespace SoulsAssetPipeline.FLVERImporting
             internal void ReadXML(XmlNode node)
             {
                 var bufferLayoutNodes = node.SelectNodes("vertex_buffer");
-                int bufferIndex = 0;
+                short bufferIndex = 0;
                 Buffers.Clear();
                 foreach (XmlNode bln in bufferLayoutNodes)
                 {
@@ -78,7 +78,7 @@ namespace SoulsAssetPipeline.FLVERImporting
                         FLVER.LayoutType memberType = (FLVER.LayoutType)Enum.Parse(typeof(FLVER.LayoutType), memberNode.Name);
                         FLVER.LayoutSemantic memberSemantic = FLVER.LayoutSemantic.Position;
                         var memberIndex = 0;
-                        var memberBufferIndex = bufferIndex;
+                        short memberBufferIndex = bufferIndex;
 
 
 
@@ -102,7 +102,7 @@ namespace SoulsAssetPipeline.FLVERImporting
 
 
                         var bufferIndexText = memberNode.Attributes["from_buffer_index"]?.InnerText;
-                        if (bufferIndexText != null && int.TryParse(bufferIndexText, out int specifiedBufferIndex))
+                        if (bufferIndexText != null && short.TryParse(bufferIndexText, out short specifiedBufferIndex))
                         {
                             memberBufferIndex = specifiedBufferIndex;
                         }

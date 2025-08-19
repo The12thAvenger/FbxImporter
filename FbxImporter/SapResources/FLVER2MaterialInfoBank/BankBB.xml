@@ -7,44 +7,44 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
-          </vertex_buffer>
-        </vertex_buffer_declaration>
-        <vertex_buffer_declaration>
-          <vertex_buffer>
-            <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-          </vertex_buffer>
-          <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
+          </vertex_buffer>
+        </vertex_buffer_declaration>
+        <vertex_buffer_declaration>
+          <vertex_buffer>
+            <Float3>Position</Float3>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+          </vertex_buffer>
+          <vertex_buffer>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -72,35 +72,35 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -128,35 +128,35 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -184,35 +184,35 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -238,31 +238,31 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -289,44 +289,44 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
-          </vertex_buffer>
-        </vertex_buffer_declaration>
-        <vertex_buffer_declaration>
-          <vertex_buffer>
-            <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-          </vertex_buffer>
-          <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
+          </vertex_buffer>
+        </vertex_buffer_declaration>
+        <vertex_buffer_declaration>
+          <vertex_buffer>
+            <Float3>Position</Float3>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+          </vertex_buffer>
+          <vertex_buffer>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -354,35 +354,35 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -413,15 +413,15 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -463,11 +463,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -483,13 +483,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -520,25 +520,25 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -567,11 +567,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -587,13 +587,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -634,12 +634,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -668,12 +668,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -702,36 +702,36 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -759,16 +759,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -809,27 +809,27 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -866,23 +866,23 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -908,13 +908,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -942,16 +942,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -978,31 +978,31 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1033,41 +1033,41 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV[0]</UV>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV[0]</Short2>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1093,13 +1093,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1130,25 +1130,25 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1176,13 +1176,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1211,25 +1211,25 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <ShortBoneIndices>BoneIndices</ShortBoneIndices>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UShort4>BoneIndices</UShort4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1255,13 +1255,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1289,29 +1289,29 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1342,21 +1342,21 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1382,15 +1382,15 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1432,14 +1432,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1476,17 +1476,17 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1523,17 +1523,17 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1570,11 +1570,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1588,16 +1588,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1625,23 +1625,23 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1669,16 +1669,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1706,13 +1706,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1740,23 +1740,23 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1784,23 +1784,23 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1828,16 +1828,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1865,13 +1865,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1899,16 +1899,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1936,16 +1936,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -1973,16 +1973,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2009,13 +2009,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2043,16 +2043,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2080,11 +2080,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2098,11 +2098,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2116,25 +2116,25 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2152,14 +2152,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2177,25 +2177,25 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2213,14 +2213,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2238,31 +2238,31 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2288,21 +2288,21 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2328,23 +2328,23 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2372,25 +2372,25 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2427,10 +2427,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor</Byte4C>
+            <UByte4>Normal</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor</UByte4Norm>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2442,14 +2442,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2467,12 +2467,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2498,14 +2498,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2523,14 +2523,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2548,14 +2548,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2573,16 +2573,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2612,16 +2612,16 @@
             <Float3>Position</Float3>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[0]</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[1]</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[2]</Byte4B>
-            <Byte4B from_buffer_index="0">BoneIndices</Byte4B>
-            <Byte4C from_buffer_index="0">BoneWeights</Byte4C>
-            <Byte4C from_buffer_index="0">VertexColor[0]</Byte4C>
-            <Byte4C from_buffer_index="0">VertexColor[1]</Byte4C>
-            <UVPair from_buffer_index="0">UV[0]</UVPair>
-            <UV from_buffer_index="0">UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[0]</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[1]</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[2]</UByte4>
+            <UByte4 from_buffer_index="0">BoneIndices</UByte4>
+            <UByte4Norm from_buffer_index="0">BoneWeights</UByte4Norm>
+            <UByte4Norm from_buffer_index="0">VertexColor[0]</UByte4Norm>
+            <UByte4Norm from_buffer_index="0">VertexColor[1]</UByte4Norm>
+            <Short4 from_buffer_index="0">UV[0]</Short4>
+            <Short2 from_buffer_index="0">UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2658,14 +2658,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2693,24 +2693,24 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UVPair>UV[1]</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short4>UV[1]</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UVPair>UV[1]</UVPair>
-            <Short2toFloat2>UV[2]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short4>UV[1]</Short4>
+            <Byte4>UV[2]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2752,31 +2752,31 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2805,21 +2805,21 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2848,25 +2848,25 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UVPair>UV[1]</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short4>UV[1]</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UVPair>UV[1]</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short4>UV[1]</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2909,10 +2909,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2942,21 +2942,21 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -2985,34 +2985,34 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
-            <Short2toFloat2>UV[2]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
+            <Byte4>UV[2]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3046,10 +3046,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV[0]</UV>
-            <Byte4C>UV[1]</Byte4C>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV[0]</Short2>
+            <UByte4Norm>UV[1]</UByte4Norm>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3065,9 +3065,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3083,9 +3083,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3101,9 +3101,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3119,10 +3119,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3148,12 +3148,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3192,9 +3192,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3210,9 +3210,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3228,9 +3228,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3246,9 +3246,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3264,9 +3264,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3282,9 +3282,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3300,10 +3300,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3332,12 +3332,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3355,21 +3355,21 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3398,12 +3398,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3442,10 +3442,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3474,11 +3474,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3506,10 +3506,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3535,12 +3535,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3558,13 +3558,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3590,10 +3590,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3624,45 +3624,45 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3698,9 +3698,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3716,9 +3716,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3734,9 +3734,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3752,12 +3752,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3775,10 +3775,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3806,10 +3806,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV[0]</UV>
-            <Byte4C>UV[1]</Byte4C>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV[0]</Short2>
+            <UByte4Norm>UV[1]</UByte4Norm>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3825,10 +3825,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3853,10 +3853,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3882,10 +3882,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3915,12 +3915,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UVPair>UV[1]</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short4>UV[1]</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3961,12 +3961,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -3984,12 +3984,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4007,10 +4007,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4037,10 +4037,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4069,10 +4069,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4101,9 +4101,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4119,25 +4119,25 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4176,11 +4176,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4208,9 +4208,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4226,10 +4226,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV[0]</UV>
-            <Byte4C>UV[1]</Byte4C>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV[0]</Short2>
+            <UByte4Norm>UV[1]</UByte4Norm>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4245,10 +4245,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4277,12 +4277,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4321,10 +4321,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4353,12 +4353,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4376,10 +4376,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4406,12 +4406,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UVPair>UV[1]</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short4>UV[1]</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4455,11 +4455,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4484,10 +4484,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4516,10 +4516,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4548,12 +4548,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4571,26 +4571,26 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
-            <Short2toFloat2>UV[2]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
+            <Byte4>UV[2]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4617,12 +4617,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4640,12 +4640,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4683,13 +4683,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4715,12 +4715,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4738,12 +4738,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4761,9 +4761,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4783,10 +4783,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4815,10 +4815,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4844,10 +4844,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4873,10 +4873,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4902,11 +4902,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4942,12 +4942,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -4986,10 +4986,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5018,10 +5018,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5050,10 +5050,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5078,14 +5078,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
-            <Short2toFloat2>UV[2]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
+            <Byte4>UV[2]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5112,9 +5112,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5128,9 +5128,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5144,11 +5144,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV[0]</UV>
-            <Byte4C>UV[1]</Byte4C>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV[0]</Short2>
+            <UByte4Norm>UV[1]</UByte4Norm>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5170,10 +5170,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5199,12 +5199,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5222,11 +5222,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5254,9 +5254,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5272,9 +5272,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5290,10 +5290,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5322,11 +5322,11 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5367,12 +5367,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5398,12 +5398,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5421,12 +5421,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5444,16 +5444,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5481,15 +5481,15 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5515,13 +5515,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5558,10 +5558,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5589,12 +5589,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5635,9 +5635,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5651,9 +5651,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5667,12 +5667,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5690,12 +5690,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5713,12 +5713,12 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5736,13 +5736,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5779,23 +5779,23 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5823,10 +5823,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5855,23 +5855,23 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5912,13 +5912,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5944,16 +5944,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -5994,13 +5994,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6026,16 +6026,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6062,13 +6062,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6097,13 +6097,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6131,18 +6131,18 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor</Byte4C>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor</UByte4Norm>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6176,17 +6176,17 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6223,17 +6223,17 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6270,14 +6270,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6314,13 +6314,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6348,14 +6348,14 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[2]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <UV>UV[1]</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[2]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Short2>UV[1]</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6394,13 +6394,13 @@
             <Float3>Position</Float3>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[0]</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[1]</Byte4B>
-            <Byte4B from_buffer_index="0">BoneIndices</Byte4B>
-            <Byte4C from_buffer_index="0">BoneWeights</Byte4C>
-            <Byte4C from_buffer_index="0">VertexColor[1]</Byte4C>
-            <UVPair from_buffer_index="0">UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[0]</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[1]</UByte4>
+            <UByte4 from_buffer_index="0">BoneIndices</UByte4>
+            <UByte4Norm from_buffer_index="0">BoneWeights</UByte4Norm>
+            <UByte4Norm from_buffer_index="0">VertexColor[1]</UByte4Norm>
+            <Short4 from_buffer_index="0">UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6430,12 +6430,12 @@
             <Float3>Position</Float3>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent</Byte4B>
-            <Byte4B from_buffer_index="0">BoneIndices</Byte4B>
-            <Byte4C from_buffer_index="0">BoneWeights</Byte4C>
-            <Byte4C from_buffer_index="0">VertexColor[1]</Byte4C>
-            <UV from_buffer_index="0">UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4 from_buffer_index="0">Tangent</UByte4>
+            <UByte4 from_buffer_index="0">BoneIndices</UByte4>
+            <UByte4Norm from_buffer_index="0">BoneWeights</UByte4Norm>
+            <UByte4Norm from_buffer_index="0">VertexColor[1]</UByte4Norm>
+            <Short2 from_buffer_index="0">UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6463,13 +6463,13 @@
             <Float3>Position</Float3>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[0]</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[1]</Byte4B>
-            <Byte4B from_buffer_index="0">BoneIndices</Byte4B>
-            <Byte4C from_buffer_index="0">BoneWeights</Byte4C>
-            <Byte4C from_buffer_index="0">VertexColor[1]</Byte4C>
-            <UVPair from_buffer_index="0">UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[0]</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[1]</UByte4>
+            <UByte4 from_buffer_index="0">BoneIndices</UByte4>
+            <UByte4Norm from_buffer_index="0">BoneWeights</UByte4Norm>
+            <UByte4Norm from_buffer_index="0">VertexColor[1]</UByte4Norm>
+            <Short4 from_buffer_index="0">UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6498,25 +6498,25 @@
             <Float3>Position</Float3>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[0]</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[1]</Byte4B>
-            <Byte4B from_buffer_index="0">BoneIndices</Byte4B>
-            <Byte4C from_buffer_index="0">BoneWeights</Byte4C>
-            <Byte4C from_buffer_index="0">VertexColor[1]</Byte4C>
-            <UVPair from_buffer_index="0">UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[0]</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[1]</UByte4>
+            <UByte4 from_buffer_index="0">BoneIndices</UByte4>
+            <UByte4Norm from_buffer_index="0">BoneWeights</UByte4Norm>
+            <UByte4Norm from_buffer_index="0">VertexColor[1]</UByte4Norm>
+            <Short4 from_buffer_index="0">UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6544,25 +6544,25 @@
             <Float3>Position</Float3>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[0]</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[1]</Byte4B>
-            <Byte4B from_buffer_index="0">BoneIndices</Byte4B>
-            <Byte4C from_buffer_index="0">BoneWeights</Byte4C>
-            <Byte4C from_buffer_index="0">VertexColor[1]</Byte4C>
-            <UVPair from_buffer_index="0">UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[0]</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[1]</UByte4>
+            <UByte4 from_buffer_index="0">BoneIndices</UByte4>
+            <UByte4Norm from_buffer_index="0">BoneWeights</UByte4Norm>
+            <UByte4Norm from_buffer_index="0">VertexColor[1]</UByte4Norm>
+            <Short4 from_buffer_index="0">UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6590,13 +6590,13 @@
             <Float3>Position</Float3>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[0]</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[1]</Byte4B>
-            <Byte4B from_buffer_index="0">BoneIndices</Byte4B>
-            <Byte4C from_buffer_index="0">BoneWeights</Byte4C>
-            <Byte4C from_buffer_index="0">VertexColor[1]</Byte4C>
-            <UVPair from_buffer_index="0">UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[0]</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[1]</UByte4>
+            <UByte4 from_buffer_index="0">BoneIndices</UByte4>
+            <UByte4Norm from_buffer_index="0">BoneWeights</UByte4Norm>
+            <UByte4Norm from_buffer_index="0">VertexColor[1]</UByte4Norm>
+            <Short4 from_buffer_index="0">UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6625,13 +6625,13 @@
             <Float3>Position</Float3>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[0]</Byte4B>
-            <Byte4B from_buffer_index="0">Tangent[1]</Byte4B>
-            <Byte4B from_buffer_index="0">BoneIndices</Byte4B>
-            <Byte4C from_buffer_index="0">BoneWeights</Byte4C>
-            <Byte4C from_buffer_index="0">VertexColor[1]</Byte4C>
-            <UVPair from_buffer_index="0">UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[0]</UByte4>
+            <UByte4 from_buffer_index="0">Tangent[1]</UByte4>
+            <UByte4 from_buffer_index="0">BoneIndices</UByte4>
+            <UByte4Norm from_buffer_index="0">BoneWeights</UByte4Norm>
+            <UByte4Norm from_buffer_index="0">VertexColor[1]</UByte4Norm>
+            <Short4 from_buffer_index="0">UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6659,23 +6659,23 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6703,16 +6703,16 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
           </vertex_buffer>
           <vertex_buffer>
-            <Byte4B>Bitangent</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Bitangent</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6738,13 +6738,13 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6770,23 +6770,23 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent[0]</Byte4B>
-            <Byte4B>Tangent[1]</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV</UVPair>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent[0]</UByte4>
+            <UByte4>Tangent[1]</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV</Short4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6827,9 +6827,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6843,10 +6843,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6872,10 +6872,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6901,50 +6901,21 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
-          </vertex_buffer>
-        </vertex_buffer_declaration>
-      </acceptable_vertex_buffer_declarations>
-      <texture_channel_list>
-        <texture_channel semantic="Diffuse" index="0">g_DiffuseTexture</texture_channel>
-        <texture_channel semantic="Specular" index="0">g_SpecularTexture</texture_channel>
-        <texture_channel semantic="Shininess" index="0">g_ShininessTexture</texture_channel>
-        <texture_channel semantic="Normals" index="0">g_BumpmapTexture</texture_channel>
-        <texture_channel semantic="Displacement" index="0">g_DisplacementTexture</texture_channel>
-      </texture_channel_list>
-      <gx_item_list>
-        <gx_item gxid="GX00" unk04="100" data_length="32" />
-        <gx_item gxid="GX04" unk04="100" data_length="52" />
-        <gx_item gxid="GX20" unk04="100" data_length="12" />
-        <gx_item gxid="GX22" unk04="100" data_length="12" />
-        <gx_item gxid="GX24" unk04="100" data_length="12" />
-        <gx_item gxid="GX26" unk04="100" data_length="12" />
-        <gx_item gxid="GX30" unk04="100" data_length="12" />
-      </gx_item_list>
-    </material_def>
-    <material_def mtd="S[DB].mtd">
-      <acceptable_vertex_buffer_declarations>
-        <vertex_buffer_declaration>
-          <vertex_buffer>
-            <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6970,12 +6941,41 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[0]</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UVPair>UV[0]</UVPair>
-            <Short2toFloat2>UV[1]</Short2toFloat2>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
+          </vertex_buffer>
+        </vertex_buffer_declaration>
+      </acceptable_vertex_buffer_declarations>
+      <texture_channel_list>
+        <texture_channel semantic="Diffuse" index="0">g_DiffuseTexture</texture_channel>
+        <texture_channel semantic="Specular" index="0">g_SpecularTexture</texture_channel>
+        <texture_channel semantic="Shininess" index="0">g_ShininessTexture</texture_channel>
+        <texture_channel semantic="Normals" index="0">g_BumpmapTexture</texture_channel>
+        <texture_channel semantic="Displacement" index="0">g_DisplacementTexture</texture_channel>
+      </texture_channel_list>
+      <gx_item_list>
+        <gx_item gxid="GX00" unk04="100" data_length="32" />
+        <gx_item gxid="GX04" unk04="100" data_length="52" />
+        <gx_item gxid="GX20" unk04="100" data_length="12" />
+        <gx_item gxid="GX22" unk04="100" data_length="12" />
+        <gx_item gxid="GX24" unk04="100" data_length="12" />
+        <gx_item gxid="GX26" unk04="100" data_length="12" />
+        <gx_item gxid="GX30" unk04="100" data_length="12" />
+      </gx_item_list>
+    </material_def>
+    <material_def mtd="S[DB].mtd">
+      <acceptable_vertex_buffer_declarations>
+        <vertex_buffer_declaration>
+          <vertex_buffer>
+            <Float3>Position</Float3>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[0]</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short4>UV[0]</Short4>
+            <Byte4>UV[1]</Byte4>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -6993,10 +6993,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -7022,21 +7022,21 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4B>BoneIndices</Byte4B>
-            <Byte4C>BoneWeights</Byte4C>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4>BoneIndices</UByte4>
+            <UByte4Norm>BoneWeights</UByte4Norm>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -7062,10 +7062,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -7091,10 +7091,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -7120,10 +7120,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -7149,9 +7149,9 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -7167,10 +7167,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>
@@ -7196,10 +7196,10 @@
         <vertex_buffer_declaration>
           <vertex_buffer>
             <Float3>Position</Float3>
-            <Byte4B>Normal</Byte4B>
-            <Byte4B>Tangent</Byte4B>
-            <Byte4C>VertexColor[1]</Byte4C>
-            <UV>UV</UV>
+            <UByte4>Normal</UByte4>
+            <UByte4>Tangent</UByte4>
+            <UByte4Norm>VertexColor[1]</UByte4Norm>
+            <Short2>UV</Short2>
           </vertex_buffer>
         </vertex_buffer_declaration>
       </acceptable_vertex_buffer_declarations>

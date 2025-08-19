@@ -42,7 +42,7 @@ public class FbxMeshDataViewModel
             Name = Name,
             MTD = options.MTD,
             Textures = new List<FLVER2.Texture>(options.MaterialInfoBank.MaterialDefs[options.MTD].TextureChannels
-                .Values.Select(x => new FLVER2.Texture { Type = x }))
+                .Values.Select(x => new FLVER2.Texture { ParamName = x }))
         };
 
         FLVER2.GXList gxList = new();
@@ -212,7 +212,7 @@ public class FbxMeshDataViewModel
             foreach (FLVER.LayoutMember layoutMember in bufferLayout.Where(x =>
                          x.Semantic == FLVER.LayoutSemantic.BoneIndices))
             {
-                layoutMember.Type = FLVER.LayoutType.ShortBoneIndices;
+                layoutMember.Type = FLVER.LayoutType.UShort4;
             }
         }
     }
@@ -228,7 +228,7 @@ public class FbxMeshDataViewModel
         foreach (FLVER.LayoutMember layoutMember in layoutMembers)
         {
             bool isDouble = layoutMember is
-                { Semantic: FLVER.LayoutSemantic.UV, Type: FLVER.LayoutType.Float4 or FLVER.LayoutType.UVPair };
+                { Semantic: FLVER.LayoutSemantic.UV, Type: FLVER.LayoutType.Float4 or FLVER.LayoutType.Half2 };
             int count = isDouble ? 2 : 1;
 
             if (usageCounts.ContainsKey(layoutMember.Semantic))
@@ -303,13 +303,13 @@ public class FbxMeshDataViewModel
             if (x is null) return false;
             if (y is null) return false;
             if (x.GetType() != y.GetType()) return false;
-            return x.Unk00 == y.Unk00 && x.Type == y.Type && x.Semantic == y.Semantic && x.Index == y.Index &&
+            return x.Stream == y.Stream && x.Type == y.Type && x.Semantic == y.Semantic && x.Index == y.Index &&
                    x.Size == y.Size;
         }
 
         public int GetHashCode(FLVER.LayoutMember obj)
         {
-            return HashCode.Combine(obj.Unk00, (int)obj.Type, (int)obj.Semantic, obj.Index, obj.Size);
+            return HashCode.Combine(obj.Stream, (int)obj.Type, (int)obj.Semantic, obj.Index, obj.Size);
         }
     }
 

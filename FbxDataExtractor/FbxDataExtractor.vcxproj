@@ -218,4 +218,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ItemGroup>
+    <KnownAppHostPack Update="@(KnownAppHostPack)">
+      <AppHostPackVersion Condition="'%(TargetFramework)' == 'net6.0'">6.0.36</AppHostPackVersion>
+    </KnownAppHostPack>
+  </ItemGroup>
 </Project>
