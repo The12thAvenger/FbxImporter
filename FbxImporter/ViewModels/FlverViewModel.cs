@@ -118,14 +118,14 @@ public class FlverViewModel : ViewModelBase
             backupFlver = null;
         }
 
-        try
-        {
+        // try
+        // {
             Flver.Write(path);
-        }
-        catch
-        {
-            backupFlver?.Write(path);
-            throw;
-        }
+        // }
+        // catch
+        // {
+        //     backupFlver?.Write(path);
+        //     throw;
+        // }
     }
 }

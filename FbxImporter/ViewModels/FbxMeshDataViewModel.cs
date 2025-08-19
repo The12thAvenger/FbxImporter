@@ -228,7 +228,13 @@ public class FbxMeshDataViewModel
         foreach (FLVER.LayoutMember layoutMember in layoutMembers)
         {
             bool isDouble = layoutMember is
-                { Semantic: FLVER.LayoutSemantic.UV, Type: FLVER.LayoutType.Float4 or FLVER.LayoutType.Half2 };
+                {
+                    Semantic: FLVER.LayoutSemantic.UV,
+                    Type: FLVER.LayoutType.Float4 or
+                    FLVER.LayoutType.Half2 or
+                    FLVER.LayoutType.Short4 or
+                    FLVER.LayoutType.UByte4Norm
+                };
             int count = isDouble ? 2 : 1;
 
             if (usageCounts.ContainsKey(layoutMember.Semantic))
