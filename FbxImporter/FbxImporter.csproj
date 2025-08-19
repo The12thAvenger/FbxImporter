@@ -54,11 +54,6 @@
     <ItemGroup>
         <CopyMaterialBanks Include="$(ProjectDir)\SapResources\FLVER2MaterialInfoBank\*.*" />
     </ItemGroup>
-    <ItemGroup>
-      <Reference Include="Avalonia.Themes.Default">
-        <HintPath>C:\Users\ivi\.nuget\packages\avalonia\0.10.22\lib\netcoreapp2.0\Avalonia.Themes.Default.dll</HintPath>
-      </Reference>
-    </ItemGroup>
     <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
         <Copy SourceFiles="@(CopyMaterialBanks)" DestinationFolder="$(OutDir)\SapResources\FLVER2MaterialInfoBank" />
     </Target>
