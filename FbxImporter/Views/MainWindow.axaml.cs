@@ -76,7 +76,14 @@ namespace FbxImporter.Views
                         AllowMultiple = false
                     };
 
-                    path = (await openFileDialog.ShowAsync(this))?[0];
+                    var result = await openFileDialog.ShowAsync(this);
+                    if (result is null || !result.Any())
+                    {
+                        path = null;
+                        break;
+                    }
+
+                    path = result.First();
                     break;
                 }
                 case MainWindowViewModel.GetPathMode.Save:
