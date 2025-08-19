@@ -26,6 +26,8 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
         public int Compare(string? x, string? y)
         {
+            x = x?.ToLower();
+            y = y?.ToLower();
             if (x is null) return 1;
             if (y is null) return -1;
             if (x.StartsWith(_filter) && !y.StartsWith(_filter)) return -1;
@@ -58,13 +60,12 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
         IObservable<Func<string, bool>> materialFilter = this.WhenAnyValue(x => x.Filter)
             .Throttle(TimeSpan.FromMilliseconds(50))
-            .Select(x => (Func<string, bool>)(y => y.Contains(x.ToLower())));
+            .Select(x => (Func<string, bool>)(y => y.ToLower().Contains(x.ToLower())));
         
         IObservable<IComparer<string>> sortComparer = this.WhenAnyValue(x => x.Filter)
             .Throttle(TimeSpan.FromMilliseconds(50))
             .Select(x => new FilteredStringComparer(x));
 
-        FilteredMaterials = new ObservableCollectionExtended<string>();
         Materials.Connect()
             .Filter(materialFilter)
             .Sort(sortComparer)
@@ -82,7 +83,6 @@ public class MeshImportOptionsViewModel : ViewModelBase
         FilteredMaterialSelection.ToObservableChangeSet()
             .ToCollection()
             .Select(x => x.FirstOrDefault())
-            .Where(x => x is not null)
             .ToPropertyEx(this, x => x.SelectedMaterial, selectedMaterial);
         
         IObservable<bool> isMaterialSelected = this.WhenAnyValue(x => x.SelectedMaterial).Select(x => x is not null);
@@ -99,9 +99,9 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
     private SourceCache<string, string> Materials { get; }
 
-    public ObservableCollectionExtended<string> FilteredMaterials { get; }
+    public ObservableCollectionExtended<string> FilteredMaterials { get; } = new();
 
-    public ObservableCollectionExtended<string?> FilteredMaterialSelection { get; set; } = new();
+    public ObservableCollectionExtended<string> FilteredMaterialSelection { get; set; } = new();
     
     [ObservableAsProperty] public string? SelectedMaterial { get; set; }
     

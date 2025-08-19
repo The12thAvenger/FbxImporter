@@ -31,7 +31,7 @@ namespace FbxImporter.Views
             });
         }
 
-        private async Task GetTargetGame(InteractionContext<Unit, string?> interaction)
+        private async Task GetTargetGame(IInteractionContext<Unit, string?> interaction)
         {
             List<ButtonDefinition> buttonDefinitions = new()
             {
@@ -61,7 +61,7 @@ namespace FbxImporter.Views
             interaction.SetOutput(game);
         }
 
-        private async Task GetFilePathAsync(InteractionContext<MainWindowViewModel.GetFilePathArgs, string?> interaction)
+        private async Task GetFilePathAsync(IInteractionContext<MainWindowViewModel.GetFilePathArgs, string?> interaction)
         {
             string? path;
             switch (interaction.Input.Mode)
@@ -97,7 +97,7 @@ namespace FbxImporter.Views
         }
 
         private async Task GetMeshImportOptionsAsync(
-            InteractionContext<MeshImportOptionsViewModel, MeshImportOptions?> interaction)
+            IInteractionContext<MeshImportOptionsViewModel, MeshImportOptions?> interaction)
         {
             MeshImportOptionsView meshImportView = new()
             {

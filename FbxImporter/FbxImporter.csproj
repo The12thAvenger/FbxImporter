@@ -29,15 +29,18 @@
         <TrimmableAssembly Include="Avalonia.Themes.Default" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.22" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.22" />
+        <PackageReference Include="Avalonia" Version="11.3.4" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.4" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.22" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.22" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.4" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="11.3.4" />
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.0" />
         <PackageReference Include="MessageBox.Avalonia" Version="2.0.0" />
         <PackageReference Include="ReactiveHistory" Version="0.10.7" />
         <PackageReference Include="ReactiveProperty" Version="8.1.0" />
         <PackageReference Include="ReactiveUI.Fody" Version="18.0.7" />
+        <PackageReference Include="System.Reactive" Version="6.0.1" />
         <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0-preview.4.22229.4" />
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
     </ItemGroup>
@@ -50,6 +53,11 @@
     </ItemGroup>
     <ItemGroup>
         <CopyMaterialBanks Include="$(ProjectDir)\SapResources\FLVER2MaterialInfoBank\*.*" />
+    </ItemGroup>
+    <ItemGroup>
+      <Reference Include="Avalonia.Themes.Default">
+        <HintPath>C:\Users\ivi\.nuget\packages\avalonia\0.10.22\lib\netcoreapp2.0\Avalonia.Themes.Default.dll</HintPath>
+      </Reference>
     </ItemGroup>
     <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
         <Copy SourceFiles="@(CopyMaterialBanks)" DestinationFolder="$(OutDir)\SapResources\FLVER2MaterialInfoBank" />

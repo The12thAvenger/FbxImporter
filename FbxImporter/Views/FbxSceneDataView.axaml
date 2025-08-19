@@ -11,7 +11,7 @@
         <vm:FbxSceneDataViewModel/>
     </Design.DataContext>
     
-    <ListBox Background="Gray" Items="{Binding MeshData}" SelectionMode="Multiple" SelectedItems="{Binding SelectedMeshes}">
+    <ListBox Background="Gray" ItemsSource="{Binding MeshData}" SelectionMode="Multiple" SelectedItems="{Binding SelectedMeshes}">
         <ListBox.ItemTemplate>
             <DataTemplate DataType="vm:FbxMeshDataViewModel">
                 <TextBlock Text="{Binding Name}"/>
