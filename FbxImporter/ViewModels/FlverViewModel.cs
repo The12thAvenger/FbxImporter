@@ -38,7 +38,8 @@ public class FlverViewModel : ViewModelBase
         DS3,
         SDT,
         ER,
-        AC6
+        AC6,
+        NR
     }
 
     public FlverViewModel(FLVER2 flver, FLVER2MaterialInfoBank materialInfoBank,  IHistory history)

@@ -32,7 +32,9 @@ namespace FbxImporter.ViewModels
             _history = new StackHistory();
 
             IObservable<bool> isFlverLoaded = this.WhenAnyValue(x => x.Flver).Select(x => x is not null);
-            IObservable<bool> canAddToFlver = this.WhenAnyValue(x => x.Fbx.IsMeshSelected).Select(x => x && Flver is not null);
+            IObservable<bool> canAddToFlver = this.WhenAnyValue(x => x.Fbx!.IsMeshSelected)
+                .Merge(isFlverLoaded)
+                .Select(x => x && Flver is not null);
             OpenFlverCommand = ReactiveCommand.CreateFromTask(OpenFlverAsync);
             SaveFlverCommand = ReactiveCommand.CreateFromTask(() => Task.Run(SaveFlver), isFlverLoaded);
             SaveFlverAsCommand = ReactiveCommand.CreateFromTask(SaveFlverAsAsync, isFlverLoaded);
@@ -239,6 +241,7 @@ namespace FbxImporter.ViewModels
                     _ => throw new ArgumentOutOfRangeException()
                 },
                 131099 => FlverViewModel.FlverVersion.AC6,
+                131105 => FlverViewModel.FlverVersion.NR,
                 _ => throw new InvalidDataException("Invalid Flver Version")
             };
 

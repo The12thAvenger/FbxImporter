@@ -83,6 +83,8 @@ public class MeshImportOptionsViewModel : ViewModelBase
         FilteredMaterialSelection.ToObservableChangeSet()
             .ToCollection()
             .Select(x => x.FirstOrDefault())
+            // we reject deselections to avoid them when the current selection is filtered out
+            .Where(x => x is not null)
             .ToPropertyEx(this, x => x.SelectedMaterial, selectedMaterial);
         
         IObservable<bool> isMaterialSelected = this.WhenAnyValue(x => x.SelectedMaterial).Select(x => x is not null);
