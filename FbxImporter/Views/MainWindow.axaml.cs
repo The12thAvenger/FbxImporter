@@ -9,9 +9,9 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Avalonia.VisualTree;
 using FbxImporter.ViewModels;
-using MessageBox.Avalonia.BaseWindows.Base;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Models;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Models;
 using ReactiveUI;
 
 namespace FbxImporter.Views
@@ -53,11 +53,11 @@ namespace FbxImporter.Views
                 ContentHeader = "Unable to determine target game",
                 ContentMessage = "Could not determine target game, please specify."
             };
-            IMsBoxWindow<string>? messageBox = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(messageBoxParams);
+            var messageBox = MessageBoxManager.GetMessageBoxCustom(messageBoxParams);
 
             Window mainWindow = (Window)this.GetVisualRoot();
             if (mainWindow is null) throw new Exception("Main Window is null");
-            string game = await messageBox.ShowDialog(mainWindow);
+            string game = await messageBox.ShowWindowDialogAsync(mainWindow);
             interaction.SetOutput(game);
         }
 
