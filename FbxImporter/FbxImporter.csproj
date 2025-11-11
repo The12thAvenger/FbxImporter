@@ -36,7 +36,7 @@
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.4" />
         <PackageReference Include="Avalonia.Themes.Simple" Version="11.3.4" />
         <PackageReference Include="JetBrains.Annotations" Version="2025.2.0" />
-        <PackageReference Include="MessageBox.Avalonia" Version="2.0.0" />
+        <PackageReference Include="MessageBox.Avalonia" Version="3.2.0" />
         <PackageReference Include="ReactiveHistory" Version="0.10.7" />
         <PackageReference Include="ReactiveProperty" Version="8.1.0" />
         <PackageReference Include="ReactiveUI.Fody" Version="18.0.7" />

@@ -6,8 +6,9 @@ using Avalonia.ReactiveUI;
 using Avalonia.VisualTree;
 using FbxImporter.ViewModels;
 using JetBrains.Annotations;
-using MessageBox.Avalonia.BaseWindows.Base;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Base;
+using MsBox.Avalonia.Enums;
 using ReactiveUI;
 
 namespace FbxImporter.Views;
@@ -34,8 +35,8 @@ public partial class FlverView : ReactiveUserControl<FlverViewModel>
     private async Task ShowMessage(string title, string text)
     {
         Window mainWindow = (Window) this.GetVisualRoot();
-        IMsBoxWindow<ButtonResult>? messageBoxError = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(title, text);
-        await messageBoxError.Show(mainWindow);
+        IMsBox<ButtonResult>? messageBoxError = MessageBoxManager.GetMessageBoxStandard(title, text);
+        await messageBoxError.ShowWindowAsync();
     }
 
     private void InitializeComponent()
