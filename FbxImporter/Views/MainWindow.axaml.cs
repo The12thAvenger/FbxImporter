@@ -10,6 +10,7 @@ using Avalonia.ReactiveUI;
 using Avalonia.VisualTree;
 using FbxImporter.ViewModels;
 using MsBox.Avalonia;
+using MsBox.Avalonia.Base;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Models;
 using ReactiveUI;
@@ -51,11 +52,12 @@ namespace FbxImporter.Views
                 ButtonDefinitions = buttonDefinitions,
                 CanResize = false,
                 ContentHeader = "Unable to determine target game",
-                ContentMessage = "Could not determine target game, please specify."
+                ContentMessage = "Could not determine target game, please specify.",
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
-            var messageBox = MessageBoxManager.GetMessageBoxCustom(messageBoxParams);
+            IMsBox<string> messageBox = MessageBoxManager.GetMessageBoxCustom(messageBoxParams);
 
-            Window mainWindow = (Window)this.GetVisualRoot();
+            Window? mainWindow = (Window?)this.GetVisualRoot();
             if (mainWindow is null) throw new Exception("Main Window is null");
             string game = await messageBox.ShowWindowDialogAsync(mainWindow);
             interaction.SetOutput(game);
@@ -76,7 +78,7 @@ namespace FbxImporter.Views
                         AllowMultiple = false
                     };
 
-                    var result = await openFileDialog.ShowAsync(this);
+                    string[]? result = await openFileDialog.ShowAsync(this);
                     if (result is null || !result.Any())
                     {
                         path = null;
