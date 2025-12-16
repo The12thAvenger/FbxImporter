@@ -34,7 +34,7 @@ public partial class FlverView : ReactiveUserControl<FlverViewModel>
 
     private async Task ShowMessage(string title, string text)
     {
-        Window mainWindow = (Window) this.GetVisualRoot();
+        Window mainWindow = (Window) this.GetVisualRoot()!;
         IMsBox<ButtonResult>? messageBoxError = MessageBoxManager.GetMessageBoxStandard(title, text);
         await messageBoxError.ShowWindowAsync();
     }
