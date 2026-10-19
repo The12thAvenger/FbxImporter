@@ -7,7 +7,7 @@
                      mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
                      x:Class="FbxImporter.Views.MainWindow"
                      x:TypeArguments="vm:MainWindowViewModel" 
-                     Icon="/Assets/avalonia-logo.ico"
+                     Icon="/Assets/FbxImporter.ico"
                      Title="FbxImporter"
                      Width="600"
                      Height="500"
