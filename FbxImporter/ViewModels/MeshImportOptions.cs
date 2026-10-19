@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using FbxImporter.Util;
 using SoulsAssetPipeline.FLVERImporting;
 
 namespace FbxImporter.ViewModels;
 
 public record MeshImportOptions
 {
+    // Applied to the FBX vertex data as v' = Transform * v. Covers axis swaps (Y-up/Z-up),
+    // mirrors, rotations and scale, or any combination of them as a single matrix.
+    public Matrix3x3 Transform { get; init; } = Matrix3x3.Identity;
 
-    public bool MirrorZ { get; init; } = false;
-    
     public bool FlipFaces { get; init; } = false;
 
     public string MTD { get; init; } = null!;
@@ -34,7 +36,7 @@ public class WeightingMode
         Single,
         Static
     };
-    
+
     public string Name { get; init; }
     public string Description { get; init; }
 }

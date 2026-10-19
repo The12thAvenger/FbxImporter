@@ -6,6 +6,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using DynamicData;
 using DynamicData.Binding;
+using FbxImporter.Util;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using SoulsAssetPipeline.FLVERImporting;
@@ -43,9 +44,17 @@ public class MeshImportOptionsViewModel : ViewModelBase
     public MeshImportOptionsViewModel(string? mtd, FLVER2MaterialInfoBank materialInfoBank,
         MeshImportOptions? optionsCache)
     {
-        MirrorZ = optionsCache?.MirrorZ ?? false;
         FlipFaces = optionsCache?.FlipFaces ?? false;
         Weighting = optionsCache?.Weighting ?? WeightingMode.Skin;
+
+        // Invertible is required: a singular matrix would collapse the mesh onto a plane or a line.
+        Transform = new MatrixEditorViewModel("Transform",
+            optionsCache?.Transform ?? Matrix3x3.Identity, Matrix3x3Presets.All, requireInvertible: true);
+
+        // Value is null while any cell is invalid or the matrix is singular.
+        IObservable<Matrix3x3?> transform = Transform.WhenAnyValue(x => x.Value);
+        transform.Select(GetTransformHint).ToPropertyEx(this, x => x.TransformHint);
+        IObservable<bool> isTransformValid = transform.Select(x => x.HasValue);
 
         string? lastUsedMaterial =
             optionsCache?.MTD is not null && materialInfoBank.MaterialDefs.ContainsKey(optionsCache.MTD)
@@ -90,14 +99,22 @@ public class MeshImportOptionsViewModel : ViewModelBase
         IObservable<bool> isMaterialSelected = this.WhenAnyValue(x => x.SelectedMaterial).Select(x => x is not null);
 
         CancelCommand = ReactiveCommand.Create(Cancel);
-        ConfirmCommand = ReactiveCommand.Create(Confirm, isMaterialSelected);
+        ConfirmCommand = ReactiveCommand.Create(Confirm,
+            isMaterialSelected.CombineLatest(isTransformValid, (material, transformOk) => material && transformOk));
     }
+
+    private static string? GetTransformHint(Matrix3x3? transform) =>
+        transform is { IsReflection: true }
+            ? "This transform mirrors the mesh (determinant < 0). If faces look inside out, enable Flip Faces."
+            : null;
 
     [Reactive] public string Filter { get; set; } = string.Empty;
 
-    [Reactive] public bool MirrorZ { get; set; }
-    
     [Reactive] public bool FlipFaces { get; set; }
+
+    public MatrixEditorViewModel Transform { get; }
+
+    [ObservableAsProperty] public string? TransformHint { get; set; }
 
     private SourceCache<string, string> Materials { get; }
 
@@ -123,7 +140,7 @@ public class MeshImportOptionsViewModel : ViewModelBase
     {
         return new MeshImportOptions
         {
-            MirrorZ = MirrorZ,
+            Transform = Transform.Value ?? Matrix3x3.Identity,
             FlipFaces = FlipFaces,
             MTD = SelectedMaterial!,
             MaterialInfoBank = _materialInfoBank,

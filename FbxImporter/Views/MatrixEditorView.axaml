@@ -1,0 +1,34 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="190"
+             x:Class="FbxImporter.Views.MatrixEditorView">
+    <UserControl.Styles>
+        <Style Selector="TextBox.invalid">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="Foreground" Value="Red"/>
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel Spacing="4">
+        <TextBlock Text="{Binding Title}" FontWeight="SemiBold"/>
+        <ComboBox ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset}"
+                  PlaceholderText="Custom" HorizontalAlignment="Stretch"
+                  ToolTip.Tip="Pick a preset, or edit the cells below for a custom matrix."/>
+        <ItemsControl ItemsSource="{Binding Cells}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBox Text="{Binding Text}" Classes.invalid="{Binding IsInvalid}"
+                             Margin="1" Padding="4,3" MinHeight="28" TextAlignment="Center"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Text="{Binding Error}" Foreground="Red" FontSize="11" TextWrapping="Wrap" Height="30"/>
+    </StackPanel>
+</UserControl>

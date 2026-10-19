@@ -4,20 +4,16 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:rxui="http://reactiveui.net"
                      xmlns:vm="clr-namespace:FbxImporter.ViewModels"
-                     mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="300"
+                     mc:Ignorable="d" d:DesignWidth="460" d:DesignHeight="720"
                      x:TypeArguments="vm:MeshImportOptionsViewModel" 
                      x:Class="FbxImporter.Views.MeshImportOptionsView"
                      WindowStartupLocation="CenterOwner"
                      Title="Mesh Import Options"
-                     Height="460"
-                     Width="350"
+                     SizeToContent="Height"
+                     Width="460"
                      CanResize="False">
-    <Design.DataContext>
-        <vm:MeshImportOptionsViewModel/>
-    </Design.DataContext>
-    
     <Border>
-        <Grid RowDefinitions="40, 200, 40, 120, 40" Margin="5">
+        <Grid RowDefinitions="40, 150, 36, 66, Auto, Auto, 40" Margin="5">
             <TextBox Name="FilterTextBox" Text="{Binding Filter}" Grid.Row="0" Margin="5"/>
             <ListBox Name="MaterialListBox" ItemsSource="{Binding FilteredMaterials, Mode=OneWay}" SelectedItems="{Binding FilteredMaterialSelection}"
                      SelectionMode="Single" AutoScrollToSelectedItem="False"
@@ -29,13 +25,11 @@
                 </ListBox.ItemsPanel>
             </ListBox>
             <TextBox Text="{Binding SelectedMaterial}" IsReadOnly="True" CaretBrush="Transparent" Grid.Row="2" Margin="5"/>
-            <Grid RowDefinitions="30, 30, 30" ColumnDefinitions="*, *" Grid.Row="3" Margin="5">
-                <TextBlock Text="Mirror" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                <CheckBox IsChecked="{Binding MirrorZ}" ToolTip.Tip="Inverts the Z-scale of the model." Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
-                <TextBlock Text="Flip Faces" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                <CheckBox IsChecked="{Binding FlipFaces}" ToolTip.Tip="Flips the faces of the model." Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"/>
-                <TextBlock Text="Weighting Mode" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-                <ComboBox ItemsSource="{Binding WeightingModes}" SelectedItem="{Binding Weighting}" Grid.Row="2" Grid.Column="1">
+            <Grid RowDefinitions="30, 30" ColumnDefinitions="*, *" Grid.Row="3" Margin="5">
+                <TextBlock Text="Flip Faces" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                <CheckBox IsChecked="{Binding FlipFaces}" ToolTip.Tip="Flips the faces of the model." Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
+                <TextBlock Text="Weighting Mode" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                <ComboBox ItemsSource="{Binding WeightingModes}" SelectedItem="{Binding Weighting}" Grid.Row="1" Grid.Column="1">
                     <ComboBox.DataTemplates>
                         <DataTemplate DataType="vm:WeightingMode">
                             <TextBlock Text="{Binding Name}" ToolTip.Tip="{Binding Description}"/>
@@ -43,7 +37,13 @@
                     </ComboBox.DataTemplates>
                 </ComboBox>
             </Grid>
-            <Grid ColumnDefinitions="*, *" Grid.Row="4">
+
+            <ContentControl Content="{Binding Transform}" Grid.Row="4" Margin="5,8,5,0"
+                            ToolTip.Tip="3x3 matrix applied to positions, normals and tangents of the imported mesh."/>
+            <TextBlock Grid.Row="5" Margin="5,0" Text="{Binding TransformHint}" Foreground="Orange"
+                       FontSize="11" TextWrapping="Wrap"/>
+
+            <Grid ColumnDefinitions="*, *" Grid.Row="6" Margin="0,4,0,0">
                 <Button Content="Cancel" Command="{Binding CancelCommand}" ToolTip.Tip="Shortcut: Esc" Margin="0, 0, 2, 0" Grid.Column="0" />
                 <Button Content="Ok" Command="{Binding ConfirmCommand}" ToolTip.Tip="Shortcut: Enter" Margin="2, 0, 0, 0" Grid.Column="1" />
             </Grid>

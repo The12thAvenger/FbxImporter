@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using FbxDataExtractor;
+using FbxImporter.Util;
 using SoulsAssetPipeline.FLVERImporting;
 using SoulsFormats;
 
@@ -104,20 +105,22 @@ public class FbxMeshDataViewModel
 
         newMesh.NodeIndex = nodeIndex;
 
+        // tMat = permut * localTM * inverse(permut). Positions and tangents use tMat directly,
+        // normals use its inverse transpose so they stay perpendicular under non uniform scale.
+        Matrix3x3 transform = options.Transform;
+        Matrix3x3 normalTransform = transform.ToNormalMatrix();
+
         bool foundWeights = false;
         HashSet<string> missingBones = new();
         foreach (FbxVertexData vertexData in Data.VertexData)
         {
-            int zSign = options.MirrorZ ? -1 : 1;
-
             FLVER.Vertex newVertex = new()
             {
-                Position = vertexData.Position with { Z = vertexData.Position.Z * zSign },
-                Normal = vertexData.Normal with { Z = vertexData.Normal.Z * zSign },
+                Position = transform.Transform(vertexData.Position),
+                Normal = normalTransform.TransformNormal(vertexData.Normal),
                 //bitangent is usually not an actual bitangent
-                //Bitangent = vertexData.Bitangent with { Z = vertexData.Bitangent.Z * zSign },
                 Bitangent = new Vector4(-1.0f),
-                Tangents = vertexData.Tangents.Select(x => x with { Z = x.Z * zSign }).ToList(),
+                Tangents = vertexData.Tangents.Select(x => TransformTangent(transform, x)).ToList(),
                 UVs = vertexData.UVs.Select(x => new Vector3(x.X, 1 - x.Y, 0.0f)).ToList(),
                 // Fbx uses RGBA, SF uses ARGB
                 Colors = vertexData.Colors.Select(x => new FLVER.VertexColor(x.W, x.X, x.Y, x.Z)).ToList(),
@@ -201,6 +204,13 @@ public class FbxMeshDataViewModel
 
         FlverMeshViewModel output = new(newMesh, newMaterial, gxList);
         return output;
+    }
+
+    // The xyz part is a direction and is transformed; w (the handedness sign) is kept as is.
+    private static Vector4 TransformTangent(Matrix3x3 transform, Vector4 tangent)
+    {
+        Vector3 direction = transform.TransformDirection(new Vector3(tangent.X, tangent.Y, tangent.Z));
+        return new Vector4(direction, tangent.W);
     }
 
     private static void AdjustBoneIndexBufferSize(FLVER2 flver, List<FLVER2.BufferLayout> bufferLayouts)
