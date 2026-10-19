@@ -1,0 +1,35 @@
+﻿<rxui:ReactiveUserControl xmlns="https://github.com/avaloniaui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:vm="clr-namespace:FbxImporter.ViewModels"
+                          xmlns:rxui="http://reactiveui.net"
+                          mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                          x:Class="FbxImporter.Views.Matrix3x3View"
+                          x:TypeArguments="vm:Matrix3x3ViewModel" 
+                          >
+    <Design.DataContext>
+        <vm:Matrix3x3ViewModel/>
+    </Design.DataContext>
+    
+    <Grid RowDefinitions="*, *, *" ColumnDefinitions="*, *, *">
+        <Grid.Styles>
+            <Style Selector="NumericUpDown">
+                <Setter Property="ShowButtonSpinner" Value="False"/>
+            </Style>
+            <Style Selector="NumericUpDown">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+        </Grid.Styles>
+                                
+        <NumericUpDown Value="{Binding M11}" Grid.Row="0" Grid.Column="0"/>
+        <NumericUpDown Value="{Binding M12}" Grid.Row="0" Grid.Column="1"/>
+        <NumericUpDown Value="{Binding M13}" Grid.Row="0" Grid.Column="2"/>
+        <NumericUpDown Value="{Binding M21}" Grid.Row="1" Grid.Column="0"/>
+        <NumericUpDown Value="{Binding M22}" Grid.Row="1" Grid.Column="1"/>
+        <NumericUpDown Value="{Binding M23}" Grid.Row="1" Grid.Column="2"/>
+        <NumericUpDown Value="{Binding M31}" Grid.Row="2" Grid.Column="0"/>
+        <NumericUpDown Value="{Binding M32}" Grid.Row="2" Grid.Column="1"/>
+        <NumericUpDown Value="{Binding M33}" Grid.Row="2" Grid.Column="2"/>
+    </Grid>
+</rxui:ReactiveUserControl>

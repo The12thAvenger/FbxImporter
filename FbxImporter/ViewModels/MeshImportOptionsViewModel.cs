@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Reactive;
 using System.Reactive.Linq;
 using DynamicData;
@@ -43,7 +44,8 @@ public class MeshImportOptionsViewModel : ViewModelBase
     public MeshImportOptionsViewModel(string? mtd, FLVER2MaterialInfoBank materialInfoBank,
         MeshImportOptions? optionsCache)
     {
-        MirrorZ = optionsCache?.MirrorZ ?? false;
+        TransformPreset = optionsCache?.TransformPreset ?? TransformPreset.None;
+        CustomTransform = new Matrix3x3ViewModel(optionsCache?.Transform ?? Matrix4x4.Identity);
         FlipFaces = optionsCache?.FlipFaces ?? false;
         Weighting = optionsCache?.Weighting ?? WeightingMode.Skin;
 
@@ -88,6 +90,9 @@ public class MeshImportOptionsViewModel : ViewModelBase
             .ToPropertyEx(this, x => x.SelectedMaterial, selectedMaterial);
         
         IObservable<bool> isMaterialSelected = this.WhenAnyValue(x => x.SelectedMaterial).Select(x => x is not null);
+        
+        this.WhenAnyValue(x => x.TransformPreset).Select(x => x == TransformPreset.Custom)
+            .ToPropertyEx(this, x => x.UseCustomTransform, TransformPreset == TransformPreset.Custom, false);
 
         CancelCommand = ReactiveCommand.Create(Cancel);
         ConfirmCommand = ReactiveCommand.Create(Confirm, isMaterialSelected);
@@ -95,7 +100,11 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
     [Reactive] public string Filter { get; set; } = string.Empty;
 
-    [Reactive] public bool MirrorZ { get; set; }
+    [Reactive] public TransformPreset TransformPreset { get; set; }
+    public List<TransformPreset> TransformPresets => TransformPreset.Presets;
+
+    [ObservableAsProperty] public bool UseCustomTransform { get; set; }
+    [Reactive] public Matrix3x3ViewModel CustomTransform { get; set; }
     
     [Reactive] public bool FlipFaces { get; set; }
 
@@ -121,9 +130,13 @@ public class MeshImportOptionsViewModel : ViewModelBase
 
     private MeshImportOptions Confirm()
     {
+        Matrix4x4 transform = TransformPreset == TransformPreset.Custom
+            ? CustomTransform.ToMatrix()
+            : TransformPreset.Transform;
         return new MeshImportOptions
         {
-            MirrorZ = MirrorZ,
+            TransformPreset = TransformPreset,
+            Transform = transform,
             FlipFaces = FlipFaces,
             MTD = SelectedMaterial!,
             MaterialInfoBank = _materialInfoBank,

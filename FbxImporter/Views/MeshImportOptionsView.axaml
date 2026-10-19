@@ -18,7 +18,7 @@
     
     <Border>
         <Grid RowDefinitions="40, 200, 40, 120, 40" Margin="5">
-            <TextBox Name="FilterTextBox" Text="{Binding Filter}" Grid.Row="0" Margin="5"/>
+            <TextBox Name="FilterTextBox" Watermark="Search Materials..." Text="{Binding Filter}" Grid.Row="0" Margin="5"/>
             <ListBox Name="MaterialListBox" ItemsSource="{Binding FilteredMaterials, Mode=OneWay}" SelectedItems="{Binding FilteredMaterialSelection}"
                      SelectionMode="Single" AutoScrollToSelectedItem="False"
                      VerticalAlignment="Stretch" Grid.Row="1" Margin="5">
@@ -28,21 +28,36 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-            <TextBox Text="{Binding SelectedMaterial}" IsReadOnly="True" CaretBrush="Transparent" Grid.Row="2" Margin="5"/>
-            <Grid RowDefinitions="30, 30, 30" ColumnDefinitions="*, *" Grid.Row="3" Margin="5">
-                <TextBlock Text="Mirror" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                <CheckBox IsChecked="{Binding MirrorZ}" ToolTip.Tip="Inverts the Z-scale of the model." Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
-                <TextBlock Text="Flip Faces" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                <CheckBox IsChecked="{Binding FlipFaces}" ToolTip.Tip="Flips the faces of the model." Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"/>
-                <TextBlock Text="Weighting Mode" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-                <ComboBox ItemsSource="{Binding WeightingModes}" SelectedItem="{Binding Weighting}" Grid.Row="2" Grid.Column="1">
-                    <ComboBox.DataTemplates>
-                        <DataTemplate DataType="vm:WeightingMode">
-                            <TextBlock Text="{Binding Name}" ToolTip.Tip="{Binding Description}"/>
-                        </DataTemplate>
-                    </ComboBox.DataTemplates>
-                </ComboBox>
-            </Grid>
+            <TextBox Text="{Binding SelectedMaterial}" Watermark="No Material Selected" IsReadOnly="True" CaretBrush="Transparent" Grid.Row="2" Margin="5"/>
+            <ScrollViewer Grid.Row="3" Margin="5">
+                <Grid RowDefinitions="30, 30, 30, *" ColumnDefinitions="*, *" Margin="5">
+                    <Grid.Styles>
+                        <!-- Stretch content so tooltips are shown when hovering any part of the combo box -->
+                        <Style Selector="ComboBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </Grid.Styles>
+                    <TextBlock Text="Flip Faces" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                    <CheckBox IsChecked="{Binding FlipFaces}" ToolTip.Tip="Flips the faces of the model." Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
+                    <TextBlock Text="Weighting Mode" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                    <ComboBox ItemsSource="{Binding WeightingModes}" SelectedItem="{Binding Weighting}" Grid.Row="1" Grid.Column="1">
+                        <ComboBox.DataTemplates>
+                            <DataTemplate DataType="vm:WeightingMode">
+                                <TextBlock Text="{Binding Name}" Background="Transparent" ToolTip.Tip="{Binding Description}"/>
+                            </DataTemplate>
+                        </ComboBox.DataTemplates>
+                    </ComboBox>
+                    <TextBlock Text="Transform" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+                    <ComboBox ItemsSource="{Binding TransformPresets}" SelectedItem="{Binding TransformPreset}" Grid.Row="2" Grid.Column="1">
+                        <ComboBox.DataTemplates>
+                            <DataTemplate DataType="vm:TransformPreset">
+                                <TextBlock Text="{Binding Name}" Background="Transparent" ToolTip.Tip="{Binding Description}"/>
+                            </DataTemplate>
+                        </ComboBox.DataTemplates>
+                    </ComboBox>
+                    <ContentControl Content="{Binding CustomTransform}" IsVisible="{Binding UseCustomTransform}" Height="100" Grid.Row="3" Grid.Column="1" />
+                </Grid>
+            </ScrollViewer>
             <Grid ColumnDefinitions="*, *" Grid.Row="4">
                 <Button Content="Cancel" Command="{Binding CancelCommand}" ToolTip.Tip="Shortcut: Esc" Margin="0, 0, 2, 0" Grid.Column="0" />
                 <Button Content="Ok" Command="{Binding ConfirmCommand}" ToolTip.Tip="Shortcut: Enter" Margin="2, 0, 0, 0" Grid.Column="1" />

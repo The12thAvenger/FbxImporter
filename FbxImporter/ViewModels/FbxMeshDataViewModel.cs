@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using FbxDataExtractor;
+using FbxImporter.Util;
 using SoulsAssetPipeline.FLVERImporting;
 using SoulsFormats;
 
@@ -104,20 +105,25 @@ public class FbxMeshDataViewModel
 
         newMesh.NodeIndex = nodeIndex;
 
+        Matrix4x4 transform = options.Transform;
+        // For the normals we use the adjugate transpose which is equal to the cofactor instead of the inverse transpose to handle singular matrices.
+        // We multiply the result by the sign of the determinant because we want to flip normals when the handedness changes.
+        // Refer to https://terathon.com/blog/transforming-normals.html and https://www.forwardscattering.org/post/62
+        Matrix4x4 transformAdjTranspose = MatrixUtils.Cofactor3x3(transform) * Math.Sign(transform.GetDeterminant());
+        
         bool foundWeights = false;
         HashSet<string> missingBones = new();
         foreach (FbxVertexData vertexData in Data.VertexData)
         {
-            int zSign = options.MirrorZ ? -1 : 1;
-
             FLVER.Vertex newVertex = new()
             {
-                Position = vertexData.Position with { Z = vertexData.Position.Z * zSign },
-                Normal = vertexData.Normal with { Z = vertexData.Normal.Z * zSign },
+                Position = Vector3.Transform(vertexData.Position, transform),
+                Normal = Vector3.Transform(vertexData.Normal, transformAdjTranspose),
                 //bitangent is usually not an actual bitangent
                 //Bitangent = vertexData.Bitangent with { Z = vertexData.Bitangent.Z * zSign },
                 Bitangent = new Vector4(-1.0f),
-                Tangents = vertexData.Tangents.Select(x => x with { Z = x.Z * zSign }).ToList(),
+                // handedness changes in the transform will correctly flip the winding order
+                Tangents = vertexData.Tangents.Select(x => Vector4.Transform(x, transform)).ToList(),
                 UVs = vertexData.UVs.Select(x => new Vector3(x.X, 1 - x.Y, 0.0f)).ToList(),
                 // Fbx uses RGBA, SF uses ARGB
                 Colors = vertexData.Colors.Select(x => new FLVER.VertexColor(x.W, x.X, x.Y, x.Z)).ToList(),
