@@ -11,6 +11,7 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using SoulsFormats;
 using FbxDataExtractor;
+using FbxImporter.Util;
 using SoulsAssetPipeline.FLVERImporting;
 
 namespace FbxImporter.ViewModels
@@ -36,7 +37,7 @@ namespace FbxImporter.ViewModels
                 .Merge(isFlverLoaded)
                 .Select(x => x && Flver is not null);
             OpenFlverCommand = ReactiveCommand.CreateFromTask(OpenFlverAsync);
-            SaveFlverCommand = ReactiveCommand.CreateFromTask(() => Task.Run(SaveFlver), isFlverLoaded);
+            SaveFlverCommand = ReactiveCommand.CreateFromTask(() => Task.Run(() => SaveFlver(FlverPath!)), isFlverLoaded);
             SaveFlverAsCommand = ReactiveCommand.CreateFromTask(SaveFlverAsAsync, isFlverLoaded);
             ImportFbxCommand = ReactiveCommand.CreateFromTask(ImportFbxAsync);
             AddToFlverCommand = ReactiveCommand.CreateFromTask(AddToFlverAsync, canAddToFlver);
@@ -48,14 +49,12 @@ namespace FbxImporter.ViewModels
             SaveFlverAsCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Saving Flver..."));
             ImportFbxCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Importing Fbx..."));
 
-            ImportFbxCommand.ThrownExceptions.Subscribe(e =>
+            // Every command logs its failure, so none reaches ReactiveUI's default handler, which ends the app.
+            foreach (IHandleObservableErrors command in new IHandleObservableErrors[]
+                         { OpenFlverCommand, SaveFlverCommand, SaveFlverAsCommand, ImportFbxCommand, AddToFlverCommand })
             {
-                Logger.LogError(e is InvalidDataException ? e.Message : e.ToString());
-            });
-            AddToFlverCommand.ThrownExceptions.Subscribe(e =>
-            {
-                Logger.LogError(e is InvalidDataException ? e.Message : e.ToString());
-            });
+                command.ThrownExceptions.Subscribe(e => Logger.LogError(ErrorMessages.Describe(e)));
+            }
         }
 
         [Reactive] public FlverViewModel? Flver { get; set; }
@@ -144,10 +143,12 @@ namespace FbxImporter.ViewModels
             }
         }
 
-        private void SaveFlver()
+        // The path becomes the file's path only once the write succeeds, so a failed Save As leaves Save as it was.
+        private void SaveFlver(string path)
         {
-            Flver!.Write(FlverPath!);
-            Logger.Log($"Saved flver to {FlverPath}");
+            Flver!.Write(path);
+            FlverPath = path;
+            Logger.Log($"Saved flver to {path}");
         }
 
         private async Task ImportFbxAsync()
@@ -162,18 +163,8 @@ namespace FbxImporter.ViewModels
             if (fbxPath is null) return;
 
             Logger.Log($"Importing {Path.GetFileName(fbxPath)}...");
-            List<FbxMeshDataViewModel> meshes;
-            try
-            {
-                meshes = await Task.Run(() =>
-                    FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList());
-            }
-            catch (Exception e)
-            {
-                Logger.LogError("Fbx Import Failed: ");
-                Logger.LogError(e.ToString());
-                throw;
-            }
+            List<FbxMeshDataViewModel> meshes = await Task.Run(() =>
+                FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList());
 
             FbxSceneDataViewModel scene = new()
             {
@@ -205,9 +196,7 @@ namespace FbxImporter.ViewModels
             }
             catch (InvalidDataException e)
             {
-                Logger.Log("Warning: Assertion failed with error:");
-                Logger.Log(e.ToString());
-                Logger.Log("Attempting to load in flexible mode. Data might be invalid.");
+                Logger.LogWarning($"Strict read failed ({e.Message}); trying flexible mode. Data might be invalid.");
 
                 BinaryReaderEx.IsFlexible = true;
                 try
@@ -215,18 +204,10 @@ namespace FbxImporter.ViewModels
                     flver = await Task.Run(() => ReadFlver(flverPath));
                     if (flver is null) return;
                 }
-                catch
-                {
-                    return;
-                }
                 finally
                 {
                     BinaryReaderEx.IsFlexible = false;
                 }
-            }
-            catch
-            {
-                return;
             }
 
             FlverViewModel.FlverVersion? optionalVersion = flver.Header.Version switch
@@ -271,8 +252,7 @@ namespace FbxImporter.ViewModels
             GetFilePathArgs args = new("Save Flver As...", filters, GetPathMode.Save);
             string? flverPath = await GetFilePath.Handle(args);
             if (flverPath is null) return;
-            FlverPath = flverPath;
-            SaveFlver();
+            SaveFlver(flverPath);
         }
 
         public record GetFilePathArgs(string Title, List<FileTypeFilter> Filters, GetPathMode Mode);

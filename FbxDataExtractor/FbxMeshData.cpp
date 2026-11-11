@@ -298,6 +298,12 @@ namespace FbxDataExtractor
 
 	List<FbxMeshData^>^ FbxMeshData::Import(String^ path)
 	{
+		// The FBX SDK reports a missing file as "Unexpected file type", so check for it first.
+		if (!System::IO::File::Exists(path))
+		{
+			throw gcnew System::IO::FileNotFoundException("File not found: " + path, path);
+		}
+
 		FbxManager* fbxManager = FbxManager::Create();
 
 		FbxIOSettings* ios = FbxIOSettings::Create(fbxManager, IOSROOT);
@@ -312,7 +318,7 @@ namespace FbxDataExtractor
 			importer->Destroy();
 			ios->Destroy();
 			fbxManager->Destroy();
-			throw gcnew System::IO::InvalidDataException("Could not open the FBX file: " + error);
+			throw gcnew System::IO::InvalidDataException("Could not open " + System::IO::Path::GetFileName(path) + ": " + error);
 		}
 
 		FbxScene* scene = FbxScene::Create(fbxManager, "");
