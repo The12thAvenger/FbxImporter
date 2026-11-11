@@ -1,6 +1,8 @@
 #pragma once
 #include <fbxsdk.h>
 #include <vector>
+#include <string>
+#include <cstring>
 #include <fbxsdk/scene/geometry/fbxlayer.h>
 
 namespace FbxDataExtractor
@@ -15,6 +17,21 @@ namespace FbxDataExtractor
 		}
 
 		return true;
+	}
+
+	// The FBX SDK takes and returns text as UTF-8, whatever the system code page is.
+	inline std::string ToUtf8(System::String^ text)
+	{
+		array<System::Byte>^ bytes = System::Text::Encoding::UTF8->GetBytes(text);
+		if (bytes->Length == 0) return std::string();
+		pin_ptr<System::Byte> pinned = &bytes[0];
+		return std::string(reinterpret_cast<const char*>(pinned), bytes->Length);
+	}
+
+	inline System::String^ FromUtf8(const char* text)
+	{
+		if (!text) return System::String::Empty;
+		return gcnew System::String(text, 0, static_cast<int>(strlen(text)), System::Text::Encoding::UTF8);
 	}
 
 	inline Vector4 FbxColorToVector4(const FbxColor& sourceVector)
