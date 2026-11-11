@@ -11,6 +11,13 @@ public record MeshImportOptions
     
     public bool FlipFaces { get; init; } = false;
 
+    public bool ErTangents { get; init; } = true;
+
+    /// <summary>
+    /// The game of the FLVER these options were chosen for; null when they were not chosen in the dialog.
+    /// </summary>
+    public FlverViewModel.FlverVersion? Game { get; init; }
+
     public string MTD { get; init; } = null!;
 
     public FLVER2MaterialInfoBank MaterialInfoBank { get; init; } = null!;

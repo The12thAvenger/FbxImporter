@@ -42,9 +42,11 @@ public class FlverViewModel : ViewModelBase
         NR
     }
 
-    public FlverViewModel(FLVER2 flver, FLVER2MaterialInfoBank materialInfoBank,  IHistory history)
+    public FlverViewModel(FLVER2 flver, FLVER2MaterialInfoBank materialInfoBank,  IHistory history,
+        FlverVersion version)
     {
         Flver = flver;
+        Version = version;
         _history = history;
         MaterialInfoBank = materialInfoBank;
         
@@ -55,6 +57,11 @@ public class FlverViewModel : ViewModelBase
     }
 
     public FLVER2 Flver { get; }
+
+    /// <summary>
+    /// The game the FLVER belongs to, as decided when it was opened.
+    /// </summary>
+    public FlverVersion Version { get; }
 
     public FLVER2MaterialInfoBank MaterialInfoBank { get; set; }
 
