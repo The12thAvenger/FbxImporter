@@ -1,5 +1,4 @@
 #include "pch.h"
-#include <msclr/marshal_cppstd.h>
 #include <vector>
 #include <future>
 #include <unordered_map>
@@ -108,7 +107,7 @@ namespace FbxDataExtractor
 
 	FbxMeshData::FbxMeshData(const char* name)
 	{
-		Name = gcnew String(name);
+		Name = FromUtf8(name);
 	}
 
 	static void GetVertexData(const FbxMesh* fbxMesh, std::vector<FbxControlPoint>& controlPoints, std::vector<int>& vertexIndices)
@@ -245,7 +244,7 @@ namespace FbxDataExtractor
 			clrVertex->BoneNames = gcnew array<String^>((int)vertex.BoneNames.size());
 			for (int i = 0; i < (int)vertex.BoneNames.size(); ++i)
 			{
-				clrVertex->BoneNames[i] = gcnew String(vertex.BoneNames[i]);
+				clrVertex->BoneNames[i] = FromUtf8(vertex.BoneNames[i]);
 			}
 
 			clrVertex->BoneWeights = gcnew array<float>((int)vertex.BoneWeights.size());
@@ -299,15 +298,28 @@ namespace FbxDataExtractor
 
 	List<FbxMeshData^>^ FbxMeshData::Import(String^ path)
 	{
+		// The FBX SDK reports a missing file as "Unexpected file type", so check for it first.
+		if (!System::IO::File::Exists(path))
+		{
+			throw gcnew System::IO::FileNotFoundException("File not found: " + path, path);
+		}
+
 		FbxManager* fbxManager = FbxManager::Create();
 
 		FbxIOSettings* ios = FbxIOSettings::Create(fbxManager, IOSROOT);
 		fbxManager->SetIOSettings(ios);
 		FbxImporter* importer = FbxImporter::Create(fbxManager, "");
 
-		const std::string pathPtr = msclr::interop::marshal_as<std::string>(path);
+		const std::string pathUtf8 = ToUtf8(path);
 
-		importer->Initialize(pathPtr.c_str(), -1, ios);
+		if (!importer->Initialize(pathUtf8.c_str(), -1, ios))
+		{
+			String^ error = FromUtf8(importer->GetStatus().GetErrorString());
+			importer->Destroy();
+			ios->Destroy();
+			fbxManager->Destroy();
+			throw gcnew System::IO::InvalidDataException("Could not open " + System::IO::Path::GetFileName(path) + ": " + error);
+		}
 
 		FbxScene* scene = FbxScene::Create(fbxManager, "");
 		importer->Import(scene);
