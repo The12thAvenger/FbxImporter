@@ -165,6 +165,12 @@ public class FbxMeshDataViewModel
             newMesh.Vertices.Add(newVertex);
         }
 
+        if (options.ErTangents)
+        {
+            ApplyErTangents(newMesh.Vertices, Data.VertexIndices,
+                Data.VertexData.Count > 0 ? Data.VertexData[0].Tangents.Count : 0);
+        }
+
         if (!foundWeights && options.Weighting != WeightingMode.Static)
         {
             Logger.LogWarning("Non-static weighting mode selected but mesh contains no bone weights.");
@@ -322,6 +328,32 @@ public class FbxMeshDataViewModel
         public int GetHashCode(FLVER.LayoutMember obj)
         {
             return HashCode.Combine(obj.Stream, (int)obj.Type, (int)obj.Semantic, obj.Index, obj.Size);
+        }
+    }
+
+    /// <summary>
+    /// Replaces the tangents the FBX file provided with tangents in Elden Ring's own convention (see
+    /// <see cref="TangentBuilder"/>). Tangent slot i is built from UV set i, or from UV set 0 when the vertex has
+    /// fewer UV sets. Slots added only to fill the buffer layout stay as they are.
+    /// </summary>
+    private static void ApplyErTangents(List<FLVER.Vertex> vertices, IReadOnlyList<int> triangleIndices,
+        int fbxTangentCount)
+    {
+        if (vertices.Count == 0) return;
+        List<Vector3> positions = vertices.Select(x => x.Position).ToList();
+        List<Vector3> normals = vertices.Select(x => x.Normal).ToList();
+        for (int slot = 0; slot < fbxTangentCount; slot++)
+        {
+            int s = slot;
+            List<Vector2> uvs = vertices.Select(x => x.UVs.Count == 0
+                ? Vector2.Zero
+                : new Vector2(x.UVs[s < x.UVs.Count ? s : 0].X, x.UVs[s < x.UVs.Count ? s : 0].Y)).ToList();
+            List<Vector4> fallback = vertices.Select(x => s < x.Tangents.Count ? x.Tangents[s] : Vector4.Zero).ToList();
+            List<Vector4> built = TangentBuilder.Build(positions, normals, uvs, triangleIndices, fallback);
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                if (s < vertices[i].Tangents.Count) vertices[i].Tangents[s] = built[i];
+            }
         }
     }
 

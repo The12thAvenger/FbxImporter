@@ -9,15 +9,17 @@
                      x:Class="FbxImporter.Views.MeshImportOptionsView"
                      WindowStartupLocation="CenterOwner"
                      Title="Mesh Import Options"
-                     Height="460"
+                     Height="490"
                      Width="350"
-                     CanResize="False">
+                     MinHeight="490"
+                     MinWidth="350"
+                     CanResize="True">
     <Design.DataContext>
         <vm:MeshImportOptionsViewModel/>
     </Design.DataContext>
     
     <Border>
-        <Grid RowDefinitions="40, 200, 40, 120, 40" Margin="5">
+        <Grid RowDefinitions="40, *, 40, 150, 40" Margin="5">
             <TextBox Name="FilterTextBox" Watermark="Search Materials..." Text="{Binding Filter}" Grid.Row="0" Margin="5"/>
             <ListBox Name="MaterialListBox" ItemsSource="{Binding FilteredMaterials, Mode=OneWay}" SelectedItems="{Binding FilteredMaterialSelection}"
                      SelectionMode="Single" AutoScrollToSelectedItem="False"
@@ -30,7 +32,7 @@
             </ListBox>
             <TextBox Text="{Binding SelectedMaterial}" Watermark="No Material Selected" IsReadOnly="True" CaretBrush="Transparent" Grid.Row="2" Margin="5"/>
             <ScrollViewer Grid.Row="3" Margin="5">
-                <Grid RowDefinitions="30, 30, 30, *" ColumnDefinitions="*, *" Margin="5">
+                <Grid RowDefinitions="30, 30, 30, 30, *" ColumnDefinitions="*, *" Margin="5">
                     <Grid.Styles>
                         <!-- Stretch content so tooltips are shown when hovering any part of the combo box -->
                         <Style Selector="ComboBoxItem">
@@ -55,7 +57,9 @@
                             </DataTemplate>
                         </ComboBox.DataTemplates>
                     </ComboBox>
-                    <ContentControl Content="{Binding CustomTransform}" IsVisible="{Binding UseCustomTransform}" Height="100" Grid.Row="3" Grid.Column="1" />
+                    <ContentControl Content="{Binding CustomTransform}" IsVisible="{Binding UseCustomTransform}" Height="100" Grid.Row="4" Grid.Column="1" />
+                    <TextBlock Text="ER Tangents" ToolTip.Tip="Rebuilds the tangents from the mesh and its UVs&#10;in Elden Ring's own convention (tangent along +V),&#10;so normal maps in the DirectX layout shade as on vanilla models.&#10;Checked on Elden Ring only.&#10;Starts ticked for Elden Ring FLVERs and keeps your last choice per game.&#10;Untick to keep the FBX file's tangents." VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+                    <CheckBox IsChecked="{Binding ErTangents}" ToolTip.Tip="Rebuilds the tangents from the mesh and its UVs&#10;in Elden Ring's own convention (tangent along +V),&#10;so normal maps in the DirectX layout shade as on vanilla models.&#10;Checked on Elden Ring only.&#10;Starts ticked for Elden Ring FLVERs and keeps your last choice per game.&#10;Untick to keep the FBX file's tangents." Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right"/>
                 </Grid>
             </ScrollViewer>
             <Grid ColumnDefinitions="*, *" Grid.Row="4">
