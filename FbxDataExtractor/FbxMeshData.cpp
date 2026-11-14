@@ -1,15 +1,12 @@
-#include "pch.h"
 #include <vector>
 #include <future>
 #include <unordered_map>
 #include <ranges>
+#include <format>
 
 #include <fbxsdk.h>
 
 #include "FbxMeshData.h"
-
-#include <format>
-
 #include "Util.h"
 
 struct FbxPolygonVertex
