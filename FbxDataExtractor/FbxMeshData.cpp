@@ -1,5 +1,4 @@
 #include "pch.h"
-#include <msclr/marshal_cppstd.h>
 #include <vector>
 #include <future>
 #include <unordered_map>
@@ -8,6 +7,9 @@
 #include <fbxsdk.h>
 
 #include "FbxMeshData.h"
+
+#include <format>
+
 #include "Util.h"
 
 struct FbxPolygonVertex
@@ -108,8 +110,7 @@ namespace FbxDataExtractor
 
 	FbxMeshData::FbxMeshData(const char* name)
 	{
-		IntPtr namePtr(reinterpret_cast<intptr_t>(name));
-		Name = Runtime::InteropServices::Marshal::PtrToStringUTF8(namePtr);
+		Name = StringToClrUtf8(name);
 	}
 
 	static void GetVertexData(const FbxMesh* fbxMesh, std::vector<FbxControlPoint>& controlPoints, std::vector<int>& vertexIndices)
@@ -246,7 +247,7 @@ namespace FbxDataExtractor
 			clrVertex->BoneNames = gcnew array<String^>((int)vertex.BoneNames.size());
 			for (int i = 0; i < (int)vertex.BoneNames.size(); ++i)
 			{
-				clrVertex->BoneNames[i] = gcnew String(vertex.BoneNames[i]);
+				clrVertex->BoneNames[i] = StringToClrUtf8(vertex.BoneNames[i]);
 			}
 
 			clrVertex->BoneWeights = gcnew array<float>((int)vertex.BoneWeights.size());
@@ -300,18 +301,29 @@ namespace FbxDataExtractor
 
 	List<FbxMeshData^>^ FbxMeshData::Import(String^ path)
 	{
-		FbxManager* fbxManager = FbxManager::Create();
+		FbxObjectPtr fbxManager = FbxManager::Create();
 
 		FbxIOSettings* ios = FbxIOSettings::Create(fbxManager, IOSROOT);
 		fbxManager->SetIOSettings(ios);
 		FbxImporter* importer = FbxImporter::Create(fbxManager, "");
 
-		const std::string pathPtr = msclr::interop::marshal_as<std::string>(path);
-
-		importer->Initialize(pathPtr.c_str(), -1, ios);
+		IntPtr pathPtr = Runtime::InteropServices::Marshal::StringToCoTaskMemUTF8(path);
+		const char* pathNative = static_cast<const char*>(pathPtr.ToPointer());
+		const bool initSucc = importer->Initialize(pathNative, -1, ios);
+		Runtime::InteropServices::Marshal::FreeCoTaskMem(pathPtr);
+		if (!initSucc)
+		{
+			const std::string message = std::format("FBX Import failed: Failed to initialize importer with error: {}", importer->GetStatus().GetErrorString());
+			throw gcnew IO::InvalidDataException(StringToClrUtf8(message.c_str()));
+		}
+		
 
 		FbxScene* scene = FbxScene::Create(fbxManager, "");
-		importer->Import(scene);
+		if (!importer->Import(scene))
+		{
+			const std::string message = std::format("FBX Import failed: Failed to import file with error: {}", importer->GetStatus().GetErrorString());
+			throw gcnew IO::InvalidDataException(StringToClrUtf8(message.c_str()));
+		}
 		importer->Destroy();
 		ios->Destroy();
 
@@ -351,9 +363,6 @@ namespace FbxDataExtractor
 			}
 			meshList->Add(clrMesh);
 		}
-
-		fbxManager->Destroy();
-
 		return meshList;
 	}
 }

@@ -1,10 +1,35 @@
 #pragma once
 #include <fbxsdk.h>
 #include <vector>
-#include <fbxsdk/scene/geometry/fbxlayer.h>
+#include <concepts>
 
 namespace FbxDataExtractor
 {
+	inline String^ StringToClrUtf8(const char* string)
+	{
+		IntPtr stringPtr(reinterpret_cast<intptr_t>(string));
+		return Runtime::InteropServices::Marshal::PtrToStringUTF8(stringPtr);
+	}
+	
+	/// An RAII wrapper around an FbxObject or FbxManager pointer
+	template<class T>
+	struct FbxObjectPtr
+	{
+		FbxObjectPtr(T* ptr) : m_ptr(ptr) {}
+		~FbxObjectPtr() {
+			m_ptr->Destroy();
+		}
+		
+		T& operator*() { return *m_ptr; }
+		T* operator->() { return m_ptr; }
+		
+		operator T*() { return m_ptr; }
+		operator const T*() const { return m_ptr; }
+		
+	private:
+		T* m_ptr;
+	};
+	
 	template <class T>
 	bool SequenceEqual(const std::vector<T>& vector1, const std::vector<T>& vector2)
 	{
