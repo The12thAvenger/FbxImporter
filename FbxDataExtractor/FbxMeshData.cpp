@@ -108,7 +108,8 @@ namespace FbxDataExtractor
 
 	FbxMeshData::FbxMeshData(const char* name)
 	{
-		Name = gcnew String(name);
+		IntPtr namePtr(reinterpret_cast<intptr_t>(name));
+		Name = Runtime::InteropServices::Marshal::PtrToStringUTF8(namePtr);
 	}
 
 	static void GetVertexData(const FbxMesh* fbxMesh, std::vector<FbxControlPoint>& controlPoints, std::vector<int>& vertexIndices)
