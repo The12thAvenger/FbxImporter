@@ -10,6 +10,7 @@
         <SelfContained>false</SelfContained>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
         <Configurations>Debug;Release;Publish</Configurations>
+        <ApplicationIcon>Assets\FbxImporter.ico</ApplicationIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
         <Optimize>True</Optimize>
