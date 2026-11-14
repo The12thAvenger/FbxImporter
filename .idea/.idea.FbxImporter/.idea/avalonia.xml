@@ -10,6 +10,7 @@
         <entry key="FbxImporter/Views/FbxSceneDataView.axaml" value="FbxImporter/FbxImporter.csproj" />
         <entry key="FbxImporter/Views/FlverView.axaml" value="FbxImporter/FbxImporter.csproj" />
         <entry key="FbxImporter/Views/MainWindow.axaml" value="FbxImporter/FbxImporter.csproj" />
+        <entry key="FbxImporter/Views/Matrix3x3View.axaml" value="FbxImporter/FbxImporter.csproj" />
         <entry key="FbxImporter/Views/MeshImportOptionsView.axaml" value="FbxImporter/FbxImporter.csproj" />
       </map>
     </option>
