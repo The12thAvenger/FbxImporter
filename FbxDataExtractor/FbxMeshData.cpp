@@ -310,7 +310,7 @@ namespace FbxDataExtractor
 		Runtime::InteropServices::Marshal::FreeCoTaskMem(pathPtr);
 		if (!initSucc)
 		{
-			const std::string message = std::format("FBX Import failed: Failed to initialize importer with error: {}", importer->GetStatus().GetErrorString());
+			const std::string message = std::format("Failed to initialize importer with error: {}", importer->GetStatus().GetErrorString());
 			throw gcnew IO::InvalidDataException(StringToClrUtf8(message.c_str()));
 		}
 		
@@ -318,7 +318,7 @@ namespace FbxDataExtractor
 		FbxScene* scene = FbxScene::Create(fbxManager, "");
 		if (!importer->Import(scene))
 		{
-			const std::string message = std::format("FBX Import failed: Failed to import file with error: {}", importer->GetStatus().GetErrorString());
+			const std::string message = std::format("Failed to import file with error: {}", importer->GetStatus().GetErrorString());
 			throw gcnew IO::InvalidDataException(StringToClrUtf8(message.c_str()));
 		}
 		importer->Destroy();

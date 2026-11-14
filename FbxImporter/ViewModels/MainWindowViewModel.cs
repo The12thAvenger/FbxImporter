@@ -48,14 +48,20 @@ namespace FbxImporter.ViewModels
             SaveFlverAsCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Saving Flver..."));
             ImportFbxCommand.IsExecuting.Subscribe(x => ObserveProgress(x, "Importing Fbx..."));
 
-            ImportFbxCommand.ThrownExceptions.Subscribe(e =>
+            OpenFlverCommand.ThrownExceptions.Subscribe(exceptionHandler("Failed to open flver"));
+            SaveFlverCommand.ThrownExceptions.Subscribe(exceptionHandler("Failed to save flver"));
+            SaveFlverAsCommand.ThrownExceptions.Subscribe(exceptionHandler("Failed to save flver"));
+            ImportFbxCommand.ThrownExceptions.Subscribe(exceptionHandler("Failed to import fbx"));
+            AddToFlverCommand.ThrownExceptions.Subscribe(exceptionHandler("Failed to convert fbx mesh to flver"));
+
+            static Action<Exception> exceptionHandler(string prefix)
             {
-                Logger.LogError(e is InvalidDataException ? e.Message : e.ToString());
-            });
-            AddToFlverCommand.ThrownExceptions.Subscribe(e =>
-            {
-                Logger.LogError(e is InvalidDataException ? e.Message : e.ToString());
-            });
+                return e =>
+                {
+                    string err = e is InvalidDataException ? e.Message : e.ToString();
+                    Logger.LogError($"{prefix}: {err}");
+                };
+            }
         }
 
         [Reactive] public FlverViewModel? Flver { get; set; }
@@ -162,18 +168,8 @@ namespace FbxImporter.ViewModels
             if (fbxPath is null) return;
 
             Logger.Log($"Importing {Path.GetFileName(fbxPath)}...");
-            List<FbxMeshDataViewModel> meshes;
-            try
-            {
-                meshes = await Task.Run(() =>
-                    FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList());
-            }
-            catch (Exception e)
-            {
-                Logger.LogError("Fbx Import Failed: ");
-                Logger.LogError(e.ToString());
-                throw;
-            }
+            List<FbxMeshDataViewModel> meshes = await Task.Run(() =>
+                FbxMeshData.Import(fbxPath).Select(x => new FbxMeshDataViewModel(x)).ToList());
 
             FbxSceneDataViewModel scene = new()
             {

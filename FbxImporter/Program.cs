@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reactive;
 using Avalonia;
 using Avalonia.ReactiveUI;
+using ReactiveUI;
 
 namespace FbxImporter
 {
@@ -10,7 +12,11 @@ namespace FbxImporter
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-        public static void Main(string[] args) => BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        public static void Main(string[] args)
+        {
+            RxApp.DefaultExceptionHandler = Observer.Create<Exception>(static e => Logger.LogError($"Unhandled exception: {e}"));
+            BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        }
 
 
         // Avalonia configuration, don't remove; also used by visual designer.
