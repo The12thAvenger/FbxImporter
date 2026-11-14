@@ -119,16 +119,26 @@ public class FbxMeshDataViewModel
             {
                 Position = Vector3.Transform(vertexData.Position, transform),
                 Normal = Vector3.Transform(vertexData.Normal, transformAdjTranspose),
-                //bitangent is usually not an actual bitangent
-                //Bitangent = vertexData.Bitangent with { Z = vertexData.Bitangent.Z * zSign },
+                //TODO bitangent is actually a single integer storing the winding order
                 Bitangent = new Vector4(-1.0f),
-                // handedness changes in the transform will correctly flip the winding order
                 Tangents = vertexData.Tangents.Select(x => Vector4.Transform(x, transform)).ToList(),
                 UVs = vertexData.UVs.Select(x => new Vector3(x.X, 1 - x.Y, 0.0f)).ToList(),
                 // Fbx uses RGBA, SF uses ARGB
                 Colors = vertexData.Colors.Select(x => new FLVER.VertexColor(x.W, x.X, x.Y, x.Z)).ToList(),
             };
-
+            
+            // The FBX SDK generates tangents pointing towards +U and bitangents towards +V.
+            // The game models have tangents towards +V and bitangents towards -U, so we swap them here.
+            //
+            // This doesn't match the game assets exactly, as the tangent generation algorithm prioritizes
+            // the alignment of the tangent over that of the bitangent, which we use as the tangent.
+            for (int i = 0; i < newVertex.Tangents.Count; i++)
+            {
+                Vector4 tangent = newVertex.Tangents[i];
+                Vector3 normal = newVertex.Normal;
+                Vector3 bitangent = tangent.W * Vector3.Cross(normal, tangent.AsVector3());
+                newVertex.Tangents[i] = bitangent.AsVector4() with { W = -tangent.W };
+            }
 
             FLVER.VertexBoneIndices boneIndices = new();
             FLVER.VertexBoneWeights boneWeights = new();
